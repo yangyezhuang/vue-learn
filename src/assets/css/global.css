@@ -1,0 +1,94 @@
+/* 全局样式表 */
+html, body, #app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 面包屑导航 */
+.el-breadcrumb {
+    margin-bottom: 15px;
+}
+
+/* 表格 */
+.el-table {
+    margin-top: 15px;
+}
+
+/* 分页栏 */
+.el-pagination {
+    margin-top: 20px;
+    margin-left: 25%;
+}
+
+/* */
+.el-col {
+    border-radius: 4px;
+}
+
+.bg-purple-dark {
+    background: #99a9bf;
+}
+
+.bg-purple {
+    background: #e6eee6;
+}
+
+.bg-purple-light {
+    background: #e5e9f2;
+}
+
+.grid-content {
+    border-radius: 4px;
+    min-height: 36px;
+}
+
+.row-bg {
+    padding: 10px 0;
+    background-color: #f9fafc;
+}
+
+.grid-content {
+    height: 280px;
+    border-radius: 20px;
+}
+
+
+/*布局样式*/
+.el-header {
+    background-color: white;
+    color: #333;
+    text-align: center;
+    line-height: 60px;
+}
+
+.el-main {
+    background-color: #F7F7F7;
+    color: #333;
+    text-align: center;
+}
+
+.el-aside {
+    text-align: center;
+    line-height: 200px;
+}
+
+.el-footer {
+    background-color: #272727;
+    color: white;
+    text-align: center;
+    line-height: 60px;
+}
+
+body > .el-container {
+    margin-bottom: 40px;
+}
+
+.el-container:nth-child(5) .el-aside,
+.el-container:nth-child(6) .el-aside {
+    line-height: 260px;
+}
+
+.el-container:nth-child(7) .el-aside {
+    line-height: 320px;
+}

@@ -1,0 +1,54 @@
+[
+  {
+    "id": 0,
+    "authName": "首页"
+  },
+  {
+    "id": 1,
+    "authName": "用户管理",
+    "children": [
+      {
+        "id": 101,
+        "path": "admin/users",
+        "authName": "用户列表"
+      },
+      {
+        "id": 102,
+        "path": "admin/adduser",
+        "authName": "创建用户"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "authName": "课程管理",
+    "children": [
+      {
+        "id": 301,
+        "path": "admin/courses",
+        "authName": "课程管理"
+      },
+      {
+        "id": 302,
+        "path": "admin/addcourse",
+        "authName": "添加课程"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "path": "admin/logs",
+    "authName": "日志管理"
+  },
+  {
+    "id": 5,
+    "authName": "数据分析",
+    "children": [
+      {
+        "id": 501,
+        "path": "admin/dataAnalyse",
+        "authName": "用户数据分析"
+      }
+    ]
+  }
+]
