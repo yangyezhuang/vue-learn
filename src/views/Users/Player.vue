@@ -1,32 +1,10 @@
 <template>
   <div>
     <el-container>
-      <!--header-->
-      <el-header>
-        <!--   导航栏   -->
-        <div>
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-            <el-menu-item index="1">
-              <img src="../../assets/image/logo.png" style="height: 100%">
-            </el-menu-item>
-            <el-menu-item index="2">
-              <router-link to="/" style="font-size: 18px;text-decoration: none;">首页</router-link>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <router-link to="/course" style="font-size: 18px;text-decoration: none;">课程</router-link>
-            </el-menu-item>
-            <el-menu-item index="4" style="float: right">
-              <router-link to="/login" style="font-size: 18px;text-decoration: none;" v-show="show_login">登录
-              </router-link>
-              <router-link to="/user/test1" style="font-size: 18px;text-decoration: none;" v-show="show_admin">
-                <img src="../../assets/image/login.png" alt="" style="height: 30px">
-              </router-link>
-            </el-menu-item>
-          </el-menu>
-        </div>
-      </el-header>
+      <!--  TopBar  -->
+      <TopBar :show_login=true :how_admin=false></TopBar>
 
-      <!--main-->
+      <!--  main  -->
       <el-main>
         <div class="main">
           <h2>1.1 吴文化的形成</h2>
@@ -49,33 +27,28 @@
               <el-button @click="nextChapter()">下一节</el-button>
             </span>
           </div>
-
-          <!--  下方内容  -->
-          <div>
-            <h2>内容</h2>
-            <p>苏州话是吴语的代表，也是中国最悠久的方言之一。早在商代泰伯奔吴的时候，苏州话的前身——上古吴语就已经形成了。苏州话发展有两个变动比较大的时期早在商代泰伯奔吴的时候，苏州话发展有两个变动比较大的时期…</p>
-            <hr>
-          </div>
         </div>
       </el-main>
 
-      <!--footer-->
-      <el-footer>
-        jssvc
-      </el-footer>
+      <!--  footer  -->
+      <el-footer>jssvc</el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
 import {Message} from 'element-ui'
+import TopBar from "./TopBar";
 import {videoPlayer} from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import 'vue-video-player/src/custom-theme.css'
 
 export default {
   name: "Player",
-  components: {videoPlayer},
+  components: {
+    TopBar,
+    videoPlayer
+  },
   data() {
     return {
       show_login: true,

@@ -1,27 +1,7 @@
 <template>
   <el-container>
-    <!--   导航栏   -->
-    <el-header>
-      <div>
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-          <el-menu-item index="1">
-            <img src="../../assets/image/logo.png" style="height: 100%">
-          </el-menu-item>
-          <el-menu-item index="2">
-            <router-link to="/" style="font-size: 18px;text-decoration: none;">首页</router-link>
-          </el-menu-item>
-          <el-menu-item index="3">
-            <router-link to="/course" style="font-size: 18px;text-decoration: none;">课程</router-link>
-          </el-menu-item>
-          <el-menu-item index="4" style="float: right">
-            <router-link to="/login" style="font-size: 18px;text-decoration: none;" v-show="show_login">登录</router-link>
-            <router-link to="/user/test1" style="font-size: 18px;text-decoration: none;" v-show="show_admin">
-              <img src="../../assets/image/login.png" alt="" style="height: 30px">
-            </router-link>
-          </el-menu-item>
-        </el-menu>
-      </div>
-    </el-header>
+    <!--   TopBar   -->
+    <TopBar :show_login=true :how_admin=false></TopBar>
 
     <!--  main  -->
     <el-main style="width: 1200px;margin: 0 auto">
@@ -67,10 +47,15 @@
 </template>
 
 <script>
-// import hotCourse from '../../assets/data/hotCourse.json'
+import hotCourse from '../../assets/data/hotCourse.json'
+import TopBar from "./TopBar";
 
 export default {
   name: "Test",
+  components: {
+    TopBar
+  },
+
   data() {
     return {
       show_login: true,
@@ -80,8 +65,8 @@ export default {
         'https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/8d5494eef01f3a297bbad39b9425bc315c607c70.jpg',
         'https://img.51miz.com/Element/00/81/05/84/f9f18671_E810584_8db240b4.jpg'
       ],
-      // hotCourse: hotCourse,
-      hotCourse: ""
+      hotCourse: hotCourse,
+      // hotCourse: ""
     }
   },
 

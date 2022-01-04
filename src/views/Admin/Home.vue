@@ -16,7 +16,7 @@
         <el-menu
             router
             unique-opened
-            background-color="#95afc9"
+            background-color="#324157"
             text-color="#fff"
             active-text-color="#ffd04b"
         >
@@ -38,7 +38,6 @@
                 :key="subItem.id"
             >
               <template slot="title">
-                <!--                  <i class="el-icon-location"></i>-->
                 <span>{{ subItem.authName }}</span>
               </template>
             </el-menu-item>
@@ -99,7 +98,7 @@ export default {
 }
 
 .el-header {
-  background-color: #6e89a4;
+  background-color: #242F42;
   display: flex;
   justify-content: space-between;
   padding-left: 0;
@@ -124,7 +123,7 @@ export default {
 }
 
 .el-aside {
-  background-color: #95afc9;
+  background-color: #324157;
 
   .el-menu {
     border-right: none;

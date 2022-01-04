@@ -23,6 +23,7 @@ import Courses from "../views/Admin/Course/Courses"
 import AddCourse from "../views/Admin/Course/AddCourse"
 import EditCourse from "../views/Admin/Course/EditCourse"
 import DataAnalyse from "../views/Admin/DataAnalyse"
+import Home2 from "../views/Admin/Home2";
 
 
 Vue.use(VueRouter)
@@ -31,6 +32,14 @@ const routes = [
     {
         path: '/',
         component: Index
+    },
+    {
+        path: '/register',
+        component: Register
+    },
+    {
+        path: '/login',
+        component: Login
     },
     {
         path: '/course',
@@ -44,14 +53,7 @@ const routes = [
         path: '/player',
         component: Player
     },
-    {
-        path: '/register',
-        component: Register
-    },
-    {
-        path: '/login',
-        component: Login
-    },
+
     {
         path: '/user',
         component: User,
@@ -67,6 +69,7 @@ const routes = [
         component: Admin,
         children: [
             {path: 'users', component: Users},
+            {path: 'home', component: Home2},
             {path: 'adduser', component: AddUser},
             {path: 'edituser', component: EditUser},
             {path: 'courses', component: Courses},
@@ -86,7 +89,6 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes
 })
-
 
 
 export default router

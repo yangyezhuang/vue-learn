@@ -1,29 +1,8 @@
 <template>
   <div>
     <el-container>
-      <!--  header  -->
-      <el-header>
-        <!--   导航栏   -->
-        <div>
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-            <el-menu-item index="1">
-              <img src="../../assets/image/logo.png" style="height: 100%">
-            </el-menu-item>
-            <el-menu-item index="2">
-              <router-link to="/" style="font-size: 18px;text-decoration: none;">首页</router-link>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <router-link to="/course" style="font-size: 18px;text-decoration: none;">课程</router-link>
-            </el-menu-item>
-            <el-menu-item index="4" style="float: right">
-              <router-link to="/login" style="font-size: 18px;text-decoration: none;" v-show="show_login">登录</router-link>
-              <router-link to="/user/test1" style="font-size: 18px;text-decoration: none;" v-show="show_admin">
-                <img src="../../assets/image/login.png" alt="" style="height: 30px">
-              </router-link>
-            </el-menu-item>
-          </el-menu>
-        </div>
-      </el-header>
+      <!--   TopBar   -->
+      <TopBar :show_login=true :how_admin=false></TopBar>
 
       <!--   main   -->
       <el-main>
@@ -31,7 +10,7 @@
           <!--   课程列表   -->
           <div id="class_list" v-for="item in classItems" :key="item.title">
             <div id="class_li">
-              <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
+              <img :src="item.img" alt="" @click="toCourseDetail(item.id,item.img)">
               <div>
                 <h3>{{ item.title }}</h3>
                 <p style="color: #00CC7E">{{ item.people }}人参加</p>
@@ -48,16 +27,20 @@
 </template>
 
 <script>
-// import data from '../../assets/data/data.json'
+import data from '../../assets/data/data.json'
+import TopBar from "./TopBar";
 
 export default {
   name: "Course",
+  components: {
+    TopBar
+  },
   data() {
     return {
       show_login: true,
       show_admin: false,
-      // classItems: data,
-      classItems: ''
+      classItems: data,
+      // classItems: ''
     }
   },
   created() {
@@ -77,11 +60,12 @@ export default {
 
   methods: {
     // 根据id转跳对应的课程详情页
-    toCourseDetail(id) {
+    toCourseDetail(id, img) {
       this.$router.push({
         path: '/coursedetail',
         query: {
-          id: id
+          id: id,
+          img: img
         }
       });
     }

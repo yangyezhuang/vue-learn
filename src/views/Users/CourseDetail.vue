@@ -1,29 +1,8 @@
 <template>
   <div>
     <el-container>
-      <!--  header  -->
-      <el-header>
-        <!--   导航栏   -->
-        <div>
-          <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-            <el-menu-item index="1">
-              <img src="../../assets/image/logo.png" style="height: 100%">
-            </el-menu-item>
-            <el-menu-item index="2">
-              <router-link to="/" style="font-size: 18px;text-decoration: none;">首页</router-link>
-            </el-menu-item>
-            <el-menu-item index="3">
-              <router-link to="/course" style="font-size: 18px;text-decoration: none;">课程</router-link>
-            </el-menu-item>
-            <el-menu-item index="4" style="float: right">
-              <router-link to="/login" style="font-size: 18px;text-decoration: none;" v-show="show_login">登录</router-link>
-              <router-link to="/user/test1" style="font-size: 18px;text-decoration: none;" v-show="show_admin">
-                <img src="../../assets/image/login.png" alt="" style="height: 30px">
-              </router-link>
-            </el-menu-item>
-          </el-menu>
-        </div>
-      </el-header>
+      <!--   TopBar   -->
+      <TopBar :show_login=true :how_admin=false></TopBar>
 
       <!--   main   -->
       <el-main style="width: 1200px;margin: 0 auto">
@@ -64,15 +43,20 @@
 
 <script>
 import {Message} from 'element-ui'
+import TopBar from "./TopBar";
 
 export default {
   name: "ClassInfo",
+  components: {
+    TopBar
+  },
   data() {
     return {
       show_login: true,
       show_admin: false,
       title: '传统文学',
       id: '',
+      img: '',
       desc: '苏州话是吴语的代表，也是中国最悠久的方言之一。早在商代泰伯奔吴的时候，苏州话的前身——上古吴语就已经形成了。苏州话发展有两个变动比较大的时期早在商代泰伯奔吴的时候，苏州话发展有两个变动比较大的时期…',
       courseInfo: ''
     }
@@ -81,6 +65,7 @@ export default {
   created() {
     // 接收页面转跳携带的参数
     this.id = this.$route.query.id
+    this.img = this.$route.query.img
 
     //  根据id查询详情页数据
     this.$http.get("/courseDetail").then((res) => {
@@ -130,21 +115,11 @@ export default {
     }
   }
 }
-
-
 </script>
 
 <style scoped>
 img {
   border-radius: 20px;
-}
-
-.top_box {
-  width: 700px;
-  /*height: 250px;*/
-  background-color: #D8D4EC;
-  border-radius: 20px;
-  margin: 0 auto;
 }
 
 </style>

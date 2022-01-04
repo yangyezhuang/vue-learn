@@ -1,7 +1,8 @@
 [
   {
     "id": 0,
-    "authName": "首页"
+    "authName": "首页",
+    "path": "home"
   },
   {
     "id": 1,

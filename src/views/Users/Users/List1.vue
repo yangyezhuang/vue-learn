@@ -38,10 +38,20 @@ export default {
   },
 
   created() {
-    // 查找用户添加的全部课程
-    this.$http.get('/myCourses').then((res) => {
-      this.myCourses = res.data;
-    })
+    //  判断用户是否登录
+    const tokenStr = window.sessionStorage.getItem('token')
+    if (!tokenStr) {
+      this.$router.push('/')
+    } else {
+      //  修改状态栏
+      this.show_login = false
+      this.show_admin = true
+
+      // 查找用户添加的全部课程
+      this.$http.get('/myCourses').then((res) => {
+        this.myCourses = res.data;
+      })
+    }
   },
 
   methods: {

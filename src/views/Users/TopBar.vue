@@ -1,91 +1,76 @@
 <template>
-  <div id="nav">
-    <el-container>
-      <!--   topbar   -->
-      <el-header>
-        <!--  Logo  -->
-        <div style="float: left">
-          <img class="logo" src="./assets/logo.png" alt="logo" @click="toHome">
-          <span class="logo_title">  苏州话学习平台</span>
-          <br>
-        </div>
-        <!--  导航   -->
-        <div class="link">
-          <router-link to="/">主页</router-link>
-          |
-          <router-link to="/class">课程</router-link>
-        </div>
-
-        <!--  登录/注册  -->
-        <div class="link_r">
-          <router-link to="/register">注册</router-link>
-          |
-          <router-link to="/login">登录</router-link>
-        </div>
-      </el-header>
-    </el-container>
+  <div>
+    <!--  TopBar  -->
+    <el-header>
+      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+        <el-menu-item index="1">
+          <img src="../../assets/image/logo.png" style="height: 100%" alt="logo">
+        </el-menu-item>
+        <el-menu-item index="2">
+          <router-link to="/" style="font-size: 18px;text-decoration: none;">首页</router-link>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <router-link to="/course" style="font-size: 18px;text-decoration: none;">课程</router-link>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <router-link to="/" style="font-size: 18px;text-decoration: none;">关于</router-link>
+        </el-menu-item>
+        <el-menu-item index="4" style="float: right">
+          <router-link to="/login" style="font-size: 18px;text-decoration: none;" v-show="show_login">登录</router-link>
+          <router-link to="/user/test1" style="font-size: 18px;text-decoration: none;" v-show="show_admin">
+            <el-submenu index="4" style="float: right">
+              <!--  <template slot="title">User</template>  -->
+              <template slot="title">
+                <img src="../../assets/image/login.png" alt="" style="height: 30px">
+              </template>
+              <el-menu-item index="2-1" @click="toTest1">我的课程</el-menu-item>
+              <el-menu-item index="2-2" @click="toTest2">我的数据</el-menu-item>
+              <el-menu-item index="2-3" @click="logout">退出登录</el-menu-item>
+            </el-submenu>
+          </router-link>
+        </el-menu-item>
+      </el-menu>
+    </el-header>
   </div>
 </template>
 
 <script>
 export default {
   name: "TopBar",
+  // 接受父组件传来的参数
+  props: [
+    'show_login',
+    'show_login'
+  ],
+  created() {
+    //  判断登录状态
+    const tokenStr = window.sessionStorage.getItem('token')
+    if (!tokenStr) {
+    } else {
+      this.show_login = false
+      this.show_admin = true
+    }
+  },
   methods: {
-    toHome() {
-      this.$router.push('/')
+    toTest1() {
+      this.$router.push('/user/test1')
+    },
+    toTest2() {
+      this.$router.push('/user/test2')
+    },
+
+    // 退出登录
+    logout() {
+      // 清除token
+      window.sessionStorage.clear();
+      this.$router.push("/");
+      this.show_login = true
+      this.show_admin = false
+
     }
   }
 }
 </script>
 
 <style scoped>
-#nav {
-  padding: 30px;
-  background-color: #FFFFFF;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #00C758;
-}
-
-.logo {
-  width: 90px;
-  margin: auto;
-  position: absolute;
-  top: 25px;
-}
-
-.logo_title {
-  font-size: 30px;
-  margin: auto;
-  position: absolute;
-  top: 50px;
-  left: 150px;
-  bottom: 0;
-}
-
-.link {
-  font-size: 25px;
-  margin: auto;
-  position: absolute;
-  top: 50px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.link_r {
-  font-size: 20px;
-  margin: auto;
-  position: absolute;
-  top: 50px;
-  right: 50px;
-  bottom: 0;
-}
-
 </style>

@@ -26,12 +26,23 @@ export default {
   data() {
     return {};
   },
+
+  created() {
+    //  判断用户是否登录
+    const tokenStr = window.sessionStorage.getItem('token')
+    if (!tokenStr) {
+      this.$router.push('/')
+    } else {
+      //  修改状态栏
+      this.show_login = false
+      this.show_admin = true
+    }
+  },
   mounted() {
     this.drawBar();
     this.drawPie();
     this.drawLine()
   },
-
   methods: {
     drawBar() {
       // 基于准备好的dom，初始化echarts实例

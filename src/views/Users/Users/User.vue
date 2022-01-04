@@ -1,25 +1,7 @@
 <template>
   <el-container>
-    <!--   导航栏   -->
-    <el-header>
-      <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
-        <el-menu-item index="1">
-          <img src="../../../assets/image/logo.png" style="height: 100%">
-        </el-menu-item>
-        <el-menu-item index="2">
-          <router-link to="/" style="font-size: 18px;text-decoration: none;">首页</router-link>
-        </el-menu-item>
-        <el-menu-item index="3">
-          <router-link to="/course" style="font-size: 18px;text-decoration: none;">课程</router-link>
-        </el-menu-item>
-        <el-submenu index="4" style="float: right">
-          <template slot="title">User</template>
-          <el-menu-item index="2-1" @click="toTest1">我的课程</el-menu-item>
-          <el-menu-item index="2-2" @click="toTest2">我的数据</el-menu-item>
-          <el-menu-item index="2-3" @click="logout">退出登录</el-menu-item>
-        </el-submenu>
-      </el-menu>
-    </el-header>
+    <!--   TopBar   -->
+    <TopBar :show_login=true :show_admin=false></TopBar>
 
     <!--   主体展示   -->
     <el-main>
@@ -29,30 +11,27 @@
     </el-main>
 
     <!--   footer   -->
-    <el-footer>Banana</el-footer>
+    <el-footer>jssvc</el-footer>
   </el-container>
 </template>
 
 <script>
+import TopBar from "../TopBar";
+
 export default {
   name: "Admin",
-  data() {
-    return {}
+  components: {
+    TopBar
   },
-
-  methods: {
-    toTest1() {
-      this.$router.push('/user/test1')
-    },
-    toTest2() {
-      this.$router.push('/user/test2')
-    },
-
-    // 退出登录
-    logout() {
-      // 清除token
-      window.sessionStorage.clear();
-      this.$router.push("/");
+  created() {
+    //  判断用户是否登录
+    const tokenStr = window.sessionStorage.getItem('token')
+    if (!tokenStr) {
+      this.$router.push('/')
+    } else {
+      //  修改状态栏
+      this.show_login = false
+      this.show_admin = true
     }
   }
 }
