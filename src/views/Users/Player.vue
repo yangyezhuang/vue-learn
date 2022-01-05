@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <!--  TopBar  -->
-      <TopBar :show_login=true :how_admin=false></TopBar>
+      <TopBar :show_login=true :show_admin=false></TopBar>
 
       <!--  main  -->
       <el-main>
@@ -17,12 +17,13 @@
                 :options="playerOptions"
             ></video-player>
           </div>
+          <br>
 
           <div>
             <span>
               <el-button @click="lastChapter">上一节</el-button>
             </span>
-            <!--            <p>{{ playerOptions }}</p>-->
+            <!--  <p>{{ playerOptions }}</p>  -->
             <span>
               <el-button @click="nextChapter()">下一节</el-button>
             </span>
@@ -31,14 +32,17 @@
       </el-main>
 
       <!--  footer  -->
-      <el-footer>jssvc</el-footer>
+      <el-footer>
+        <FootBar></FootBar>
+      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
 import {Message} from 'element-ui'
-import TopBar from "./TopBar";
+import TopBar from "./TopBar"
+import FootBar from "./FootBar";
 import {videoPlayer} from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import 'vue-video-player/src/custom-theme.css'
@@ -47,6 +51,7 @@ export default {
   name: "Player",
   components: {
     TopBar,
+    FootBar,
     videoPlayer
   },
   data() {

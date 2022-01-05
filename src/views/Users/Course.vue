@@ -21,19 +21,23 @@
       </el-main>
 
       <!--   footer   -->
-      <el-footer>jssvc</el-footer>
+      <el-footer>
+        <FootBar></FootBar>
+      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
 import data from '../../assets/data/data.json'
-import TopBar from "./TopBar";
+import TopBar from "./TopBar"
+import FootBar from "./FootBar";
 
 export default {
   name: "Course",
   components: {
-    TopBar
+    TopBar,
+    FootBar
   },
   data() {
     return {

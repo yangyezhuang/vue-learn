@@ -36,19 +36,23 @@
       </el-main>
 
       <!--   footer   -->
-      <el-footer>jssvc</el-footer>
+      <el-footer>
+        <FootBar></FootBar>
+      </el-footer>
     </el-container>
   </div>
 </template>
 
 <script>
 import {Message} from 'element-ui'
-import TopBar from "./TopBar";
+import TopBar from "./TopBar"
+import FootBar from "./FootBar";
 
 export default {
   name: "ClassInfo",
   components: {
-    TopBar
+    TopBar,
+    FootBar
   },
   data() {
     return {

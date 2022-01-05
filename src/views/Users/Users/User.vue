@@ -11,17 +11,21 @@
     </el-main>
 
     <!--   footer   -->
-    <el-footer>jssvc</el-footer>
+    <el-footer>
+      <FootBar></FootBar>
+    </el-footer>
   </el-container>
 </template>
 
 <script>
-import TopBar from "../TopBar";
+import TopBar from "../TopBar"
+import FootBar from "../FootBar";
 
 export default {
   name: "Admin",
   components: {
-    TopBar
+    TopBar,
+    FootBar
   },
   created() {
     //  判断用户是否登录

@@ -4,7 +4,7 @@ import 'element-ui/lib/theme-chalk/display.css';
 import {
     Container, Header, Main, Footer, Menu, MenuItem, Carousel, CarouselItem, Select, Breadcrumb,
     Button, Row, Col, Form, FormItem, Input, Submenu, MenuItemGroup, Card, BreadcrumbItem, Table,
-    TableColumn, Pagination,Aside,Progress
+    TableColumn, Pagination,Aside,Progress,Dialog
 } from 'element-ui'
 
 
@@ -33,3 +33,4 @@ Vue.use(Table)
 Vue.use(TableColumn)
 Vue.use(Pagination)
 Vue.use(Progress)
+Vue.use(Dialog)

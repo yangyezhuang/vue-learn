@@ -7,7 +7,7 @@
     <el-main style="width: 1200px;margin: 0 auto">
       <!--   轮播图   -->
       <div class="block">
-        <!--        <el-carousel trigger="click" height="250px">-->
+        <!--  <el-carousel trigger="click" height="250px">  -->
         <el-carousel :interval="4000" type="card" height="200px">
           <el-carousel-item v-for="item in lunboImgs" :key="item">
             <img :src="item" style="width: 100%;height: 100%">
@@ -42,18 +42,24 @@
     </el-main>
 
     <!--  footer  -->
-    <el-footer>jssvc</el-footer>
+    <!--    <el-footer>©2014-2022 Jssvc</el-footer>-->
+    <el-footer>
+      <FootBar></FootBar>
+    </el-footer>
   </el-container>
 </template>
 
 <script>
 import hotCourse from '../../assets/data/hotCourse.json'
-import TopBar from "./TopBar";
+import TopBar from "./TopBar"
+import FootBar from "./FootBar";
+
 
 export default {
   name: "Test",
   components: {
-    TopBar
+    TopBar,
+    FootBar
   },
 
   data() {
@@ -87,7 +93,7 @@ export default {
 
   methods: {
     toCourses() {
-      this.$router.push("/login")
+      this.$router.push("/course")
     },
     //  跳转到详情页面
     toCourseDetail(id) {

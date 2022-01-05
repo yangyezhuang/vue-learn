@@ -6,7 +6,6 @@ import Index from '../views/Users/Index'
 import Course from '../views/Users/Course'
 import CourseDetail from '../views/Users/CourseDetail'
 import Player from "../views/Users/Player"
-import Login from "../views/Users/Login/Login"
 import Register from "../views/Users/Login/Register"
 import User from '../views/Users/Users/User'
 
@@ -38,10 +37,6 @@ const routes = [
         component: Register
     },
     {
-        path: '/login',
-        component: Login
-    },
-    {
         path: '/course',
         component: Course
     },
@@ -53,7 +48,6 @@ const routes = [
         path: '/player',
         component: Player
     },
-
     {
         path: '/user',
         component: User,
