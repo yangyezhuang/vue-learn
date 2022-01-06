@@ -3,14 +3,15 @@ import VueRouter from 'vue-router'
 
 // 前台组件
 import Index from '../views/Users/Index'
+import About from "../views/Users/About"
 import Course from '../views/Users/Course'
 import CourseDetail from '../views/Users/CourseDetail'
 import Player from "../views/Users/Player"
-import Register from "../views/Users/Login/Register"
 import User from '../views/Users/Users/User'
 
-import Test1 from "../views/Users/Users/List1"
-import Test2 from "../views/Users/Users/List2"
+import UserInfo from "../views/Users/Users/UserInfo"
+import UserCourse from "../views/Users/Users/UserCourse"
+import UserData from "../views/Users/Users/UserData"
 
 // admin后台组件
 import Admin from '../views/Admin/Home'
@@ -33,10 +34,6 @@ const routes = [
         component: Index
     },
     {
-        path: '/register',
-        component: Register
-    },
-    {
         path: '/course',
         component: Course
     },
@@ -52,9 +49,14 @@ const routes = [
         path: '/user',
         component: User,
         children: [
-            {path: 'test1', component: Test1},
-            {path: 'test2', component: Test2}
+            {path: 'info', component: UserInfo},
+            {path: 'courses', component: UserCourse},
+            {path: 'data', component: UserData}
         ]
+    },
+    {
+        path: '/about',
+        component: About
     },
 
     //  admin后台路由

@@ -18,7 +18,7 @@
 
       <!--   热门课程   -->
       <div>
-        <h1>热门课程</h1>
+        <h1 style="color: #2BBAFF">热门课程</h1>
         <div style="height: 30px"></div>
         <el-row :gutter="40">
           <el-col :span="6" v-for="course in hotCourse">
@@ -28,8 +28,8 @@
                      style="width: 100%;border-radius: 20px 20px 0 0"
                      @click="toCourseDetail(id)">
               </div>
-              <h3 style="color: orangered">{{ course.title }}</h3>
-              <p style="color: #00C758">{{ course.people }}人在学</p>
+              <h3 style="color: #164B98">{{ course.title }}</h3>
+              <strong style="color: #2BBAFF">{{ course.people }}人在学</strong>
             </div>
           </el-col>
         </el-row>
@@ -39,13 +39,15 @@
       <div>
         <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="toCourses">
       </div>
+
+      <!--  backtop    -->
+      <el-backtop :bottom="80">Top</el-backtop>
     </el-main>
 
-    <!--  footer  -->
-    <!--    <el-footer>©2014-2022 Jssvc</el-footer>-->
     <el-footer>
       <FootBar></FootBar>
     </el-footer>
+
   </el-container>
 </template>
 

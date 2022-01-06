@@ -1,14 +1,14 @@
 <template>
   <div>
-    <h1 style="color: #00C758">课程管理</h1>
+    <h1 style="color: #009EDD">课程管理</h1>
     <hr>
     <el-row :gutter="80">
       <el-col :span="6" v-for="course in myCourses">
-        <div style="background-color: #D8D4EC;border-radius: 20px;margin: 30px ">
+        <div style="background-color: #d0e5ee;border-radius: 20px;margin: 30px ">
           <img src="https://img.51miz.com/Element/00/81/05/84/f9f18671_E810584_8db240b4.jpg" alt=""
                style="height: 150px;width: 100%;border-radius: 20px 20px 0px 0px">
           <span>
-          <!-- <p>NO:{{ course.id }}</p> -->
+<!--           <p>NO:{{ course.id }}</p>-->
              <h2>{{ course.title }}</h2>
           </span>
 
@@ -21,6 +21,9 @@
         </div>
       </el-col>
     </el-row>
+
+    <!--  backtop    -->
+    <el-backtop :bottom="80">Top</el-backtop>
   </div>
 </template>
 
@@ -43,10 +46,6 @@ export default {
     if (!tokenStr) {
       this.$router.push('/')
     } else {
-      //  修改状态栏
-      this.show_login = false
-      this.show_admin = true
-
       // 查找用户添加的全部课程
       this.$http.get('/myCourses').then((res) => {
         this.myCourses = res.data;

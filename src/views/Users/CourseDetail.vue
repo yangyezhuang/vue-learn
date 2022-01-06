@@ -17,16 +17,16 @@
           <div style="width: 550px;height:100%;background-color:white;margin-left: 600px;border-radius: 20px;">
             <h1>{{ title }}</h1>
             <p style="color: red">course_id:{{ id }}</p>
-            <h4>共10节</h4>
-            <el-button type="success" @click="addCourse">添加课程</el-button>
-            <el-button type="success" @click="toPlayer">开始学习</el-button>
+            <h4>共{{ chapter_tatal }}节</h4>
+            <el-button type="primary" @click="addCourse">添加课程</el-button>
+            <el-button type="primary" @click="toPlayer">开始学习</el-button>
           </div>
         </div>
 
         <!--   课程简介    -->
         <div style="width: 100%;background-color: white;margin-top: 50px;border-radius: 30px">
           <h2>课程简介</h2>
-          <p>{{ desc }}</p>
+          <p>{{ course_desc }}</p>
           <hr>
           <ul v-for="i in 10">
             <li>
@@ -60,8 +60,9 @@ export default {
       show_admin: false,
       title: '传统文学',
       id: '',
+      chapter_tatal: 10,
       img: '',
-      desc: '苏州话是吴语的代表，也是中国最悠久的方言之一。早在商代泰伯奔吴的时候，苏州话的前身——上古吴语就已经形成了。苏州话发展有两个变动比较大的时期早在商代泰伯奔吴的时候，苏州话发展有两个变动比较大的时期…',
+      course_desc: '苏州话是吴语的代表，也是中国最悠久的方言之一。早在商代泰伯奔吴的时候，苏州话的前身——上古吴语就已经形成了。苏州话发展有两个变动比较大的时期早在商代泰伯奔吴的时候，苏州话发展有两个变动比较大的时期…',
       courseInfo: ''
     }
   },

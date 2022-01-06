@@ -1,11 +1,11 @@
 <template>
   <el-container>
     <!--   TopBar   -->
-    <TopBar :show_login=true :show_admin=false></TopBar>
+    <TopBar></TopBar>
 
     <!--   主体展示   -->
     <el-main>
-      <div style="height: 1000px;background-color: white;">
+      <div style="height: 800px;background-color: white;">
         <router-view></router-view>
       </div>
     </el-main>
@@ -33,9 +33,6 @@ export default {
     if (!tokenStr) {
       this.$router.push('/')
     } else {
-      //  修改状态栏
-      this.show_login = false
-      this.show_admin = true
     }
   }
 }

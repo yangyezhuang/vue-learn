@@ -1,12 +1,44 @@
 <template>
   <div class="main">
-    <!-- echarts图 -->
-    <h1>数据分析</h1>
+    <h1>用户数据分析</h1>
+    <!--  左侧卡片布局  -->
+    <div class="five">
+      <div>
+        <el-card shadow='hover'>
+          <div class="user">
+            <img src="../../../assets/image/logo.png" style="height: 100px"/>
+            <div class="userinfo">
+              <p class="name">Admin</p>
+              <p class="access">超级管理员</p>
+            </div>
+          </div>
+          <div class="login-info">
+            <p>上次登录时间：<span>2019-10-20</span></p>
+            <p>上次登录地点：<span>北京</span></p>
+          </div>
+        </el-card>
+      </div>
+      <div class="s">总计课程数
+        <p style="font-size: 50px;margin: 0">4</p>
+      </div>
+      <div class="s">累计登录数
+        <p style="font-size: 50px;margin: 0">124</p>
+      </div>
+      <div class="s">总计学习
+        <p style="font-size: 50px;margin: 0">12</p>
+      </div>
+    </div>
+    <!--  echarts图  -->
     <div class="one" id="myChart1"></div>
     <div class="two" id="myChart2"></div>
-    <div class="three" id="myChart3"></div>
+    <hr>
     <h3>在线时间统计</h3>
+    <div class="three" id="myChart3"></div>
     <div class="four" id="myChart4"></div>
+
+
+    <!--  回到顶部  -->
+    <el-backtop :bottom="80">Top</el-backtop>
   </div>
 </template>
 
@@ -33,9 +65,6 @@ export default {
     if (!tokenStr) {
       this.$router.push('/')
     } else {
-      //  修改状态栏
-      this.show_login = false
-      this.show_admin = true
     }
   },
   mounted() {
@@ -145,31 +174,49 @@ export default {
 
 <style scoped>
 .one {
-  width: 33% !important;
+  width: 32% !important;
   height: 300px !important;
-  background-color: #eae0e0;
+  background-color: #efefef;
   float: left;
+  margin-right: 2%;
 }
 
 .two {
-  width: 33% !important;
+  width: 32% !important;
   height: 300px !important;
-  background-color: #e5d4d4;
+  background-color: #efefef;
   float: left;
 }
 
 .three {
-  width: 34% !important;
+  width: 32% !important;
   height: 300px !important;
-  background-color: #ccbaba;
+  background-color: #efefef;
   float: left;
 }
 
 .four {
-  width: 100% !important;
-  height: 320px !important;
-  background-color: #b8d0b8;
-  float: left;
+  width: 32% !important;
+  height: 300px !important;
+  background-color: #efefef;
+  float: right;
 }
 
+.five {
+  width: 32% !important;
+  height: 660px !important;
+  background-color: #efefef;
+  float: left;
+
+  margin-right: 2%;
+}
+
+.s {
+  float: left;
+  width: 30%;
+  height: 100px;
+  background-color: #73C0DE;
+  margin-right: 3%;
+  border-radius: 15px;
+}
 </style>

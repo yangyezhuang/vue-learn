@@ -7,7 +7,7 @@
       <!--  main  -->
       <el-main>
         <div class="main">
-          <h2>1.1 吴文化的形成</h2>
+          <h2>{{ chapter_title }}</h2>
           <!--  播放器  -->
           <div class="player">
             <video-player
@@ -19,15 +19,11 @@
           </div>
           <br>
 
-          <div>
-            <span>
-              <el-button @click="lastChapter">上一节</el-button>
-            </span>
-            <!--  <p>{{ playerOptions }}</p>  -->
-            <span>
-              <el-button @click="nextChapter()">下一节</el-button>
-            </span>
-          </div>
+          <!--  按钮区域  -->
+          <span>
+            <el-button @click="lastChapter()">上一节</el-button>
+            <el-button @click="nextChapter()">下一节</el-button>
+          </span>
         </div>
       </el-main>
 
@@ -58,6 +54,7 @@ export default {
     return {
       show_login: true,
       show_admin: false,
+      chapter_title: '1.1 吴文化的形成',
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.25, 1.5, 2.0], // 播放速度
         autoplay: false, // 如果true,浏览器准备好时开始回放。
@@ -98,6 +95,15 @@ export default {
       this.show_login = false
       this.show_admin = true
     }
+
+
+    //  根据章节id获取视频title与url
+    let chapter_id = this.$route.query.id
+
+    this.$http.post('/courses', {chapter_id: chapter_id}).then((res) => {
+      this.chapter_title = res.data.title
+      this.playerOptions.sources.src = res.data.src
+    })
   },
 
   methods: {

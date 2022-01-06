@@ -30,8 +30,9 @@ html, body, #app {
     background: #99a9bf;
 }
 
+/*主页课程列表背景色*/
 .bg-purple {
-    background: #e6eee6;
+    background: #e3eef3;
 }
 
 .bg-purple-light {

@@ -3,6 +3,7 @@
 ## 项目介绍
 
 本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。前端使用vue + element-ui，后端使用SpringBoot + MySQL实现。
+前后台账号密码都为admin。
 
 
 
