@@ -8,126 +8,46 @@
     </el-breadcrumb>
 
     <!-- echarts图 -->
-    <div class="one" id="myChart1"></div>
-    <div class="two" id="myChart2"></div>
-    <div class="three" id="myChart3"></div>
-    <div class="four" id="myChart4"></div>
+    <div class="one">
+      <ve-line :data="chartData" height="100%"></ve-line>
+    </div>
+    <div class="two">
+      <ve-histogram :data="chartData" height="100%"></ve-histogram>
+    </div>
+    <div class="three">
+      <ve-Pie :data="chartData" height="100%"></ve-Pie>
+    </div>
+    <div class="four">
+      <ve-line :data="chartData" height="100%"></ve-line>
+    </div>
   </div>
 </template>
 
+
 <script>
-//在组件引入基本模板
-let echarts = require("echarts/lib/echarts");
-//在组件引入柱状图组件
-require("echarts/lib/chart/line");
-require("echarts/lib/chart/bar");
-require("echarts/lib/chart/pie");
-require("echarts/lib/component/legend");
-require("echarts/lib/component/title");
-require("echarts/lib/component/tooltip");
+import VeLine from "v-charts/lib/line.common";
+import Vehistogram from "v-charts/lib/line.common";
+import VePie from "v-charts/lib/pie.common";
 
 export default {
-  mounted() {
-    this.drawBar();
-    this.drawPie();
-    this.drawLine()
+  components: {
+    VeLine,
+    Vehistogram,
+    VePie,
   },
-
-  methods: {
-    drawBar() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart1"));
-      // 绘制图表
-      myChart.setOption({
-        title: {text: "柱状图"},
-        legend: {
-          orient: 'vertical',
-          right: 10,
-          top: 'center'
-        },
-        tooltip: {},
-        xAxis: {
-          data: ["a", "b", "c", "d", "e", "f"],
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: [5, 20, 36, 10, 10, 20],
-          },
+  data() {
+    return {
+      chartData: {
+        columns: ["日期", "销售额"],
+        rows: [
+          {日期: "1月1日", 销售额: 123},
+          {日期: "1月2日", 销售额: 1223},
+          {日期: "1月3日", 销售额: 2123},
+          {日期: "1月4日", 销售额: 4123},
+          {日期: "1月5日", 销售额: 3123},
+          {日期: "1月6日", 销售额: 7123},
         ],
-      });
-    },
-
-    drawPie() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart3"));
-      // 绘制图表
-      myChart.setOption({
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '5%',
-          left: 'center'
-        },
-        series: [
-          {
-            name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: '40',
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              {value: 1048, name: 'Search Engine'},
-              {value: 735, name: 'Direct'},
-              {value: 580, name: 'Email'},
-              {value: 484, name: 'Union Ads'},
-              {value: 300, name: 'Video Ads'}
-            ]
-          }
-        ]
-      });
-    },
-
-    drawLine() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById("myChart4"));
-      // 绘制图表
-      myChart.setOption({
-        title: {text: "Line"},
-        legend: {
-          orient: 'vertical',
-          right: 10,
-          top: 'center'
-        },
-        tooltip: {},
-        xAxis: {
-          data: ["a", "b", "c", "d", "e", "f"],
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "line",
-            data: [5, 20, 36, 10, 10, 20],
-          },
-        ],
-      });
+      }
     }
   }
 }
@@ -147,28 +67,28 @@ export default {
 .one {
   width: 33% !important;
   height: 300px !important;
-  background-color: #eae0e0;
+  background-color: whitesmoke;
   float: left;
 }
 
 .two {
   width: 34% !important;
   height: 300px !important;
-  background-color: #e5d4d4;
+  background-color: whitesmoke;
   float: left;
 }
 
 .three {
   width: 33% !important;
   height: 300px !important;
-  background-color: #ccbaba;
+  background-color: whitesmoke;
   float: left;
 }
 
 .four {
   width: 100% !important;
   height: 320px !important;
-  background-color: #d7e8d7;
+  background-color: whitesmoke;
   float: left;
 }
 

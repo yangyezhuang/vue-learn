@@ -28,8 +28,7 @@
         <el-row>
           <el-col>
             <el-form-item label="邮箱" prop="email">
-              <el-input type="password" v-model="User.email" auto-complete="new-password"
-                        placeholder="请输入邮箱"></el-input>
+              <el-input v-model="User.email" placeholder="请输入邮箱"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -40,7 +39,6 @@
 
     <!--  按钮区域  -->
     <div slot="footer" class="dialog-footer">
-      <!--  <el-button type="primary" @click="adminLogin()">管理员入口</el-button>  -->
       <el-button type="primary" @click="register()">注 册</el-button>
     </div>
   </section>
@@ -65,40 +63,40 @@ export default {
   methods: {
     // 用户注册
     register() {
-      Message.success("注册成功，快去登陆吧")
-      this.closeDialog()
-
-      if (!this.user.username) {
-        this.$msg.error("请输入用户名！");
+      if (!this.User.username) {
+        Message.error("请输入用户名！");
         return;
-      } else if (!this.user.email) {
-        this.$msg.error("请输入邮箱！");
+      } else if (!this.User.email) {
+        Message.error("请输入邮箱！");
         return;
-      } else if (this.user.email != null) {
+      } else if (this.User.email != null) {
         var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-        if (!reg.test(this.user.email)) {
-          this.$msg.error("请输入有效的邮箱！");
-        } else if (!this.user.password) {
-          this.$msg.error("请输入密码！");
+        if (!reg.test(this.User.email)) {
+          Message.error("请输入有效的邮箱！");
+        } else if (!this.User.password) {
+          Message.error("请输入密码！");
           return;
         } else {
           this.$http
-              .post("/register/", {
-                name: this.user.username,
-                email: this.user.email,
-                password: this.user.password
+              .post("/register", {
+                username: this.User.username,
+                password: this.User.password,
+                phoneNum: this.User.phoneNum,
+                email: this.User.email
               })
               .then(res => {
                 // console.log("输出response.data", res.data);
                 // console.log("输出response.data.status", res.data.status);
-                if (res.data.status === 200) {
-                  this.$router.push({path: "/"});
-                } else {
-                  alert("您输入的用户名已存在！");
-                }
+                // if (res.data.status === 200) {
+                //   this.$router.push({path: "/"});
+                // } else {
+                //   alert("您输入的用户名已存在！");
+                // }
+                Message.success("注册成功，快去登陆吧")
               });
         }
       }
+
     },
 
     // 管理员登录

@@ -2,21 +2,20 @@
   <div>
     <el-container>
       <!--   TopBar   -->
-      <TopBar :show_login=true :how_admin=false></TopBar>
+      <TopBar></TopBar>
 
       <!--   课程列表   -->
       <el-main>
-
         <div class="main">
           <h3 style="color: #009EDD;margin: 0">课程列表</h3>
           <hr>
           <div id="class_list" v-for="item in classItems" :key="item.title">
             <div id="class_li">
-              <img :src="item.img" alt="" @click="toCourseDetail(item.id,item.img)">
+              <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
               <div>
                 <h3>{{ item.title }}</h3>
                 <p style="color: #029FDD">{{ item.people }}人参加</p>
-                <el-rate disabled v-model="score">
+                <el-rate disabled v-model="item.score">
                 </el-rate>
               </div>
             </div>
@@ -48,11 +47,8 @@ export default {
   },
   data() {
     return {
-      show_login: true,
-      show_admin: false,
-      classItems: data,
-      score: 3.5
-      // classItems: ''
+      // classItems: data,
+      classItems: ''
     }
   },
   created() {
@@ -60,24 +56,15 @@ export default {
     this.$http.get('/allCourses').then((res) => {
       this.classItems = res.data;
     })
-
-    //  判断登录状态
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-    } else {
-      this.show_login = false
-      this.show_admin = true
-    }
   },
 
   methods: {
     // 根据id转跳对应的课程详情页
-    toCourseDetail(id, img) {
+    toCourseDetail(course_id) {
       this.$router.push({
-        path: '/coursedetail',
+        path: '/courseDetail',
         query: {
-          id: id,
-          img: img
+          id: course_id
         }
       });
     }

@@ -9,10 +9,11 @@
   "dependencies": {
     "axios": "^0.24.0",
     "core-js": "^3.6.5",
-    "echarts": "^5.2.2",
+    "echarts": "^4.9.0",
     "element-ui": "^2.15.6",
     "less": "^4.1.2",
     "less-loader": "^6.0.0",
+    "v-charts": "^1.19.0",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",
     "vue-video-player": "^5.0.2",

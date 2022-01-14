@@ -5,9 +5,8 @@ import store from './store'
 import axios from "axios"
 import './plugins/element'
 import './assets/css/global.css'
-import echarts from 'echarts'
-
-Vue.prototype.$echarts = echarts
+import VCharts from 'v-charts'
+Vue.use(VCharts)
 
 Vue.prototype.$http = axios
 // 配置请求根路径

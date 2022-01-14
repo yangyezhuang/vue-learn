@@ -55,10 +55,10 @@ export default {
   },
 
   // 接受父组件传来的参数
-  props: [
-    'show_login',
-    'show_login'
-  ],
+  // props: [
+  //   'show_login',
+  //   'show_login'
+  // ],
 
   data() {
     return {

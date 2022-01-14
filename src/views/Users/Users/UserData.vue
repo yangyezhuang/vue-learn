@@ -28,13 +28,22 @@
         <p style="font-size: 50px;margin: 0">12</p>
       </div>
     </div>
+
     <!--  echarts图  -->
-    <div class="one" id="myChart1"></div>
-    <div class="two" id="myChart2"></div>
+    <div class="one">
+      <ve-bar :data="chartData" height="100%"></ve-bar>
+    </div>
+    <div class="two">
+      <ve-pie :data="chartData" height="100%"></ve-pie>
+    </div>
     <hr>
     <h3>在线时间统计</h3>
-    <div class="three" id="myChart3"></div>
-    <div class="four" id="myChart4"></div>
+    <div class="three">
+      <ve-line :data="chartData" height="100%"></ve-line>
+    </div>
+    <div class="four">
+      <ve-histogram :data="chartData" height="100%"></ve-histogram>
+    </div>
 
 
     <!--  回到顶部  -->
@@ -43,131 +52,34 @@
 </template>
 
 <script>
-// 在组件引入基本模板
-let echarts = require("echarts/lib/echarts");
-// 在组件引入柱状图组件
-require("echarts/lib/chart/line");
-require("echarts/lib/chart/bar");
-require("echarts/lib/chart/pie");
-require("echarts/lib/component/legend");
-require("echarts/lib/component/title");
-require("echarts/lib/component/tooltip");
+import VeLine from "v-charts/lib/line.common";
+import VeBar from "v-charts/lib/bar.common";
+import VeHistogram from "v-charts/lib/histogram.common";
+import VePie from "v-charts/lib/pie.common";
+
 
 export default {
   name: "Test3",
+  components: {
+    VeLine,
+    VeBar,
+    VePie,
+    VeHistogram
+  },
   data() {
-    return {};
-  },
-
-  created() {
-    //  判断用户是否登录
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-      this.$router.push('/')
-    } else {
-    }
-  },
-  mounted() {
-    this.drawBar();
-    this.drawPie();
-    this.drawLine()
-  },
-  methods: {
-    drawBar() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart1 = echarts.init(document.getElementById("myChart1"));
-      // 绘制图表
-      myChart1.setOption({
-        title: {text: "柱状图"},
-        legend: {
-          orient: 'vertical',
-          right: 10,
-          top: 'center'
-        },
-        tooltip: {},
-        xAxis: {
-          data: ["a", "b", "c", "d", "e", "f"],
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "bar",
-            data: [5, 20, 36, 10, 10, 20],
-          },
+    return {
+      chartData: {
+        columns: ["日期", "销售额"],
+        rows: [
+          {日期: "1月1日", 销售额: 123},
+          {日期: "1月2日", 销售额: 1223},
+          {日期: "1月3日", 销售额: 2123},
+          {日期: "1月4日", 销售额: 4123},
+          {日期: "1月5日", 销售额: 3123},
+          {日期: "1月6日", 销售额: 7123},
         ],
-      });
-    },
-
-    drawPie() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart2 = echarts.init(document.getElementById("myChart2"));
-      // 绘制图表
-      myChart2.setOption({
-        tooltip: {
-          trigger: 'item'
-        },
-        legend: {
-          top: '5%',
-          left: 'center'
-        },
-        series: [
-          {
-            name: 'Access From',
-            type: 'pie',
-            radius: ['40%', '70%'],
-            avoidLabelOverlap: false,
-            label: {
-              show: false,
-              position: 'center'
-            },
-            emphasis: {
-              label: {
-                show: true,
-                fontSize: '40',
-                fontWeight: 'bold'
-              }
-            },
-            labelLine: {
-              show: false
-            },
-            data: [
-              {value: 1048, name: 'Search Engine'},
-              {value: 735, name: 'Direct'},
-              {value: 580, name: 'Email'},
-              {value: 484, name: 'Union Ads'},
-              {value: 300, name: 'Video Ads'}
-            ]
-          }
-        ]
-      });
-    },
-
-    drawLine() {
-      // 基于准备好的dom，初始化echarts实例
-      let myChart3 = echarts.init(document.getElementById("myChart3"));
-      // 绘制图表
-      myChart3.setOption({
-        title: {text: "Line"},
-        legend: {
-          orient: 'vertical',
-          right: 10,
-          top: 'center'
-        },
-        tooltip: {},
-        xAxis: {
-          data: ["a", "b", "c", "d", "e", "f"],
-        },
-        yAxis: {},
-        series: [
-          {
-            name: "销量",
-            type: "line",
-            data: [5, 20, 36, 10, 10, 20],
-          },
-        ],
-      });
-    }
+      }
+    };
   }
 }
 </script>

@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <!--  TopBar  -->
-      <TopBar :show_login=true :show_admin=false></TopBar>
+      <TopBar></TopBar>
 
       <!--  main  -->
       <el-main>
@@ -52,8 +52,6 @@ export default {
   },
   data() {
     return {
-      show_login: true,
-      show_admin: false,
       chapter_title: '1.1 吴文化的形成',
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.25, 1.5, 2.0], // 播放速度
@@ -90,10 +88,6 @@ export default {
       this.$router.push('/')
     } else {
       this.$router.push('/player')
-
-      //  修改状态栏
-      this.show_login = false
-      this.show_admin = true
     }
 
 

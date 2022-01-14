@@ -1,18 +1,19 @@
 <template>
   <section>
     <el-container>
-      <el-form label-width="120px" :model="User" :rules="Rules" ref="User">
+      <el-form label-width="120px" :model="loginForm" :rules="Rules" ref="User">
         <el-row>
           <el-col>
-            <el-form-item label="账号" prop="name">
-              <el-input v-model.number="User.name" placeholder="请输入账号"></el-input>
+            <el-form-item label="账号" prop="username">
+              <el-input v-model.number="loginForm.username" placeholder="请输入账号"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col>
-            <el-form-item label="密码" prop="pass">
-              <el-input type="password" v-model="User.pass" auto-complete="new-password" placeholder="请输入密码"></el-input>
+            <el-form-item label="密码" prop="password">
+              <el-input type="password" v-model="loginForm.password" auto-complete="new-password"
+                        placeholder="请输入密码"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -50,9 +51,9 @@ export default {
     return {
       dialogTableVisible: false,
       Rules: '',
-      User: {
-        name: '',
-        pass: ''
+      loginForm: {
+        username: '',
+        password: ''
       }
     }
   },
@@ -61,28 +62,30 @@ export default {
       this.dialogTableVisible = true;//默认页面不显示为false,点击按钮将这个属性变成true
     },
     login() {
-      console.log('ok')
-      if (this.User.name == 'admin' & this.User.pass == 'admin') {
-        let token = "YWRtaW46YWRtaW4="
-        window.sessionStorage.setItem('token', token)
-        Message.success('登陆成功')
-        this.$router.push('/course')
-      } else {
-        Message.error('账号或密码错误')
-      }
+      // 本地测试
+      // if (this.User.name == 'admin' & this.User.pass == 'admin') {
+      //   let token = "YWRtaW46YWRtaW4="
+      //   window.sessionStorage.setItem('token', token)
+      //   Message.success('登陆成功')
+      //   this.$router.push('/')
+      // } else {
+      //   Message.error('账号或密码错误')
+      // }
 
 
       // 调用后端接口进行登录
-      // this.$http.post("/login", this.loginForm).then((res) => {
-      //   console.log(loginForm)
-      //   console.log(res.data)
-      //   if (res.data === 0) {
-      //     this.$router.push("/admin")
-      //   } else {
-      //     Message.error('账号或密码错误')
-      //   }
-      // })
+      this.$http.post("/login", this.loginForm).then((res) => {
+        if (res.data.code === 0) {
+          let token = res.data.token
+          window.sessionStorage.setItem('token', token)
+          Message.success('登陆成功')
+          this.$router.push("/course")
+        } else {
+          Message.error('账号或密码错误')
+        }
+      })
     },
+
     //  管理员登录入口
     adminLogin() {
       this.$router.push('/adminLogin')

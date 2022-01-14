@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <!--   TopBar   -->
-    <TopBar :show_login=true :how_admin=false></TopBar>
+    <TopBar></TopBar>
 
     <!--  main  -->
     <el-main style="width: 1200px;margin: 0 auto">
@@ -35,6 +35,7 @@
         </el-row>
       </div>
       <hr>
+
       <!--   下方图片   -->
       <div>
         <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="toCourses">
@@ -66,15 +67,13 @@ export default {
 
   data() {
     return {
-      show_login: true,
-      show_admin: false,
       lunboImgs: [
         'https://img.sanhao.com/community_news/19882/20170923152036473.jpg',
         'https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/8d5494eef01f3a297bbad39b9425bc315c607c70.jpg',
         'https://img.51miz.com/Element/00/81/05/84/f9f18671_E810584_8db240b4.jpg'
       ],
-      hotCourse: hotCourse,
-      // hotCourse: ""
+      // hotCourse: hotCourse,
+      hotCourse: ""
     }
   },
 
@@ -82,24 +81,19 @@ export default {
     // 课程列表前四
     this.$http.get('/hotCourses').then((res) => {
       this.hotCourse = res.data;
+      console.log(res.data)
     })
-
-    //  判断登录状态
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-    } else {
-      this.show_login = false
-      this.show_admin = true
-    }
   },
 
   methods: {
     toCourses() {
       this.$router.push("/course")
     },
+
     //  跳转到详情页面
     toCourseDetail(id) {
-      this.$router.push('/courseDetail')
+      let url = '/courseDetail?id=' + 10001
+      this.$router.push(url)
     }
   }
 }

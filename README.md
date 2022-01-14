@@ -5,6 +5,14 @@
 本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。前端使用vue + element-ui，后端使用SpringBoot + MySQL实现。
 前后台账号密码都为admin。
 
+[![7pOvMn.md.png](https://s4.ax1x.com/2022/01/07/7pOvMn.md.png)](https://imgtu.com/i/7pOvMn)
+
+[![7pOO2j.md.png](https://s4.ax1x.com/2022/01/07/7pOO2j.md.png)](https://imgtu.com/i/7pOO2j)
+
+[![7pOLGQ.md.png](https://s4.ax1x.com/2022/01/07/7pOLGQ.md.png)](https://imgtu.com/i/7pOLGQ)
+
+[![7pOqPg.md.png](https://s4.ax1x.com/2022/01/07/7pOqPg.md.png)](https://imgtu.com/i/7pOqPg)
+
 
 
 ## 安装依赖
