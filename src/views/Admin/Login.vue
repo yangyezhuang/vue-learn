@@ -1,6 +1,7 @@
 <template>
   <div class="login_container">
-    <h1 style="margin-top: 0;">后台管理系统</h1>
+    <h1 style="margin-top: 0">后台管理系统</h1>
+
     <div class="login_box">
       <!--  头像区域 -->
       <div class="avatar_box">
@@ -85,7 +86,7 @@ export default {
 
 <style lang="less" scoped>
 .login_container {
-  background: url("../../assets/image/bc1.jpg");
+  background-color: #9DD3E8;
   height: 100%;
 }
 

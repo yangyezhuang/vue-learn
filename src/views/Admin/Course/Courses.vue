@@ -3,8 +3,8 @@
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/goods">课程管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/goods">课程列表</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/courses">课程管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/courses">课程列表</a></el-breadcrumb-item>
     </el-breadcrumb>
 
     <!--  卡片区域  -->
@@ -15,11 +15,6 @@
           <el-input placeholder="请输入内容">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
-        </el-col>
-        <el-col :span="4">
-          <el-row>
-            <el-button type="primary">添加课程</el-button>
-          </el-row>
         </el-col>
       </el-row>
 
@@ -32,8 +27,8 @@
         <el-table-column label="学时" prop="hour" width="100px"></el-table-column>
         <el-table-column label="学习人数" prop="people" width="100px"></el-table-column>
         <el-table-column label="操作" width="160px">
-          <el-button type="primary" icon="el-icon-edit" @click="editGoods"></el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="deleteGoods"></el-button>
+          <el-button type="primary" icon="el-icon-edit" @click="editCourse"></el-button>
+          <el-button type="danger" icon="el-icon-delete" @click="delCourse"></el-button>
         </el-table-column>
       </el-table>
 
@@ -56,28 +51,26 @@ export default {
   name: "Courses",
   data() {
     return {
-      // 课程数据
       classItems: ''
     };
   },
 
   created() {
-    // //获取全部课程数据
-    this.$http.get('/courses').then((res) => {
+    // 获取全部课程数据
+    this.$http.get('/allCourse').then((res) => {
       this.classItems = res.data;
     })
   },
 
   methods: {
     //  编辑课程信息
-    editGoods() {
-      // this.$router.push('/editgoods')
+    editCourse() {
+      this.$router.push('/admin/editCourse')
     },
 
     //  删除课程
-    deleteGoods() {
-      console.log('delete')
-      // this.$message.error('课程已删除！')
+    delCourse() {
+      Message.success("删除成功")
     }
   }
 };

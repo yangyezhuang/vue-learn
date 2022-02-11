@@ -55,6 +55,7 @@ export default {
     // 获取全部课程
     this.$http.get('/allCourses').then((res) => {
       this.classItems = res.data;
+      console.log(res.data)
     })
   },
 

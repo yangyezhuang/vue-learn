@@ -4,7 +4,7 @@
     <el-form ref="form" :model="form" label-width="45%">
       <el-form-item label="用户名">
         <el-col :span="6">
-          <el-input v-model="form.username" placeholder="admin"></el-input>
+          <el-input v-model="form.username" placeholder="admin" :disabled="true"></el-input>
         </el-col>
       </el-form-item>
       <el-form-item label="密码">
@@ -41,7 +41,7 @@ export default {
   data() {
     return {
       form: {
-        username: '',
+        username: window.sessionStorage.getItem('username'),
         password: '',
         phone: '',
         email: ''

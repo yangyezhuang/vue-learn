@@ -1,6 +1,6 @@
 <template>
   <div class="footer">
-    <p>Copyright © 2022 Jssvc All Rights Reserved. 苏州市职业大学 版权所有</p>
+    <p>Copyright © 2022 Yyz All Rights Reserved. yyz 版权所有</p>
   </div>
 </template>
 

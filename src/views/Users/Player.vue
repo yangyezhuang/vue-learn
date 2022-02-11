@@ -24,6 +24,24 @@
             <el-button @click="lastChapter()">上一节</el-button>
             <el-button @click="nextChapter()">下一节</el-button>
           </span>
+          <hr>
+
+          <!--  评论区  -->
+          <div>
+            <div style="float: left;margin-left: 50px">
+              <el-avatar> {{ username }}</el-avatar>
+              <p>用户：{{ username }}</p>
+            </div>
+            <div style="float: right;margin-right: 50px;width: 1000px">
+              <el-input
+                  type="textarea"
+                  :rows="4"
+                  placeholder="请输入评论内容"
+                  v-model="textarea">
+              </el-input>
+              <el-button type="primary" round plain>提交</el-button>
+            </div>
+          </div>
         </div>
       </el-main>
 
@@ -52,6 +70,8 @@ export default {
   },
   data() {
     return {
+      username: window.sessionStorage.getItem('username'),
+      textarea: '',
       chapter_title: '1.1 吴文化的形成',
       playerOptions: {
         playbackRates: [0.7, 1.0, 1.25, 1.5, 2.0], // 播放速度
@@ -77,20 +97,11 @@ export default {
           remainingTimeDisplay: false, // 是否显示剩余时间功能
           fullscreenToggle: true, // 全屏按钮
         },
-      },
+      }
     }
   },
 
   created() {
-    //  判断用户是否登录(Y：跳转播放页/N：提示登录)
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-      this.$router.push('/')
-    } else {
-      this.$router.push('/player')
-    }
-
-
     //  根据章节id获取视频title与url
     let chapter_id = this.$route.query.id
 

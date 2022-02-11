@@ -78,6 +78,7 @@ export default {
         if (res.data.code === 0) {
           let token = res.data.token
           window.sessionStorage.setItem('token', token)
+          window.sessionStorage.setItem('username', res.data.username)
           Message.success('登陆成功')
           this.$router.push("/course")
         } else {

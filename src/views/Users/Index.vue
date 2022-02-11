@@ -26,9 +26,10 @@
               <div>
                 <img :src="course.img"
                      style="width: 100%;border-radius: 20px 20px 0 0"
-                     @click="toCourseDetail(id)">
+                     @click="toCourseDetail(course.id)">
               </div>
               <h3 style="color: #164B98">{{ course.title }}</h3>
+              <p>id：{{ course.id }}</p>
               <strong style="color: #2BBAFF">{{ course.people }}人在学</strong>
             </div>
           </el-col>
@@ -41,7 +42,7 @@
         <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="toCourses">
       </div>
 
-      <!--  backtop    -->
+      <!--  backtop  -->
       <el-backtop :bottom="80">Top</el-backtop>
     </el-main>
 
@@ -53,10 +54,8 @@
 </template>
 
 <script>
-import hotCourse from '../../assets/data/hotCourse.json'
 import TopBar from "./TopBar"
 import FootBar from "./FootBar";
-
 
 export default {
   name: "Test",
@@ -68,17 +67,16 @@ export default {
   data() {
     return {
       lunboImgs: [
-        'https://img.sanhao.com/community_news/19882/20170923152036473.jpg',
-        'https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/8d5494eef01f3a297bbad39b9425bc315c607c70.jpg',
-        'https://img.51miz.com/Element/00/81/05/84/f9f18671_E810584_8db240b4.jpg'
+        require('../../assets/image/lunbo1.jpg'),
+        require('../../assets/image/lunbo2.jpg'),
+        require('../../assets/image/lunbo3.jpg')
       ],
-      // hotCourse: hotCourse,
       hotCourse: ""
     }
   },
 
   created() {
-    // 课程列表前四
+    // 热门课程
     this.$http.get('/hotCourses').then((res) => {
       this.hotCourse = res.data;
       console.log(res.data)
@@ -91,8 +89,8 @@ export default {
     },
 
     //  跳转到详情页面
-    toCourseDetail(id) {
-      let url = '/courseDetail?id=' + 10001
+    toCourseDetail(courseID) {
+      let url = '/courseDetail?id=' + courseID
       this.$router.push(url)
     }
   }

@@ -8,8 +8,8 @@
           <div class="user">
             <img src="../../../assets/image/logo.png" style="height: 100px"/>
             <div class="userinfo">
-              <p class="name">Admin</p>
-              <p class="access">超级管理员</p>
+              <p class="name">用户名：{{ username }}</p>
+              <p class="access">身份：普通用户</p>
             </div>
           </div>
           <div class="login-info">
@@ -68,6 +68,7 @@ export default {
   },
   data() {
     return {
+      username: window.sessionStorage.getItem('username'),
       chartData: {
         columns: ["日期", "销售额"],
         rows: [

@@ -24,6 +24,7 @@ import AddCourse from "../views/Admin/Course/AddCourse"
 import EditCourse from "../views/Admin/Course/EditCourse"
 import DataAnalyse from "../views/Admin/DataAnalyse"
 import Home2 from "../views/Admin/Home2";
+import {Message} from "element-ui";
 
 
 Vue.use(VueRouter)
@@ -31,7 +32,10 @@ Vue.use(VueRouter)
 const routes = [
     {
         path: '/',
-        component: Index
+        component: Index,
+        meta: {
+            requireAuth: true
+        },
     },
     {
         path: '/course',
@@ -84,6 +88,20 @@ const router = new VueRouter({
     mode: 'history',
     base: process.env.BASE_URL,
     routes
+})
+
+
+// 注册一个全局前置守卫
+router.beforeEach((to, from, next) => {
+    if (to.path === '/player') {    //判断当前路由是否需要进行权限控制
+        if (sessionStorage.getItem('token')) {    //权限控制的具体规则
+            next()
+        } else {
+            Message.error('请先登陆')
+        }
+    } else {
+        next() // 放行
+    }
 })
 
 

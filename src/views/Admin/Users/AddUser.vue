@@ -3,27 +3,31 @@
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/users">创建用户</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/users">用户管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/adduser">创建用户</a></el-breadcrumb-item>
     </el-breadcrumb>
 
+
+    <el-card>
+      <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" :label-position="left" label-width="80px">
+        <el-form-item label="用户名" prop="username">
+          <el-input v-model="userForm.username"></el-input>
+        </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="userForm.password"></el-input>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-input v-model="userForm.phonenum"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-input v-model="userForm.email"></el-input>
+        </el-form-item>
+        <!--  创建按钮  -->
+        <el-button type="primary" round @click="addUser()">创建用户</el-button>
+      </el-form>
+    </el-card>
+
     <!-- 表单 -->
-    <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" :label-position="left" label-width="80px">
-      <el-form-item label="用户名" prop="username">
-        <el-input v-model="userForm.username"></el-input>
-      </el-form-item>
-      <el-form-item label="密码" prop="password">
-        <el-input v-model="userForm.password"></el-input>
-      </el-form-item>
-      <el-form-item label="手机号">
-        <el-input v-model="userForm.phonenum"></el-input>
-      </el-form-item>
-      <el-form-item label="邮箱">
-        <el-input v-model="userForm.email"></el-input>
-      </el-form-item>
-      <!--  创建按钮  -->
-      <el-button type="primary" round @click="addUser()">创建用户</el-button>
-    </el-form>
   </div>
 </template>
 
@@ -67,10 +71,10 @@ export default {
             email: this.userForm.email
           }
           // 发起post请求，添加用户
-          this.$http.post('adduser', req_Info).then((res) => {
+          this.$http.post('addUser', req_Info).then((res) => {
             console.log(res)
           })
-          this.$message.success('用户创建成功')
+          Message.success('用户创建成功')
           // 添加成功后，返回用户列表页
           this.$router.push('/users')
         } else {

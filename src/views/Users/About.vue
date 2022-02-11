@@ -9,13 +9,12 @@
         <h3>本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。<br>
           前端使用vue + element-ui，后端使用SpringBoot + MySQL实现。
         </h3>
-
         <hr>
+
         <h1>关于我们</h1>
-        <h3>苏州市职业大学-攻玉工作室</h3>
+        <h3>Coder_y</h3>
       </div>
     </el-main>
-
   </div>
 </template>
 
@@ -44,8 +43,4 @@ export default {
 h1 {
   color: #0B4393;
 }
-
-/*h3 {*/
-/*  color: #009EDD;*/
-/*}*/
 </style>

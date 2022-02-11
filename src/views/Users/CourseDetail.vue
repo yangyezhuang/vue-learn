@@ -17,7 +17,7 @@
             <h1>《 {{ course_detail.title }} 》</h1>
             <p style="color: red">course_id:{{ course_id }}</p>
             <h4>共{{ course_detail.chapter }}节</h4>
-            <el-button type="primary" @click="addCourse">添加课程</el-button>
+            <el-button type="primary" @click="addCourse">加入课程</el-button>
             <el-button type="primary" @click="toPlayer">开始学习</el-button>
           </div>
         </div>
@@ -81,22 +81,17 @@ export default {
       if (!tokenStr) {
         Message.error("请先登陆")
       } else {
+        let username = window.sessionStorage.getItem('username')
+        this.$http.post("/userAddCourse", {username: username, course_id: this.course_id}).then(res => {
+          console.log(res.data)
+        })
         Message.success("添加成功")
       }
     },
 
     // 转跳到播放页
     toPlayer() {
-      //  判断用户是否登录(Y：跳转播放页/N：提示登录)
-      const tokenStr = window.sessionStorage.getItem('token')
-      if (!tokenStr) {
-        Message.error("请先登陆")
-      } else {
-        this.$router.push('/player')
-        // this.$http.get("/player").then((res) => {
-        //   console.log("即将播放...")
-        // })
-      }
+      this.$router.push('/player')
     }
   }
 }

@@ -16,11 +16,6 @@
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </el-col>
-        <el-col :span="4">
-          <el-row>
-            <el-button type="primary" @click="addUser">创建用户</el-button>
-          </el-row>
-        </el-col>
       </el-row>
 
       <!-- 用户列表 -->
@@ -35,7 +30,7 @@
           <template v-slot="scope">
             <!-- {{scope.row}}-->
             <el-button type="primary" icon="el-icon-edit" @click="editUser()"></el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="deleteUser(scope.row.username)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.username)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -48,7 +43,7 @@
           :page-sizes="[2, 4, 6, 8]"
           :page-size="1"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="100">
+          :total="10">
       </el-pagination>
     </el-card>
 
@@ -57,42 +52,38 @@
 
 <script>
 import users_data from "../../../assets/data/Users.json";
+import {Message} from "element-ui";
 
 export default {
   name: "Users",
 
   data() {
     return {
-      userslist: users_data
+      userslist: ''
+      // userslist: users_data
     }
   },
 
   created() {
     // 查询所有用户
-    // this.$http.get('/users').then((res) => {
-    //   this.userslist = res.data
-    // })
+    this.$http.get('/allUser').then((res) => {
+      this.userslist = res.data
+    })
   },
 
   methods: {
-    // 添加用户
-    addUser() {
-      this.$router.push('/admin/adduser')
-    },
-
     // 编辑用户信息
     editUser() {
       this.$router.push('/admin/edituser')
     },
 
     // 删除用户
-    deleteUser(username) {
-      console.log(username)
-      // var req_info={username:username}
-      // this.$http.post('deleteuser',req_info).then((res)=>{
-      //   console.log(res)
-      // })
-      // this.$message.error('用户已删除！')
+    delUser(username) {
+      this.$http.post('delUser', {username: username}).then((res) => {
+        console.log(res.data)
+      })
+      Message.success('删除成功')
+      location.reload()
     }
   }
 };

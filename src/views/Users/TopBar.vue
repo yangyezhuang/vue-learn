@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-header>
-      <el-menu router :default-active="activeIndex" mode="horizontal">
+      <el-menu router mode="horizontal">
         <el-menu-item index="/">
           <img src="../../assets/image/logo.png" style="height: 100%" alt="logo">
         </el-menu-item>
@@ -30,9 +30,8 @@
           <el-submenu style="float: right" v-show="show_admin">
             <!--  <template slot="title">User</template>  -->
             <template slot="title">
-              <img src="../../assets/image/login.png" alt="" style="height: 30px">
+              <el-avatar> {{ username }}</el-avatar>
             </template>
-
             <el-menu-item index="/user/info">个人信息</el-menu-item>
             <el-menu-item index="/user/courses">我的课程</el-menu-item>
             <el-menu-item index="/user/data">我的数据</el-menu-item>
@@ -62,6 +61,7 @@ export default {
 
   data() {
     return {
+      username: window.sessionStorage.getItem('username'),
       input: '',
       show_login: true,
       show_admin: false,
