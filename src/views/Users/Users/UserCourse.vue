@@ -21,13 +21,12 @@
       </el-col>
     </el-row>
 
-    <!--  backtop    -->
+    <!--  back top    -->
     <el-backtop :bottom="80">Top</el-backtop>
   </div>
 </template>
 
 <script>
-import myCourses from '../../../assets/data/hotCourse.json'
 import {Message} from 'element-ui'
 
 export default {
@@ -35,40 +34,41 @@ export default {
   data() {
     return {
       myCourses: ''
-      // myCourses: myCourses
     }
   },
 
   created() {
-    //  判断用户是否登录
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-      this.$router.push('/')
-    } else {
-      let username = window.sessionStorage.getItem('username')
-      // 查找用户添加的全部课程
-      this.$http.post('/userCourse', {username: username}).then((res) => {
-        this.myCourses = res.data;
-        console.log(JSON.stringify(res.data))
-      })
-    }
+    this.getUserLikes()
   },
 
   methods: {
+    // 查看用户收藏的课程
+    getUserLikes() {
+      //  判断用户是否登录
+      const tokenStr = window.sessionStorage.getItem('token')
+      if (!tokenStr) {
+        this.$router.push('/')
+      } else {
+        // 查找用户添加的全部课程
+        let username = window.sessionStorage.getItem('username')
+
+        this.$http.get(`/userCourse/${username}`).then((res) => {
+          this.myCourses = res.data.data;
+          console.log(res.data)
+        })
+      }
+    },
+
     // 根据id转跳对应的课程详情页
     toCourseDetail(course_id) {
-      this.$router.push({
-        path: '/courseDetail',
-        query: {
-          id: course_id
-        }
-      });
+      this.$router.push('/detail/' + course_id);
     },
 
     // 根据id取消课程
     delCourse(course_id) {
       let username = window.sessionStorage.getItem('username')
-      this.$http.post('/userDelCourse', {username: username, course_id: course_id}).then((res) => {
+
+      this.$http.post(`/user/${username}/course/${course_id}`).then((res) => {
         console.log(res.data)
       })
       Message.success("课程删除成功")

@@ -1,45 +1,45 @@
 <template>
-<div>
-  <!--   面包屑导航   -->
-  <el-breadcrumb separator-class="el-icon-arrow-right">
-    <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/admin/courses">课程管理</a></el-breadcrumb-item>
-    <el-breadcrumb-item><a href="/admin/editCourse">修改课程</a></el-breadcrumb-item>
-  </el-breadcrumb>
+  <div>
+    <!--   面包屑导航   -->
+    <el-breadcrumb separator-class="el-icon-arrow-right">
+      <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/courses">课程管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/editCourse">修改课程</a></el-breadcrumb-item>
+    </el-breadcrumb>
 
-  <el-card>
-    <el-form ref="form" :model="form" label-width="45%">
-      <el-form-item label="用户名">
-        <el-col :span="6">
-          <el-input v-model="form.username" placeholder="admin" :disabled="true"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-col :span="6">
-          <el-input v-model="form.password" placeholder="admin"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="手机号">
-        <el-col :span="6">
-          <el-input v-model="form.phone" placeholder="13333333333"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item label="邮箱">
-        <el-col :span="6">
-          <el-input v-model="form.email" placeholder="6666@qq.com"></el-input>
-        </el-col>
-      </el-form-item>
-      <el-form-item>
-        <el-col :span="6">
-          <el-button type="primary" @click="onSubmit">保存</el-button>
-          <el-button>取消</el-button>
-        </el-col>
-      </el-form-item>
-    </el-form>
+    <!--  卡片区域  -->
+    <el-card>
+      <el-form ref="form" :model="form" label-width="45%">
+        <el-form-item label="用户名">
+          <el-col :span="6">
+            <el-input v-model="form.username" placeholder="admin" :disabled="true"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-col :span="6">
+            <el-input v-model="form.password" placeholder="admin"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="手机号">
+          <el-col :span="6">
+            <el-input v-model="form.phone" placeholder="13333333333"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item label="邮箱">
+          <el-col :span="6">
+            <el-input v-model="form.email" placeholder="6666@qq.com"></el-input>
+          </el-col>
+        </el-form-item>
+        <el-form-item>
+          <el-col :span="6">
+            <el-button type="primary" @click="onSubmit">保存</el-button>
+            <el-button>取消</el-button>
+          </el-col>
+        </el-form-item>
+      </el-form>
 
-  </el-card>
-
-</div>
+    </el-card>
+  </div>
 </template>
 
 <script>

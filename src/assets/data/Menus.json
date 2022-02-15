@@ -38,8 +38,14 @@
   },
   {
     "id": 4,
-    "path": "admin/logs",
-    "authName": "日志管理"
+    "path": "admin/comments",
+    "authName": "评论管理",
+    "children": [
+      {
+        "id": 401,
+        "path": "admin/comments",
+        "authName": "评论管理"
+      }]
   },
   {
     "id": 5,

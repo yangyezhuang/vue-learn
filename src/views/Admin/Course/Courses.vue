@@ -19,14 +19,15 @@
       </el-row>
 
       <!-- 课程列表 -->
-      <el-table :data="classItems" border stripe>
+      <el-table :data="classItems.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
+                border stripe>
         <el-table-column type="index"></el-table-column>
-        <el-table-column label="课程id" prop="id" width="150px"></el-table-column>
-        <el-table-column label="课程名称" prop="title" width="300px"></el-table-column>
+        <el-table-column label="课程id" prop="id" width="100px"></el-table-column>
+        <el-table-column label="课程名称" prop="title" width="150px"></el-table-column>
         <el-table-column label="课程介绍" prop="info"></el-table-column>
-        <el-table-column label="学时" prop="hour" width="100px"></el-table-column>
+        <el-table-column label="学时" prop="hour" width="50px"></el-table-column>
         <el-table-column label="学习人数" prop="people" width="100px"></el-table-column>
-        <el-table-column label="操作" width="160px">
+        <el-table-column label="操作" width="150px">
           <el-button type="primary" icon="el-icon-edit" @click="editCourse"></el-button>
           <el-button type="danger" icon="el-icon-delete" @click="delCourse"></el-button>
         </el-table-column>
@@ -36,11 +37,11 @@
       <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
-          :current-page="currentPage4"
-          :page-sizes="[30, 60, 90, 120]"
-          :page-size="1"
+          :current-page="queryInfo.pagenum"
+          :page-sizes="[1, 2, 3, 4]"
+          :page-size="queryInfo.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
-          :total="400">
+          :total="totalSize">
       </el-pagination>
     </el-card>
   </div>
@@ -51,18 +52,40 @@ export default {
   name: "Courses",
   data() {
     return {
-      classItems: ''
+      classItems: '',
+      queryInfo: {
+        query: '',
+        pagenum: 1, // 当前页数
+        pagesize: 2 // 当前每页显示的条数
+      },
+      totalSize: '',
     };
   },
 
   created() {
-    // 获取全部课程数据
-    this.$http.get('/allCourse').then((res) => {
-      this.classItems = res.data;
-    })
+    this.getAllCourses()
   },
 
   methods: {
+    // 获取全部课程数据
+    getAllCourses() {
+      this.$http.get('/allCourse').then((res) => {
+        this.classItems = res.data.data;
+        this.totalSize = res.data.data.length
+
+      })
+    },
+
+    // 监听pagesize改变的事件
+    handleSizeChange(newSize) {
+      this.queryInfo.pagesize = newSize
+    },
+
+    // 监听页码值改变的事件
+    handleCurrentChange(pageNum) {
+      this.queryInfo.pagenum = pageNum
+    },
+
     //  编辑课程信息
     editCourse() {
       this.$router.push('/admin/editCourse')

@@ -6,13 +6,13 @@
           <img src="../../assets/image/logo.png" style="height: 100%" alt="logo">
         </el-menu-item>
         <el-menu-item index="/" style="font-size: 18px;">首页</el-menu-item>
-        <el-menu-item index="/course" style="font-size: 18px;">课程</el-menu-item>
+        <el-menu-item index="/courses" style="font-size: 18px;">课程</el-menu-item>
         <el-menu-item index="/about" style="font-size: 18px;">关于</el-menu-item>
 
         <!-- 搜索框 -->
         <el-menu-item style="float: left">
-          <el-input placeholder="请输入课程" v-model="input">
-            <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
+          <el-input placeholder="请输入课程" v-model="keyword">
+            <el-button slot="append" icon="el-icon-search" @click="search(keyword)"></el-button>
           </el-input>
         </el-menu-item>
 
@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import {Message} from 'element-ui'
 import LoginName from "./Login/LoginName";
 
 export default {
@@ -61,6 +60,7 @@ export default {
 
   data() {
     return {
+      keyword: '',
       username: window.sessionStorage.getItem('username'),
       input: '',
       show_login: true,
@@ -70,18 +70,25 @@ export default {
   },
 
   created() {
-    //  根据token判断登录状态
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-    } else {
-      this.show_login = false
-      this.show_admin = true
-    }
+    this.isLogin()
   },
 
   methods: {
-    search() {
-      Message.info('未找到相关课程')
+    // 搜索
+    search(keyword) {
+      this.$router.push('/search/' + keyword)
+      // console.log(this.$route.path)
+    },
+
+
+    //  根据token判断登录状态
+    isLogin() {
+      const tokenStr = window.sessionStorage.getItem('token')
+      if (!tokenStr) {
+      } else {
+        this.show_login = false
+        this.show_admin = true
+      }
     },
 
     // 登录

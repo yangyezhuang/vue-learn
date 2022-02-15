@@ -70,7 +70,7 @@ export default {
         Message.error("请输入邮箱！");
         return;
       } else if (this.User.email != null) {
-        var reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        const reg = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
         if (!reg.test(this.User.email)) {
           Message.error("请输入有效的邮箱！");
         } else if (!this.User.password) {

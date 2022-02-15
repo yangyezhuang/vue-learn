@@ -7,7 +7,6 @@
       <el-breadcrumb-item><a href="/admin/adduser">创建用户</a></el-breadcrumb-item>
     </el-breadcrumb>
 
-
     <el-card>
       <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" :label-position="left" label-width="80px">
         <el-form-item label="用户名" prop="username">
@@ -64,7 +63,7 @@ export default {
       this.$refs.userFormRef.validate((valid) => {
         if (valid) {
           // 请求参数
-          var req_Info = {
+          const req_Info = {
             username: this.userForm.username,
             password: this.userForm.password,
             phonenum: this.userForm.phonenum,

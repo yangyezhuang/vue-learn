@@ -5,7 +5,7 @@
     <el-main>
       <div class="main">
         <h1>项目介绍</h1>
-        <img src="../../assets/image/logo.png" style="height: 120px;border-radius: 50%">
+        <img src="../../assets/image/logo.png" alt="" style="height: 120px;border-radius: 50%">
         <h3>本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。<br>
           前端使用vue + element-ui，后端使用SpringBoot + MySQL实现。
         </h3>

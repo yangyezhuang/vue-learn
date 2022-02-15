@@ -3,8 +3,8 @@
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/users">用户列表</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/comments">评论管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/admin/comments">评论列表</a></el-breadcrumb-item>
     </el-breadcrumb>
 
     <!--  卡片区域  -->
@@ -18,35 +18,19 @@
         </el-col>
       </el-row>
 
-      <!-- 用户列表 -->
-      <el-table :data="userslist.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
-                border stripe>
+      <!-- 评论列表 -->
+      <el-table
+          :data="commentsList.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
+          border stripe>
         <el-table-column type="index"></el-table-column>
         <el-table-column label="uid" prop="uid" width="100px"></el-table-column>
         <el-table-column label="用户名" prop="username" width="100px"></el-table-column>
-        <el-table-column label="密码" prop="password" width="120px"></el-table-column>
-        <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>
-        <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>
-        <el-table-column label="备注"  ></el-table-column>
-        <el-table-column label="状态" prop="status" width="150px">
-          <template slot-scope="scope">
-            <el-switch
-                style="display: block"
-                v-model="scope.row.status"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-                active-text="激活"
-                inactive-text="冻结"
-                @change=" userStateChanged(scope.row)">
-            </el-switch>
-          </template>
-
-        </el-table-column>
-
-        <el-table-column label="操作" width="150px">
+        <el-table-column label="课程id" prop="course_id" width="120px"></el-table-column>
+        <el-table-column label="日期" prop="date" width="160px"></el-table-column>
+        <el-table-column label="评论内容" prop="comment"></el-table-column>
+        <el-table-column label="操作" width="80px">
           <template v-slot="scope">
             <!-- {{scope.row}}-->
-            <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.username)"></el-button>
             <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.username)"></el-button>
           </template>
         </el-table-column>
@@ -70,11 +54,11 @@
 import {Message} from "element-ui";
 
 export default {
-  name: "Users",
+  name: "Comments",
 
   data() {
     return {
-      userslist: '',
+      commentsList: '',
       queryInfo: {
         query: '',
         pagenum: 1, // 当前页数
@@ -89,13 +73,12 @@ export default {
   },
 
   methods: {
-    // 查询所有用户
-    getUserList() {
-      this.$http.get('/allUser').then((res) => {
-        this.userslist = res.data.data
-        this.total = res.data.data.length
-        console.log(res.data)
-      })
+    // 查询所有评论
+    async getUserList() {
+      const {data: res} = await this.$http.get('/allComments')
+      this.commentsList = res.data
+      this.total = res.data.length
+      console.log(res)
     },
 
     // 监听pagesize改变的事件
@@ -108,27 +91,8 @@ export default {
       this.queryInfo.pagenum = pageNum
     },
 
-    // 监听 switch 状态
-    async userStateChanged(userinfo) {
-      const {data: res} = await this.$http.put(`/user/${userinfo.uid}/state/${userinfo.status}`)
-      if (res.meta.status != 200) {
-        userinfo.status = !userinfo.status
-        return Message.error('更新用户状态失败！')
-      }
-      Message.success('更新用户状态成功')
-    },
 
-    // 编辑用户信息
-    editUser(username) {
-      this.$router.push({
-        path: '/admin/edituser',
-        query: {
-          username: username
-        }
-      });
-    },
-
-    // 删除用户
+    // 删除
     delUser(username) {
       this.$http.post(`delUser/${username}`).then((res) => {
         console.log(res.data)

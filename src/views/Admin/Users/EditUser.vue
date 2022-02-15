@@ -47,12 +47,30 @@ export default {
   name: "EditUser",
   data() {
     return {
+      username: '',
       form: {
         username: window.sessionStorage.getItem('username'),
         password: '',
         phone: '',
         email: ''
       }
+    }
+  },
+  created() {
+    this.getUserInfo()
+  },
+  methods: {
+    getUserInfo() {
+      this.username = this.$route.query.username
+      let params = {
+        username: this.username
+      }
+
+      this.$http.post("/courseDetail", params).then((res) => {
+        console.log(res.data)
+        this.course_detail = res.data;
+      })
+
     }
   }
 }

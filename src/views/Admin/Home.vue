@@ -23,7 +23,7 @@
           <!-- 一级菜单 -->
           <el-submenu
               :index="item.id + ''"
-              v-for="item in menulist"
+              v-for="item in menus"
               :key="item.id"
           >
             <!-- 一级菜单模板区 -->
@@ -38,6 +38,7 @@
                 :key="subItem.id"
             >
               <template slot="title">
+                <i class="el-icon-paperclip"></i>
                 <span>{{ subItem.authName }}</span>
               </template>
             </el-menu-item>
@@ -53,11 +54,8 @@
         </el-main>
 
       </el-container>
-
     </el-container>
-
   </el-container>
-
 </template>
 
 <script>
@@ -67,8 +65,7 @@ export default {
   name: "Home",
   data() {
     return {
-      // 左侧菜单数据
-      menulist: Menus_data
+      menus: Menus_data
     };
   },
 

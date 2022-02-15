@@ -10,38 +10,40 @@
         <!--  <el-carousel trigger="click" height="250px">  -->
         <el-carousel :interval="4000" type="card" height="200px">
           <el-carousel-item v-for="item in lunboImgs" :key="item">
-            <img :src="item" style="width: 100%;height: 100%">
+            <img :src="item" alt="" style="width: 100%;height: 100%">
           </el-carousel-item>
         </el-carousel>
       </div>
       <hr>
 
       <!--   热门课程   -->
-      <div>
-        <h1 style="color: #2BBAFF">热门课程</h1>
-        <div style="height: 30px"></div>
-        <el-row :gutter="40">
-          <el-col :span="6" v-for="course in hotCourse">
-            <div class="grid-content bg-purple">
-              <div>
-                <img :src="course.img"
-                     style="width: 100%;border-radius: 20px 20px 0 0"
-                     @click="toCourseDetail(course.id)">
+<!--      <el-card>-->
+        <div>
+          <h1 style="color: #2BBAFF">热门课程</h1>
+          <div style="height: 30px"></div>
+          <el-row :gutter="40">
+            <el-col :span="6" v-for="course in hotCourse">
+              <div class="grid-content bg-purple">
+                <div>
+                  <img :src="course.img"
+                       style="width: 100%;border-radius: 20px 20px 0 0"
+                       alt=""
+                       @click="toCourseDetail(course.id)">
+                </div>
+                <h3 style="color: #164B98">{{ course.title }}</h3>
+                <p>id：{{ course.id }}</p>
+                <strong style="color: #2BBAFF">{{ course.people }}人在学</strong>
               </div>
-              <h3 style="color: #164B98">{{ course.title }}</h3>
-              <p>id：{{ course.id }}</p>
-              <strong style="color: #2BBAFF">{{ course.people }}人在学</strong>
-            </div>
-          </el-col>
-        </el-row>
-      </div>
-      <hr>
+            </el-col>
+          </el-row>
+        </div>
+        <hr>
 
-      <!--   下方图片   -->
-      <div>
-        <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="toCourses">
-      </div>
-
+        <!--   下方图片   -->
+        <div>
+          <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="toCourses">
+        </div>
+<!--      </el-card>-->
       <!--  backtop  -->
       <el-backtop :bottom="80">Top</el-backtop>
     </el-main>
@@ -76,22 +78,28 @@ export default {
   },
 
   created() {
-    // 热门课程
-    this.$http.get('/hotCourses').then((res) => {
-      this.hotCourse = res.data;
-      console.log(res.data)
-    })
+    this.getHotCourses()
   },
 
   methods: {
+    // 热门课程
+    getHotCourses() {
+      this.$http.get('/hotCourses').then((res) => {
+        this.hotCourse = res.data.data;
+        console.log(res.data)
+      })
+    },
+
+    // 转跳到课程列表页
     toCourses() {
       this.$router.push("/course")
     },
 
     //  跳转到详情页面
     toCourseDetail(courseID) {
-      let url = '/courseDetail?id=' + courseID
+      let url = '/detail/' + courseID
       this.$router.push(url)
+
     }
   }
 }

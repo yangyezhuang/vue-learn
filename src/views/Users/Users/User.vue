@@ -27,12 +27,19 @@ export default {
     TopBar,
     FootBar
   },
+
   created() {
-    //  判断用户是否登录
-    const tokenStr = window.sessionStorage.getItem('token')
-    if (!tokenStr) {
-      this.$router.push('/')
-    } else {
+    this.isLogin()
+  },
+
+  methods: {
+    isLogin() {
+      //  判断用户是否登录
+      const tokenStr = window.sessionStorage.getItem('token')
+      if (!tokenStr) {
+        this.$router.push('/')
+      } else {
+      }
     }
   }
 }

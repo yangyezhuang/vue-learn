@@ -7,15 +7,12 @@
       <!--  main  -->
       <el-main>
         <div class="main">
-          <h2>{{ chapter_title }}</h2>
+          <h2>{{ resource.chapter_title }}</h2>
           <!--  播放器  -->
           <div class="player">
-            <video-player
-                class="video-player vjs-custom-skin"
-                ref="videoPlayer"
-                :playsinline="true"
-                :options="playerOptions"
-            ></video-player>
+            <video width="100%" height="100%" controls>
+              <source :src="resource.chapter_src" type="video/mp4">
+            </video>
           </div>
           <br>
 
@@ -30,16 +27,38 @@
           <div>
             <div style="float: left;margin-left: 50px">
               <el-avatar> {{ username }}</el-avatar>
-              <p>用户：{{ username }}</p>
+              <p>{{ username }}</p>
             </div>
             <div style="float: right;margin-right: 50px;width: 1000px">
               <el-input
                   type="textarea"
-                  :rows="4"
+                  :rows="3"
                   placeholder="请输入评论内容"
                   v-model="textarea">
               </el-input>
-              <el-button type="primary" round plain>提交</el-button>
+            </div>
+            <el-button type="primary" round plain @click="pushComment">发表评论</el-button>
+            <hr>
+
+            <h3>评论列表</h3>
+            <div v-for="item in comments">
+              <div style="height: 100px;margin-top: 10px;">
+                <div style="float: left;margin-left: 50px">
+                  <el-avatar> {{ item.username }}</el-avatar>
+                  <p>{{ item.username }}</p>
+                </div>
+                <div style="float: right;margin-right: 50px;width: 1000px">
+                  <el-input
+                      placeholder="请输入内容"
+                      type="textarea"
+                      :rows="2"
+                      v-model="item.comment"
+                      :disabled="true">
+                  </el-input>
+                  <br>
+                  发布时间：{{ item.date }}
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -70,62 +89,93 @@ export default {
   },
   data() {
     return {
-      username: window.sessionStorage.getItem('username'),
+      username: sessionStorage.getItem('username'),
       textarea: '',
-      chapter_title: '1.1 吴文化的形成',
-      playerOptions: {
-        playbackRates: [0.7, 1.0, 1.25, 1.5, 2.0], // 播放速度
-        autoplay: false, // 如果true,浏览器准备好时开始回放。
-        muted: false, // 默认情况下将会消除任何音频。
-        loop: false, // 导致视频一结束就重新开始。
-        preload: 'auto', // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
-        language: 'zh-CN',
-        aspectRatio: '16:9', // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
-        fluid: true, // 当true时, player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
-        sources: [
-          {
-            type: 'video/mp4', // 类型
-            // src: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4', //url地址
-            src: 'https://mooc1vod.stu.126.net/nos/mp4/2018/07/03/1009821001_293fe31b086e487bafd2ee1ac818461f_sd.mp4', //url地址
-          },
-        ],
-        poster: '', // 封面地址
-        notSupportedMessage: '此视频暂无法播放，请稍后再试', // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
-        controlBar: {
-          timeDivider: true, // 当前时间和持续时间的分隔符
-          durationDisplay: true, // 显示持续时间
-          remainingTimeDisplay: false, // 是否显示剩余时间功能
-          fullscreenToggle: true, // 全屏按钮
-        },
-      }
+      comments: '',
+      resource: ''
     }
   },
 
   created() {
-    //  根据章节id获取视频title与url
-    let chapter_id = this.$route.query.id
-
-    this.$http.post('/courses', {chapter_id: chapter_id}).then((res) => {
-      this.chapter_title = res.data.title
-      this.playerOptions.sources.src = res.data.src
-    })
+    this.getCourseSrc()
+    this.getComments()
   },
 
   methods: {
+    //  根据章节id获取视频资源
+    getCourseSrc() {
+      let course_id = this.$route.params.course_id
+      let chapter_id = this.$route.params.chapter_id
+      // let chapter_id = course_id + '_' + 1
+
+      this.$http.get(`/course/${course_id}/chapter/${chapter_id}`).then((res) => {
+        this.resource = res.data.data
+        console.log(res.data)
+      })
+    },
+
     // 上一节
     lastChapter() {
-      // let lastChapterId = id - 1
-      // console.log(lastChapterId)
-      // this.playerOptions.sources.src = '../../' + lastChapterId + '.mp4'
-      // this.playerOptions.sources.src = 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4'
-      // console.log(this.playerOptions.sources.src)
-      Message.info("暂无资源")
-    },
-    // 下一节
-    nextChapter(id) {
-      // let nextChapterId = id + 1
+      let course_id = this.$route.params.course_id
+      let thisChapterId = this.$route.params.chapter_id
+
+      let _id = thisChapterId.split("_")
+      let __id = parseInt(_id[_id.length - 1]) - 1
+      if (__id === 0) Message.info("已经是第一节！" + id)
+      let chapter_id = thisChapterId.split("_", 1)[0] + '_' + __id
       // console.log(nextChapterId)
-      Message.info("暂无资源")
+
+      this.$http.get(`/course/${course_id}/chapter/${chapter_id}`).then((res) => {
+        if (res.data.code === 1) {
+          this.$router.push(`/course/${course_id}/chapter/${chapter_id}`)
+          location.reload()
+        } else (res.data.code === 0)
+        {
+        }
+      })
+    },
+
+    // 下一节
+    nextChapter() {
+      let course_id = this.$route.params.course_id
+      let thisChapterId = this.$route.params.chapter_id
+
+      let _id = thisChapterId.split("_")
+      let __id = parseInt(_id[_id.length - 1]) + 1
+      let chapter_id = thisChapterId.split("_", 1)[0] + '_' + __id
+      // console.log(nextChapterId)
+
+      this.$http.get(`/course/${course_id}/chapter/${chapter_id}`).then((res) => {
+        if (res.data.code === 1) {
+          this.$router.push(`/course/${course_id}/chapter/${chapter_id}`)
+          location.reload()
+        } else (res.data.code === 0)
+        {
+          Message.info("暂无资源" + id)
+        }
+      })
+    },
+
+    // 根据课程id获取评论
+    async getComments() {
+      let course_id = this.$route.params.course_id
+
+      const {data: res} = await this.$http.get(`/chapter/${course_id}`)
+      this.comments = res.data
+      console.log(res.data)
+    },
+
+    // 发表评论
+    async pushComment() {
+      const params = {
+        uid: 1,
+        username: this.username,
+        course_id: this.$route.params.course_id,
+        comment: this.textarea
+      }
+      console.log(params)
+      const {data: res} = await this.$http.post('/addComment', params)
+      // console.log(res.data)
     }
   }
 }

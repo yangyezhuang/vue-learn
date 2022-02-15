@@ -1,6 +1,8 @@
 <template>
   <div class="login_container">
     <h1 style="margin-top: 0">后台管理系统</h1>
+    <a href="http://localhost:8080">网站首页</a>
+
 
     <div class="login_box">
       <!--  头像区域 -->

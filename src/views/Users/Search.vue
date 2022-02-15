@@ -7,7 +7,7 @@
       <!--   课程列表   -->
       <el-main>
         <div class="main">
-          <h3 style="color: #009EDD;margin: 0">课程列表</h3>
+          <h3 style="color: #009EDD;margin: 0">相关课程</h3>
           <hr>
           <div id="class_list" v-for="item in classItems" :key="item.title">
             <div id="class_li">
@@ -23,7 +23,7 @@
         </div>
 
 
-        <!--  back top    -->
+        <!--  backtop    -->
         <el-backtop :bottom="80">Top</el-backtop>
       </el-main>
 
@@ -40,25 +40,28 @@ import TopBar from "./TopBar"
 import FootBar from "./FootBar";
 
 export default {
-  name: "Course",
+  name: "Search",
   components: {
     TopBar,
     FootBar
   },
   data() {
     return {
+      keyword: '',
       classItems: ''
     }
   },
 
   created() {
-    this.getAllCourses()
+    this.searchCourses()
   },
 
   methods: {
-    // 获取全部课程
-    getAllCourses() {
-      this.$http.get('/allCourses').then((res) => {
+    // 搜索相关课程
+    searchCourses() {
+      let keyword = this.$route.params.keyword
+
+      this.$http.get(`/search/${keyword}`).then((res) => {
         this.classItems = res.data.data;
         console.log(res.data)
       })
@@ -66,7 +69,12 @@ export default {
 
     // 根据id转跳对应的课程详情页
     toCourseDetail(course_id) {
-      this.$router.push('/detail/' + course_id);
+      this.$router.push({
+        path: '/courseDetail',
+        query: {
+          id: course_id
+        }
+      });
     }
   }
 }

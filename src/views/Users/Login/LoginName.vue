@@ -80,7 +80,7 @@ export default {
           window.sessionStorage.setItem('token', token)
           window.sessionStorage.setItem('username', res.data.username)
           Message.success('登陆成功')
-          this.$router.push("/course")
+          this.$router.push("/courses")
         } else {
           Message.error('账号或密码错误')
         }

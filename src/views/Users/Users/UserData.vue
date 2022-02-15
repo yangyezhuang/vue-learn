@@ -6,7 +6,7 @@
       <div>
         <el-card shadow='hover'>
           <div class="user">
-            <img src="../../../assets/image/logo.png" style="height: 100px"/>
+            <img src="../../../assets/image/logo.png" alt="" style="height: 100px"/>
             <div class="userinfo">
               <p class="name">用户名：{{ username }}</p>
               <p class="access">身份：普通用户</p>
@@ -18,15 +18,16 @@
           </div>
         </el-card>
       </div>
-      <div class="s">总计课程数
-        <p style="font-size: 50px;margin: 0">4</p>
-      </div>
-      <div class="s">累计登录数
-        <p style="font-size: 50px;margin: 0">124</p>
-      </div>
-      <div class="s">总计学习
-        <p style="font-size: 50px;margin: 0">12</p>
-      </div>
+        <div class="s">总计课程数
+          <p style="font-size: 50px;margin: 0">4</p>
+        </div>
+        <div class="s">累计登录数
+          <p style="font-size: 50px;margin: 0">124</p>
+        </div>
+        <div class="s">总计学习
+          <p style="font-size: 50px;margin: 0">12</p>
+        </div>
+
     </div>
 
     <!--  echarts图  -->
