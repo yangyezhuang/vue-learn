@@ -7,9 +7,9 @@
       <!--   main   -->
       <el-main style="width: 1200px;margin: 0 auto">
         <el-card>
-          <div style="width: 100%;height: 300px;">
+          <div style="width: 100%;height: 200px;">
             <!--  左侧图片  -->
-            <div style="width:500px;height: 100%;float: left">
+            <div style="width:400px;height: 100%;float: left;margin-left: 100px">
               <img :src="course_detail[0].img" alt="" style="width: 100%;height: 100%">
             </div>
 
@@ -35,6 +35,8 @@
                    style="text-decoration: none">第{{ i.chapter_title }} - 传统文学</a>
               </li>
             </ul>
+
+            <div style="width: 100%;height: 150px"></div>
           </div>
         </el-card>
 
@@ -105,8 +107,13 @@ export default {
 
     // 转跳到播放页
     toPlayer() {
-      let chapter_id = this.$route.params.id + '_' + 1
-      this.$router.push('/course/' + this.course_id + '/chapter/' + chapter_id)
+      let token = sessionStorage.getItem("token")
+      if (token) {
+        let chapter_id = this.$route.params.id + '_' + 1
+        this.$router.push('/course/' + this.course_id + '/chapter/' + chapter_id)
+      } else {
+        Message.error("请先登录")
+      }
     }
   }
 }

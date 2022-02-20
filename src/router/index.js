@@ -5,7 +5,7 @@ import VueRouter from 'vue-router'
 import Index from '../views/Users/Index'
 import About from "../views/Users/About"
 import Course from '../views/Users/Course'
-import CourseDetail from '../views/Users/CourseDetail'
+import Detail from '../views/Users/Detail'
 import Search from "../views/Users/Search"
 import Player from "../views/Users/Player"
 import User from '../views/Users/Users/User'
@@ -15,7 +15,8 @@ import UserCourse from "../views/Users/Users/UserCourse"
 import UserData from "../views/Users/Users/UserData"
 
 // admin后台组件
-import Admin from '../views/Admin/Home'
+import Home from '../views/Admin/Home'
+import Home2 from "../views/Admin/Home2"
 import AdminLogin from '../views/Admin/Login'
 import Users from "../views/Admin/Users/Users"
 import AddUser from "../views/Admin/Users/AddUser"
@@ -25,7 +26,7 @@ import AddCourse from "../views/Admin/Course/AddCourse"
 import EditCourse from "../views/Admin/Course/EditCourse"
 import Comments from "../views/Admin/Comments/Comments"
 import DataAnalyse from "../views/Admin/DataAnalyse"
-import Home2 from "../views/Admin/Home2";
+
 import {Message} from "element-ui";
 
 
@@ -45,7 +46,7 @@ const routes = [
     },
     {
         path: '/detail/:id',
-        component: CourseDetail
+        component: Detail
     },
     {
         path: '/search/:keyword',
@@ -71,8 +72,12 @@ const routes = [
 
     //  admin后台路由
     {
+        path: '/adminLogin',
+        component: AdminLogin
+    },
+    {
         path: '/admin',
-        component: Admin,
+        component: Home,
         children: [
             {path: 'users', component: Users},
             {path: 'home', component: Home2},
@@ -84,10 +89,6 @@ const routes = [
             {path: 'comments', component: Comments},
             {path: 'dataAnalyse', component: DataAnalyse}
         ]
-    },
-    {
-        path: '/adminLogin',
-        component: AdminLogin
     }
 ]
 

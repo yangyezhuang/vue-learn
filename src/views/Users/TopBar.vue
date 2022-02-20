@@ -18,17 +18,15 @@
 
         <!-- 登录按钮 -->
         <el-menu-item style="float: right">
-          <el-button round @click="login()" v-show="show_login">登录</el-button>
-          <!--  弹窗  -->
-          <el-dialog title="登 陆" :visible.sync="dialogTableVisible" center :append-to-body='true' :lock-scroll="false"
-                     width="30%">
-            <!--  登录组件  -->
-            <login-name></login-name>
+          <el-button round @click="loginDialog=true" v-show="show_login">登录</el-button>
+          <!--  弹窗登录  -->
+          <el-dialog title="登 陆" :visible.sync="loginDialog" :append-to-body='true' :lock-scroll="false"
+                     width="30%" center>
+            <Login></Login>
           </el-dialog>
 
           <!--  下拉列表  -->
           <el-submenu style="float: right" v-show="show_admin">
-            <!--  <template slot="title">User</template>  -->
             <template slot="title">
               <el-avatar> {{ username }}</el-avatar>
             </template>
@@ -44,12 +42,13 @@
 </template>
 
 <script>
-import LoginName from "./Login/LoginName";
+import Login from "./Login/Login";
+import {Message} from "element-ui";
 
 export default {
   name: "TopBar",
   components: {
-    LoginName
+    Login
   },
 
   // 接受父组件传来的参数
@@ -61,11 +60,10 @@ export default {
   data() {
     return {
       keyword: '',
-      username: window.sessionStorage.getItem('username'),
-      input: '',
+      username: sessionStorage.getItem('username'),
       show_login: true,
       show_admin: false,
-      dialogTableVisible: false
+      loginDialog: false,
     }
   },
 
@@ -76,10 +74,13 @@ export default {
   methods: {
     // 搜索
     search(keyword) {
-      this.$router.push('/search/' + keyword)
-      // console.log(this.$route.path)
+      if (!keyword) {
+        Message.error("请输入关键字")
+      } else {
+        this.$router.push('/search/' + keyword)
+        // console.log(this.$route.path)
+      }
     },
-
 
     //  根据token判断登录状态
     isLogin() {
@@ -89,11 +90,6 @@ export default {
         this.show_login = false
         this.show_admin = true
       }
-    },
-
-    // 登录
-    login() {
-      this.dialogTableVisible = true; //默认页面不显示为false,点击按钮将属性变成true
     },
 
     // 登出

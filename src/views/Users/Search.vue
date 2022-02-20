@@ -23,7 +23,7 @@
         </div>
 
 
-        <!--  backtop    -->
+        <!--  backtop  -->
         <el-backtop :bottom="80">Top</el-backtop>
       </el-main>
 
@@ -69,12 +69,7 @@ export default {
 
     // 根据id转跳对应的课程详情页
     toCourseDetail(course_id) {
-      this.$router.push({
-        path: '/courseDetail',
-        query: {
-          id: course_id
-        }
-      });
+      this.$router.push('/detail/' + course_id);
     }
   }
 }

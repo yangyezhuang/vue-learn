@@ -2,7 +2,13 @@
   {
     "id": 0,
     "authName": "首页",
-    "path": "home"
+    "children": [
+      {
+        "id": 1,
+        "path": "admin/home",
+        "authName": "首页"
+      }
+    ]
   },
   {
     "id": 1,
@@ -45,7 +51,8 @@
         "id": 401,
         "path": "admin/comments",
         "authName": "评论管理"
-      }]
+      }
+    ]
   },
   {
     "id": 5,

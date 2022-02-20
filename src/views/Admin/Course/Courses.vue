@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main">
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
@@ -100,4 +100,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
 </style>

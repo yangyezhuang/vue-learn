@@ -13,8 +13,11 @@
 
         <h1>关于我们</h1>
         <h3>Coder_y</h3>
+        <div style="width: 100%;height: 200px"></div>
       </div>
     </el-main>
+
+    <FootBar style="color: white"></FootBar>
   </div>
 </template>
 

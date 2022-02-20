@@ -58,7 +58,7 @@ export default {
   methods: {
     // 登录
     login() {
-      this.$router.push('/admin')
+      this.$router.push('/admin/home')
       // 表单预验证
       // this.$refs.loginFormRef.validate(async valid => {
       //   if (!valid) return;

@@ -1,20 +1,18 @@
 <template>
   <div class="main">
-    <h1>用户数据分析</h1>
     <!--  左侧卡片布局  -->
     <div class="five">
       <div>
         <el-card shadow='hover'>
           <div class="user">
-            <img src="../../../assets/image/logo.png" alt="" style="height: 100px"/>
+            <el-avatar :size="80"> {{ username }}</el-avatar>
             <div class="userinfo">
-              <p class="name">用户名：{{ username }}</p>
-              <p class="access">身份：普通用户</p>
+              <p class="name">ID：{{ uid }}</p>
+              <p class="access">用户名：{{ username }}</p>
             </div>
           </div>
           <div class="login-info">
-            <p>上次登录时间：<span>2019-10-20</span></p>
-            <p>上次登录地点：<span>北京</span></p>
+            <p>上次登录：<span>2019-10-20</span></p>
           </div>
         </el-card>
       </div>
@@ -27,7 +25,6 @@
         <div class="s">总计学习
           <p style="font-size: 50px;margin: 0">12</p>
         </div>
-
     </div>
 
     <!--  echarts图  -->
@@ -70,15 +67,16 @@ export default {
   data() {
     return {
       username: window.sessionStorage.getItem('username'),
+      uid: window.sessionStorage.getItem('uid'),
       chartData: {
-        columns: ["日期", "销售额"],
+        columns: ["日期", "在线时长"],
         rows: [
-          {日期: "1月1日", 销售额: 123},
-          {日期: "1月2日", 销售额: 1223},
-          {日期: "1月3日", 销售额: 2123},
-          {日期: "1月4日", 销售额: 4123},
-          {日期: "1月5日", 销售额: 3123},
-          {日期: "1月6日", 销售额: 7123},
+          {日期: "1月1日", 在线时长: 1623},
+          {日期: "1月2日", 在线时长: 1223},
+          {日期: "1月3日", 在线时长: 2123},
+          {日期: "1月4日", 在线时长: 4123},
+          {日期: "1月5日", 在线时长: 2123},
+          {日期: "1月6日", 在线时长: 6123},
         ],
       }
     };

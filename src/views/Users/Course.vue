@@ -14,7 +14,7 @@
               <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
               <div>
                 <h3>{{ item.title }}</h3>
-                <p style="color: #029FDD">{{ item.people }}人参加</p>
+                <p style="color: #029FDD">{{ item.people }} 人在学</p>
                 <el-rate disabled v-model="item.score">
                 </el-rate>
               </div>

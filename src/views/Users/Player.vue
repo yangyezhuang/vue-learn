@@ -168,7 +168,7 @@ export default {
     // 发表评论
     async pushComment() {
       const params = {
-        uid: 1,
+        uid: sessionStorage.getItem("uid"),
         username: this.username,
         course_id: this.$route.params.course_id,
         comment: this.textarea

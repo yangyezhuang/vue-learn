@@ -17,11 +17,10 @@
       <hr>
 
       <!--   热门课程   -->
-<!--      <el-card>-->
         <div>
           <h1 style="color: #2BBAFF">热门课程</h1>
           <div style="height: 30px"></div>
-          <el-row :gutter="40">
+          <el-row :gutter="70">
             <el-col :span="6" v-for="course in hotCourse">
               <div class="grid-content bg-purple">
                 <div>
@@ -32,7 +31,7 @@
                 </div>
                 <h3 style="color: #164B98">{{ course.title }}</h3>
                 <p>id：{{ course.id }}</p>
-                <strong style="color: #2BBAFF">{{ course.people }}人在学</strong>
+                <strong style="color: #2BBAFF">{{ course.people }} 人在学</strong>
               </div>
             </el-col>
           </el-row>
@@ -43,7 +42,7 @@
         <div>
           <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="toCourses">
         </div>
-<!--      </el-card>-->
+
       <!--  backtop  -->
       <el-backtop :bottom="80">Top</el-backtop>
     </el-main>
@@ -92,7 +91,7 @@ export default {
 
     // 转跳到课程列表页
     toCourses() {
-      this.$router.push("/course")
+      this.$router.push("/courses")
     },
 
     //  跳转到详情页面
