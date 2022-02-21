@@ -49,10 +49,13 @@ export default {
       if (!tokenStr) {
         this.$router.push('/')
       } else {
-        // 查找用户添加的全部课程
+        // 查找用户的全部课程
         let username = window.sessionStorage.getItem('username')
+        let headers = {
+          "token": sessionStorage.getItem('token')
+        }
 
-        this.$http.get(`/userCourse/${username}`).then((res) => {
+        this.$http.get(`/user/courses/${username}`, {headers: headers}).then((res) => {
           this.myCourses = res.data.data;
           console.log(res.data)
         })
@@ -61,14 +64,17 @@ export default {
 
     // 根据id转跳对应的课程详情页
     toCourseDetail(course_id) {
-      this.$router.push('/detail/' + course_id);
+      this.$router.push('/courses/detail/' + course_id);
     },
 
     // 根据id取消课程
     delCourse(course_id) {
       let username = window.sessionStorage.getItem('username')
+      let headers = {
+        "token": sessionStorage.getItem('token')
+      }
 
-      this.$http.post(`/user/${username}/course/${course_id}`).then((res) => {
+      this.$http.post(`/user/${username}/course/${course_id}`, {headers: headers}).then((res) => {
         console.log(res.data)
       })
       Message.success("课程删除成功")

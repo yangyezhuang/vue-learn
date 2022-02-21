@@ -58,11 +58,14 @@ export default {
     this.getUserInfo()
   },
   methods: {
-    // 获取信息
+    // 获取用户信息
     getUserInfo() {
-      let username = sessionStorage.getItem('username')
+      let uid = sessionStorage.getItem('uid')
+      let headers = {
+        "token": sessionStorage.getItem('token')
+      }
 
-      this.$http.get(`/userInfo/${username}`).then((res) => {
+      this.$http.get(`/user/info/${uid}`, {headers: headers}).then((res) => {
         this.form = res.data.data[0]
         console.log(res.data)
       })

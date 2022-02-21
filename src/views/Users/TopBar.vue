@@ -77,7 +77,7 @@ export default {
       if (!keyword) {
         Message.error("请输入关键字")
       } else {
-        this.$router.push('/search/' + keyword)
+        this.$router.push('/courses/search/' + keyword)
         // console.log(this.$route.path)
       }
     },

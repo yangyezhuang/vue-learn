@@ -108,7 +108,13 @@ export default {
       let chapter_id = this.$route.params.chapter_id
       // let chapter_id = course_id + '_' + 1
 
-      this.$http.get(`/course/${course_id}/chapter/${chapter_id}`).then((res) => {
+      let headers = {
+        "token": sessionStorage.getItem('token')
+      }
+
+      console.log(headers)
+
+      this.$http.get(`/courses/${course_id}/chapter/${chapter_id}`, {headers: headers}).then((res) => {
         this.resource = res.data.data
         console.log(res.data)
       })
@@ -125,9 +131,9 @@ export default {
       let chapter_id = thisChapterId.split("_", 1)[0] + '_' + __id
       // console.log(nextChapterId)
 
-      this.$http.get(`/course/${course_id}/chapter/${chapter_id}`).then((res) => {
+      this.$http.get(`/courses/${course_id}/chapter/${chapter_id}`).then((res) => {
         if (res.data.code === 1) {
-          this.$router.push(`/course/${course_id}/chapter/${chapter_id}`)
+          this.$router.push(`/courses/${course_id}/chapter/${chapter_id}`)
           location.reload()
         } else (res.data.code === 0)
         {
@@ -145,9 +151,9 @@ export default {
       let chapter_id = thisChapterId.split("_", 1)[0] + '_' + __id
       // console.log(nextChapterId)
 
-      this.$http.get(`/course/${course_id}/chapter/${chapter_id}`).then((res) => {
+      this.$http.get(`/courses/${course_id}/chapter/${chapter_id}`).then((res) => {
         if (res.data.code === 1) {
-          this.$router.push(`/course/${course_id}/chapter/${chapter_id}`)
+          this.$router.push(`/courses/${course_id}/chapter/${chapter_id}`)
           location.reload()
         } else (res.data.code === 0)
         {
@@ -160,7 +166,11 @@ export default {
     async getComments() {
       let course_id = this.$route.params.course_id
 
-      const {data: res} = await this.$http.get(`/chapter/${course_id}`)
+      let headers = {
+        "token": sessionStorage.getItem('token')
+      }
+
+      const {data: res} = await this.$http.get(`/comments/course/${course_id}`, {headers: headers})
       this.comments = res.data
       console.log(res.data)
     },
@@ -174,7 +184,13 @@ export default {
         comment: this.textarea
       }
       console.log(params)
-      const {data: res} = await this.$http.post('/addComment', params)
+
+
+      let headers = {
+        "token": sessionStorage.getItem('token')
+      }
+
+      const {data: res} = await this.$http.post('/comments/add', params, {headers: headers})
       // console.log(res.data)
     }
   }

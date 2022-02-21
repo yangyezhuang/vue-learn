@@ -83,7 +83,7 @@ export default {
   methods: {
     // 热门课程
     getHotCourses() {
-      this.$http.get('/hotCourses').then((res) => {
+      this.$http.get('/courses/hot').then((res) => {
         this.hotCourse = res.data.data;
         console.log(res.data)
       })
@@ -91,12 +91,12 @@ export default {
 
     // 转跳到课程列表页
     toCourses() {
-      this.$router.push("/courses")
+      this.$router.push("/courses/all")
     },
 
     //  跳转到详情页面
     toCourseDetail(courseID) {
-      let url = '/detail/' + courseID
+      let url = '/courses/detail/' + courseID
       this.$router.push(url)
 
     }

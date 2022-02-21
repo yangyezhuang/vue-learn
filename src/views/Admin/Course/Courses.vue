@@ -69,7 +69,7 @@ export default {
   methods: {
     // 获取全部课程数据
     getAllCourses() {
-      this.$http.get('/allCourse').then((res) => {
+      this.$http.get('/courses/all').then((res) => {
         this.classItems = res.data.data;
         this.totalSize = res.data.data.length
 

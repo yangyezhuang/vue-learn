@@ -31,7 +31,7 @@
             <hr>
             <ul v-for="i in course_detail">
               <li>
-                <a :href="`/course/${course_id}/chapter/${i.chapter_id}`"
+                <a :href="`/courses/${course_id}/chapter/${i.chapter_id}`"
                    style="text-decoration: none">第{{ i.chapter_title }} - 传统文学</a>
               </li>
             </ul>
@@ -80,7 +80,7 @@ export default {
       this.course_id = this.$route.params.id
       let course_id = this.$route.params.id
 
-      this.$http.get(`/courseDetail/${course_id}`).then((res) => {
+      this.$http.get(`/courses/detail/${course_id}`).then((res) => {
         this.course_detail = res.data.data;
         console.log(res.data)
       })
@@ -95,7 +95,7 @@ export default {
         let username = window.sessionStorage.getItem('username')
         let course_id = this.course_id
 
-        this.$http.post(`/userAddCourse/${username}/${course_id}`).then(res => {
+        this.$http.post(`/user/addCourse/${username}/${course_id}`).then(res => {
           if (res.data.code === 1) {
             Message.success("添加成功")
           } else {
@@ -110,7 +110,7 @@ export default {
       let token = sessionStorage.getItem("token")
       if (token) {
         let chapter_id = this.$route.params.id + '_' + 1
-        this.$router.push('/course/' + this.course_id + '/chapter/' + chapter_id)
+        this.$router.push('/courses/' + this.course_id + '/chapter/' + chapter_id)
       } else {
         Message.error("请先登录")
       }

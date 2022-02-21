@@ -61,7 +61,7 @@ export default {
     searchCourses() {
       let keyword = this.$route.params.keyword
 
-      this.$http.get(`/search/${keyword}`).then((res) => {
+      this.$http.get(`/courses/search/${keyword}`).then((res) => {
         this.classItems = res.data.data;
         console.log(res.data)
       })
@@ -69,7 +69,7 @@ export default {
 
     // 根据id转跳对应的课程详情页
     toCourseDetail(course_id) {
-      this.$router.push('/detail/' + course_id);
+      this.$router.push('/courses/detail/' + course_id);
     }
   }
 }

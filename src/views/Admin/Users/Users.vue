@@ -91,7 +91,7 @@ export default {
   methods: {
     // 查询所有用户
     getUserList() {
-      this.$http.get('/allUser').then((res) => {
+      this.$http.get('/user/all').then((res) => {
         this.userslist = res.data.data
         this.total = res.data.data.length
         console.log(res.data)
@@ -130,7 +130,7 @@ export default {
 
     // 删除用户
     delUser(username) {
-      this.$http.post(`delUser/${username}`).then((res) => {
+      this.$http.post(`user/del/${username}`).then((res) => {
         console.log(res.data)
       })
       Message.success('删除成功')

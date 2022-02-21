@@ -4,7 +4,9 @@
       <el-col :span="8">
         <el-card shadow="hover" class="mgb20" style="height:252px;">
           <div class="user-info">
-            <img src="../../assets/image/logo.png" style="height: 100px;border-radius: 50%" class="user-avator" alt/>
+            <el-avatar :size="100"> admin</el-avatar>
+
+            <!--            <img src="../../assets/image/logo.png" style="height: 100px;border-radius: 50%" class="user-avator" alt/>-->
             <div class="user-info-cont">
               <div class="user-info-name">admin</div>
               <div>超级管理员</div>
@@ -16,7 +18,7 @@
           </div>
           <div class="user-info-list">
             上次登录地点：
-            <span>东莞</span>
+            <span>北京</span>
           </div>
         </el-card>
         <el-card shadow="hover" style="height:252px;">

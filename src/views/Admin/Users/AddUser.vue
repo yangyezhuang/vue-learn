@@ -70,7 +70,7 @@ export default {
             email: this.userForm.email
           }
           // 发起post请求，添加用户
-          this.$http.post('addUser', req_Info).then((res) => {
+          this.$http.post('user/add', req_Info).then((res) => {
             console.log(res)
           })
           Message.success('用户创建成功')

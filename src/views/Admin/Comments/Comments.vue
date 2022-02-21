@@ -75,7 +75,7 @@ export default {
   methods: {
     // 查询所有评论
     async getUserList() {
-      const {data: res} = await this.$http.get('/allComments')
+      const {data: res} = await this.$http.get('/comments/all')
       this.commentsList = res.data
       this.total = res.data.length
       console.log(res)
@@ -92,9 +92,9 @@ export default {
     },
 
 
-    // 删除
+    // 删除评论（未实现）
     delUser(username) {
-      this.$http.post(`delUser/${username}`).then((res) => {
+      this.$http.post(`comments/del/${username}`).then((res) => {
         console.log(res.data)
       })
       Message.success('删除成功')

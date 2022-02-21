@@ -45,15 +45,15 @@ const routes = [
         component: Course
     },
     {
-        path: '/detail/:id',
+        path: '/courses/detail/:id',
         component: Detail
     },
     {
-        path: '/search/:keyword',
+        path: '/courses/search/:keyword',
         component: Search
     },
     {
-        path: '/course/:course_id/chapter/:chapter_id',
+        path: '/courses/:course_id/chapter/:chapter_id',
         component: Player
     },
     {
