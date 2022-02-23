@@ -19,7 +19,7 @@
               <p style="color: red">id:{{ course_id }}</p>
               <h4>共 {{ course_detail.length }} 节</h4>
               <el-button type="primary" @click="addCourse">加入课程</el-button>
-              <el-button type="primary" @click="toPlayer">开始学习</el-button>
+              <el-button type="primary" @click="toPlayer(course_id,course_detail[0].chapter_id)">开始学习</el-button>
             </div>
           </div>
 
@@ -30,9 +30,8 @@
             <p>{{ course_detail[0].info }}</p>
             <hr>
             <ul v-for="i in course_detail">
-              <li>
-                <a :href="`/courses/${course_id}/chapter/${i.chapter_id}`"
-                   style="text-decoration: none">第{{ i.chapter_title }} - 传统文学</a>
+              <li @click="toPlayer(course_id,i.chapter_id)" style="color: #009EDD">
+                第{{ i.chapter_title }} - 传统文学
               </li>
             </ul>
 
@@ -106,10 +105,9 @@ export default {
     },
 
     // 转跳到播放页
-    toPlayer() {
+    toPlayer(course_id, chapter_id) {
       let token = sessionStorage.getItem("token")
       if (token) {
-        let chapter_id = this.$route.params.id + '_' + 1
         this.$router.push('/courses/' + this.course_id + '/chapter/' + chapter_id)
       } else {
         Message.error("请先登录")

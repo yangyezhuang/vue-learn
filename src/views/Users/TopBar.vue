@@ -3,10 +3,11 @@
     <el-header>
       <el-menu router mode="horizontal">
         <el-menu-item index="/">
-          <img src="../../assets/image/logo.png" style="height: 100%" alt="logo">
+          <img src="../../../public/logo.jpg" style="height: 80%" alt="logo">
         </el-menu-item>
         <el-menu-item index="/" style="font-size: 18px;">首页</el-menu-item>
         <el-menu-item index="/courses" style="font-size: 18px;">课程</el-menu-item>
+        <el-menu-item index="/category" style="font-size: 18px;">分类</el-menu-item>
         <el-menu-item index="/about" style="font-size: 18px;">关于</el-menu-item>
 
         <!-- 搜索框 -->
@@ -18,7 +19,7 @@
 
         <!-- 登录按钮 -->
         <el-menu-item style="float: right">
-          <el-button round @click="loginDialog=true" v-show="show_login">登录</el-button>
+          <el-button circle size="medium" @click="loginDialog=true" v-show="show_login">登录</el-button>
           <!--  弹窗登录  -->
           <el-dialog title="登 陆" :visible.sync="loginDialog" :append-to-body='true' :lock-scroll="false"
                      width="30%" center>
@@ -26,15 +27,25 @@
           </el-dialog>
 
           <!--  下拉列表  -->
-          <el-submenu style="float: right" v-show="show_admin">
-            <template slot="title">
-              <el-avatar> {{ username }}</el-avatar>
-            </template>
-            <el-menu-item index="/user/info">个人信息</el-menu-item>
-            <el-menu-item index="/user/courses">我的课程</el-menu-item>
-            <el-menu-item index="/user/data">我的数据</el-menu-item>
+          <el-popover
+              v-show="show_admin"
+              placement="bottom"
+              width="150"
+              trigger="click"
+              content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+            <el-avatar slot="reference">{{ username }}</el-avatar>
+
+            <el-avatar>{{ username }}</el-avatar>
+            {{ username }}
+            <br>
+            ID：{{ uid }}
+            <el-menu-item index="/user/info">个人中心</el-menu-item>
+            <!--            <el-menu-item index="/user/courses">我的课程</el-menu-item>-->
+            <!--            <el-menu-item index="/user/data">我的数据</el-menu-item>-->
             <el-menu-item @click="logout">退出登录</el-menu-item>
-          </el-submenu>
+          </el-popover>
+
+
         </el-menu-item>
       </el-menu>
     </el-header>
@@ -60,6 +71,7 @@ export default {
   data() {
     return {
       keyword: '',
+      uid: sessionStorage.getItem("uid"),
       username: sessionStorage.getItem('username'),
       show_login: true,
       show_admin: false,

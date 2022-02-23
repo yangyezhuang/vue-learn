@@ -1,28 +1,30 @@
 <template>
   <div>
-    <h1 style="color: #009EDD">课程管理</h1>
-    <hr>
-    <el-row :gutter="80">
-      <el-col :span="6" v-for="course in myCourses">
-        <div style="background-color: #d0e5ee;border-radius: 20px;margin: 30px ">
-          <img :src="course.img" alt="" style="height: 150px;width: 100%;border-radius: 20px 20px 0px 0px">
-          <span>
-           <p>NO:{{ course.id }}</p>
-             <h2>{{ course.title }}</h2>
-          </span>
+    <el-card>
+      <div v-for="course in myCourses">
+        <el-card style="width: 90%;height: 170px;margin: 20px auto;">
+          <!--  左图div -->
+          <div style="width: 30%;float: left;margin: 5px 20px 10px">
+            <img :src="course.img" alt="" style="width: 260px;border-radius: 10px">
+          </div>
 
-          <span>
-            <!-- 查看课程  -->
-            <el-button type="success" icon="el-icon-check" circle @click="toCourseDetail(course.id)"></el-button>
-            <!--  删除课程  -->
-            <el-button type="danger" icon="el-icon-delete" circle @click="delCourse(course.id)"></el-button>
-          </span>
-        </div>
-      </el-col>
-    </el-row>
+          <!-- 右div -->
+          <div style="width: 63%;float: right;margin-right: 20px">
+            <h3 style="text-align:left">{{ course.title }}</h3>
+            <span style="text-align:left;color: gray">{{ course.info.toString().substr(0, 50) }}</span>
+            <br>
+            <span style="float: right">
+                <el-button type="primary" @click="toCourseDetail(course.id)">观看课程</el-button>
+                <el-button type="danger" @click="delCourse(course.id)">取消课程</el-button>
+              </span>
+          </div>
+        </el-card>
+      </div>
+    </el-card>
 
     <!--  back top    -->
     <el-backtop :bottom="80">Top</el-backtop>
+
   </div>
 </template>
 

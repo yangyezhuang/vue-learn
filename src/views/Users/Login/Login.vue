@@ -10,21 +10,19 @@
           <el-input type="password" v-model="loginForm.password" auto-complete="new-password"
                     placeholder="请输入密码"></el-input>
         </el-form-item>
-        <hr>
-        <el-form-item label-width="10px">
-          <el-button @click="forgetPasswdShow=true">忘记密码</el-button>
-          <el-button @click=" $router.push('/adminLogin')">管理员</el-button>
-        </el-form-item>
-
 
         <el-form-item label-width="70px">
+          <el-button @click="forgetPasswdShow=true">忘记密码</el-button>
+          <el-button @click=" $router.push('/adminLogin')">管理员</el-button>
+          <br>
+
           <el-button type="primary" @click="registerShow = true">注 册</el-button>
           <el-button type="primary" @click="login()">登 录</el-button>
         </el-form-item>
       </el-form>
     </el-container>
 
-    <!--  按钮区域  -->
+    <!--  内嵌视图  -->
     <!--  注册  -->
     <el-dialog title="注 册" :visible.sync="registerShow" center :append-to-body='true' :lock-scroll="false"
                width="30%">
@@ -83,11 +81,6 @@ export default {
 </script>
 
 <style scoped>
-.pwwd {
-  margin-left: 46%;
-}
-
-
 .el-button {
   width: 25%;
   margin-left: 17%;

@@ -6,40 +6,56 @@
 
       <!--  main  -->
       <el-main>
-        <div class="main">
-          <h2>{{ resource.chapter_title }}</h2>
-          <!--  播放器  -->
-          <div class="player">
+        <div style="width: 1200px;height: 474px;background-color: white;margin:0 auto">
+          <!--播放器-->
+          <div style="width: 70%;float: left">
             <video width="100%" height="100%" controls>
               <source :src="resource.chapter_src" type="video/mp4">
             </video>
           </div>
-          <br>
 
-          <!--  按钮区域  -->
-          <span>
+          <!--章节栏-->
+          <div style="width:30%;height: 100%;float: right;background-color: #F1F2F3">
+            <h2 style="margin:5px 0 5px 0">{{ resource.chapter_title }}</h2>
+            <hr>
+            <h3>章节</h3>
+            <ui v-for="i in 9">
+              <li style="color: #009EDD">第 {{ i }} 节</li>
+            </ui>
+            <!--  按钮区域  -->
+            <span style="margin-bottom: 0">
             <el-button @click="lastChapter()">上一节</el-button>
             <el-button @click="nextChapter()">下一节</el-button>
           </span>
-          <hr>
+          </div>
+        </div>
+        <br>
+        <hr>
 
-          <!--  评论区  -->
-          <div>
-            <div style="float: left;margin-left: 50px">
-              <el-avatar> {{ username }}</el-avatar>
-              <p>{{ username }}</p>
+
+        <!--  下半部分  -->
+        <div style="width: 1200px;height: 100%;background-color: white;margin:0 auto">
+          <!--  下左div  -->
+          <div style="width: 70%;float: left">
+            <!--  评论区  -->
+            <div style="height: 120px;">
+              <div style="float: left;margin-left: 50px">
+                <el-avatar> {{ username }}</el-avatar>
+                <p>{{ username }}</p>
+              </div>
+              <div style="float: right;margin-right: 50px;width: 670px">
+                <el-input
+                    type="textarea"
+                    :rows="3"
+                    placeholder="请输入评论内容"
+                    v-model="textarea">
+                </el-input>
+              </div>
+              <el-button type="primary" round plain @click="pushComment">发表评论</el-button>
             </div>
-            <div style="float: right;margin-right: 50px;width: 1000px">
-              <el-input
-                  type="textarea"
-                  :rows="3"
-                  placeholder="请输入评论内容"
-                  v-model="textarea">
-              </el-input>
-            </div>
-            <el-button type="primary" round plain @click="pushComment">发表评论</el-button>
             <hr>
 
+            <!--  评论列表  -->
             <h3>评论列表</h3>
             <div v-for="item in comments">
               <div style="height: 100px;margin-top: 10px;">
@@ -47,7 +63,7 @@
                   <el-avatar> {{ item.username }}</el-avatar>
                   <p>{{ item.username }}</p>
                 </div>
-                <div style="float: right;margin-right: 50px;width: 1000px">
+                <div style="float: right;margin-right: 50px;width: 670px">
                   <el-input
                       placeholder="请输入内容"
                       type="textarea"
@@ -58,6 +74,18 @@
                   <br>
                   发布时间：{{ item.date }}
                 </div>
+              </div>
+            </div>
+          </div>
+
+          <!--  推荐  -->
+          <div style="width:30%;height: 100%;float: right;">
+            <h3>推荐课程</h3>
+            <div v-for="course in hotCourse">
+              <div style="height: 100px; width:90%;margin: 0 auto;background-color: #F1F2F3;margin-bottom: 20px"
+                   @click="toDetail(course.id)">
+                <img :src="course.img" alt="" style="width: 50%;height: 100%;float:left;">
+                {{ course.title }}
               </div>
             </div>
           </div>
@@ -92,13 +120,15 @@ export default {
       username: sessionStorage.getItem('username'),
       textarea: '',
       comments: '',
-      resource: ''
+      resource: '',
+      hotCourse: ''
     }
   },
 
   created() {
     this.getCourseSrc()
     this.getComments()
+    this.getHotCourses()
   },
 
   methods: {
@@ -192,6 +222,20 @@ export default {
 
       const {data: res} = await this.$http.post('/comments/add', params, {headers: headers})
       // console.log(res.data)
+    },
+
+    // 推荐课程
+    getHotCourses() {
+      this.$http.get('/courses/hot').then((res) => {
+        this.hotCourse = res.data.data;
+        console.log(res.data)
+      })
+    },
+
+    //  跳转到详情页面
+    toDetail(courseID) {
+      let url = '/courses/detail/' + courseID
+      this.$router.push(url)
     }
   }
 }

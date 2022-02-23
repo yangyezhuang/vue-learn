@@ -3,8 +3,9 @@ import VueRouter from 'vue-router'
 
 // 前台组件
 import Index from '../views/Users/Index'
-import About from "../views/Users/About"
 import Course from '../views/Users/Course'
+import Category from "../views/Users/Category"
+import About from "../views/Users/About"
 import Detail from '../views/Users/Detail'
 import Search from "../views/Users/Search"
 import Player from "../views/Users/Player"
@@ -51,6 +52,10 @@ const routes = [
     {
         path: '/courses/search/:keyword',
         component: Search
+    },
+    {
+        path: "/category",
+        component: Category
     },
     {
         path: '/courses/:course_id/chapter/:chapter_id',

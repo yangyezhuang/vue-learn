@@ -2,14 +2,14 @@
   <div>
     <el-row :gutter="20">
       <el-col :span="8">
+        <!-- 卡片  -->
         <el-card shadow="hover" class="mgb20" style="height:252px;">
           <div class="user-info">
-            <el-avatar :size="100"> admin</el-avatar>
+            <el-avatar :size="70"> admin</el-avatar>
 
-            <!--            <img src="../../assets/image/logo.png" style="height: 100px;border-radius: 50%" class="user-avator" alt/>-->
             <div class="user-info-cont">
               <div class="user-info-name">admin</div>
-              <div>超级管理员</div>
+              <div>管理员</div>
             </div>
           </div>
           <div class="user-info-list">
@@ -21,6 +21,7 @@
             <span>北京</span>
           </div>
         </el-card>
+        <!-- 课程热度  -->
         <el-card shadow="hover" style="height:252px;">
           <template #header>
             <div class="clearfix">
@@ -37,7 +38,7 @@
           <el-progress :percentage="18.9" color="#f56c6c"></el-progress>
         </el-card>
       </el-col>
-
+      <!--  用户数量  -->
       <el-col :span="16">
         <el-row :gutter="20" class="mgb20">
           <el-col :span="8">
@@ -45,7 +46,7 @@
               <div class="grid-content grid-con-1">
                 <i class="el-icon-user-solid grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">216</div>
+                  <div class="grid-num">{{ userNum }}</div>
                   <div>用户数量</div>
                 </div>
               </div>
@@ -67,7 +68,7 @@
               <div class="grid-content grid-con-3">
                 <i class="el-icon-s-goods grid-con-icon"></i>
                 <div class="grid-cont-right">
-                  <div class="grid-num">7</div>
+                  <div class="grid-num">{{ courseNum }}</div>
                   <div>课程数量</div>
                 </div>
               </div>
@@ -81,59 +82,41 @@
               <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
             </div>
           </template>
-
-          <el-table :show-header="false" :data="todoList" style="width:100%;">
-            <el-table-column width="40">
-              <template #default="scope">
-                <el-checkbox v-model="scope.row.status"></el-checkbox>
-              </template>
-            </el-table-column>
-            <el-table-column>
-              <template #default="scope">
-                <div class="todo-item" :class="{
-                                        'todo-item-del': scope.row.status,
-                                    }">{{ scope.row.title }}
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column width="60">
-              <template>
-                <i class="el-icon-edit"></i>
-                <i class="el-icon-delete"></i>
-              </template>
-            </el-table-column>
-          </el-table>
         </el-card>
       </el-col>
     </el-row>
 
-
-    <el-row :gutter="20">
-      <el-col :span="12">
-        <el-card shadow="hover">
-          <schart ref="bar" class="schart" canvasId="bar" :options="options"></schart>
-        </el-card>
-      </el-col>
-      <el-col :span="12">
-        <el-card shadow="hover">
-          <schart ref="line" class="schart" canvasId="line" :options="options2"></schart>
-        </el-card>
-      </el-col>
-    </el-row>
   </div>
 
 </template>
 
 <script>
+
 export default {
   name: "Home2",
   data() {
-    return {}
-  },
-  created() {
+    return {
+      userNum: '',
+      courseNum: ''
+    }
   },
 
-  methods: {}
+  created() {
+    this.totalUser()
+    this.totalCourses()
+  },
+
+  methods: {
+    async totalUser() {
+      const {data: res} = await this.$http.get("/user/all")
+      this.userNum = res.data.length
+    },
+
+    async totalCourses() {
+      const {data: res} = await this.$http.get("/courses/all")
+      this.courseNum = res.data.length
+    }
+  }
 }
 </script>
 

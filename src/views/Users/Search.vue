@@ -95,6 +95,8 @@ img {
   float: left;
   margin: 20px;
   border-radius: 15px;
+  box-shadow: 2px 2px 5px #888888
+
 }
 
 </style>

@@ -4,15 +4,17 @@
 
     <el-main>
       <div class="main">
-        <h1>项目介绍</h1>
+        <h3>项目介绍</h3>
+        <hr>
         <img src="../../assets/image/logo.png" alt="" style="height: 120px;border-radius: 50%">
-        <h3>本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。<br>
+        <p>本项目是基于Vue+ SpringBoot构建的在线学习平台，项目采用前后端分离。<br>
           前端使用vue + element-ui，后端使用SpringBoot + MySQL实现。
-        </h3>
+        </p>
         <hr>
 
-        <h1>关于我们</h1>
-        <h3>Coder_y</h3>
+        <h3>关于我们</h3>
+        <hr>
+        <h4>Coder_y</h4>
         <div style="width: 100%;height: 200px"></div>
       </div>
     </el-main>
@@ -43,7 +45,7 @@ export default {
   margin: 0 auto;
 }
 
-h1 {
+h2 {
   color: #0B4393;
 }
 </style>

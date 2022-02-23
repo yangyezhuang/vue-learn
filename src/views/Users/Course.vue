@@ -1,37 +1,37 @@
 <template>
   <div>
-    <el-container>
-      <!--   TopBar   -->
-      <TopBar></TopBar>
+    <!--  <el-container>  -->
+    <!--  TopBar  -->
+    <TopBar></TopBar>
 
-      <!--   课程列表   -->
-      <el-main>
-        <div class="main">
-          <h3 style="color: #009EDD;margin: 0">课程列表</h3>
-          <hr>
-          <div id="class_list" v-for="item in classItems" :key="item.title">
-            <div id="class_li">
-              <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
-              <div>
-                <h3>{{ item.title }}</h3>
-                <p style="color: #029FDD">{{ item.people }} 人在学</p>
-                <el-rate disabled v-model="item.score">
-                </el-rate>
-              </div>
+    <!--   课程列表   -->
+    <el-main>
+      <div class="main">
+        <h3 style="color: #009EDD;margin: 0">课程列表</h3>
+        <hr>
+        <div id="class_list" v-for="item in classItems" :key="item.title">
+          <div id="class_li">
+            <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p style="color: #029FDD">{{ item.people }} 人在学</p>
+              <el-rate disabled v-model="item.score">
+              </el-rate>
             </div>
           </div>
         </div>
+      </div>
 
 
-        <!--  back top    -->
-        <el-backtop :bottom="80">Top</el-backtop>
-      </el-main>
+      <!--  back top    -->
+      <el-backtop :bottom="80">Top</el-backtop>
+    </el-main>
 
-      <!--   footer   -->
-      <el-footer>
-        <FootBar></FootBar>
-      </el-footer>
-    </el-container>
+    <!--   footer   -->
+    <el-footer>
+      <FootBar></FootBar>
+    </el-footer>
+    <!--    </el-container>-->
   </div>
 </template>
 
@@ -82,7 +82,7 @@ export default {
 img {
   width: 100%;
   height: 50%;
-  border-radius: 15px 15px 0px 0px
+  border-radius: 15px 15px 0 0
 }
 
 #class_li {
@@ -92,6 +92,7 @@ img {
   float: left;
   margin: 20px;
   border-radius: 15px;
+  box-shadow: 2px 2px 5px #888888
 }
 
 </style>

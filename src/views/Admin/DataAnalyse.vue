@@ -11,10 +11,10 @@
       <div class="one">
         <ve-line :data="chartData" height="100%"></ve-line>
       </div>
-      <div class="two">
+      <div class="one">
         <ve-histogram :data="chartData" height="100%"></ve-histogram>
       </div>
-      <div class="three">
+      <div class="one">
         <ve-Pie :data="chartData" height="100%"></ve-Pie>
       </div>
       <div class="four">
@@ -50,7 +50,9 @@ export default {
         ],
       }
     }
-  }
+  },
+
+
 }
 </script>
 
@@ -66,18 +68,6 @@ export default {
 }
 
 .one {
-  width: 33% !important;
-  height: 300px !important;
-  float: left;
-}
-
-.two {
-  width: 34% !important;
-  height: 300px !important;
-  float: left;
-}
-
-.three {
   width: 33% !important;
   height: 300px !important;
   float: left;

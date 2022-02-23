@@ -1,50 +1,62 @@
 <template>
   <el-container>
-    <!--  头部区域  -->
-    <el-header>
-      <div>
-        <img src="../../assets/image/logo.png" alt=""/>
-        <span>后台管理系统</span>
-      </div>
-      <el-button type="primary" @click="logout">退出</el-button>
-    </el-header>
+    <!-- 侧边栏  -->
+    <el-aside style="width: 200px;">
+      <el-menu
+          router
+          unique-opened
+          background-color="#324157">
+        <div style="height: 110px">
+          <img src="../../assets/image/logo.png" alt="" style="height: 80px;border-radius: 50px"/>
+        </div>
+      </el-menu>
+      <hr>
+
+      <el-menu
+          router
+          unique-opened
+          background-color="#324157"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+      >
+        <!-- 一级菜单 -->
+        <el-submenu
+            :index="item.id + ''"
+            v-for="item in menus"
+            :key="item.id"
+        >
+          <!-- 一级菜单模板区 -->
+          <template slot="title">
+            <i class="el-icon-caret-right"></i>
+            <span>{{ item.authName }}</span>
+          </template>
+          <!-- 二级菜单 -->
+          <el-menu-item
+              :index="'/' + subItem.path"
+              v-for="subItem in item.children"
+              :key="subItem.id"
+          >
+            <template slot="title">
+              <i class="el-icon-paperclip"></i>
+              <span>{{ subItem.authName }}</span>
+            </template>
+          </el-menu-item>
+        </el-submenu>
+      </el-menu>
+    </el-aside>
+
+
 
     <!--  页面主体  -->
     <el-container>
-      <!-- 侧边栏  -->
-      <el-aside style="width: 200px;">
-        <el-menu
-            router
-            unique-opened
-            background-color="#324157"
-            text-color="#fff"
-            active-text-color="#ffd04b"
-        >
-          <!-- 一级菜单 -->
-          <el-submenu
-              :index="item.id + ''"
-              v-for="item in menus"
-              :key="item.id"
-          >
-            <!-- 一级菜单模板区 -->
-            <template slot="title">
-              <i class="el-icon-caret-right"></i>
-              <span>{{ item.authName }}</span>
-            </template>
-            <!-- 二级菜单 -->
-            <el-menu-item
-                :index="'/' + subItem.path"
-                v-for="subItem in item.children"
-                :key="subItem.id"
-            >
-              <template slot="title">
-                <i class="el-icon-paperclip"></i>
-                <span>{{ subItem.authName }}</span>
-              </template>
-            </el-menu-item>
-          </el-submenu>
-        </el-menu>
-      </el-aside>
+      <!--  头部区域  -->
+      <el-header>
+        <div>
+<!--          <img src="../../assets/image/logo.png" alt=""/>-->
+          <span>后台管理系统</span>
+        </div>
+        <el-button type="primary" @click="logout">退出</el-button>
+      </el-header>
 
       <el-container>
 
