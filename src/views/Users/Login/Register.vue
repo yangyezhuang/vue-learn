@@ -59,7 +59,8 @@ export default {
   methods: {
     // 发送验证码
     sendVerifyCode() {
-      this.$http.get(`/sendVerifyCode/${this.UserForm.email}`).then((res) => {
+      this.$http.post(`/sendVerifyCode/${this.UserForm.email}`).then((res) => {
+        console.log(this.UserForm)
         console.log(res.data)
       })
       Message.success("已发送，请注意查收")
@@ -82,9 +83,10 @@ export default {
           return;
         } else {
           this.$http.post("/register", this.UserForm).then(res => {
+            console.log(this.UserForm)
             if (res.data.code == 1) {
-              Message.success("注册成功，快去登陆吧")
-              this.$router.push("/")
+              Message.success(res.data.data)
+              location.reload()
             } else {
               Message.error(res.data.data)
             }

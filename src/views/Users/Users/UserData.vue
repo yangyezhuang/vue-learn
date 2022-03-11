@@ -4,6 +4,9 @@
       <!--  左侧卡片布局  -->
       <div class="nav">
         <el-card>
+          <div slot="header" class="clearfix">
+            <span> 用户数据统计</span>
+          </div>
           <div class="s">课程总数
             <p style="font-size: 30px;margin: 0">4</p>
           </div>
@@ -11,10 +14,25 @@
             <p style="font-size: 30px;margin: 0">124</p>
           </div>
           <div class="s">学习时长
-            <p style="font-size: 30px;margin: 0">12</p>
+            <p style="font-size: 30px;margin: 0">{{ DurationData.totalDuration }}</p>
           </div>
         </el-card>
 
+        <el-card>
+          <div slot="header" class="clearfix">
+            <span> 学习专注度</span>
+          </div>
+          <el-progress type="circle" :percentage="Concentration"></el-progress>
+        </el-card>
+
+        <el-card>
+          <div slot="header" class="clearfix">
+            <span> 类型爱好分析</span>
+          </div>
+          <p>{{ userlabel }}</p>
+        </el-card>
+
+        <!-- 课程热度  -->
         <el-card>
           <template #header>
             <div>
@@ -30,27 +48,31 @@
           传统美德
           <el-progress :percentage="18.9" color="#f56c6c"></el-progress>
         </el-card>
-
       </div>
 
       <!--  echarts图  -->
       <el-card>
+        <div slot="header" class="clearfix">
+          <span> 用户学习时长</span>
+        </div>
         <div class="one">
-          <ve-bar :data="chartData" height="100%"></ve-bar>
+          <ve-bar :data="DurationData" height="100%"></ve-bar>
         </div>
         <div class="two">
-          <ve-pie :data="chartData" height="100%"></ve-pie>
+          <ve-pie :data="DurationData" height="100%"></ve-pie>
         </div>
       </el-card>
       <el-card>
+        <div slot="header" class="clearfix">
+          <span> 用户学习时长</span>
+        </div>
         <div class="one">
-          <ve-line :data="chartData" height="100%"></ve-line>
+          <ve-line :data="DurationData" height="100%"></ve-line>
         </div>
         <div class="two">
-          <ve-histogram :data="chartData" height="100%"></ve-histogram>
+          <ve-histogram :data="DurationData" height="100%"></ve-histogram>
         </div>
       </el-card>
-
 
     </el-card>
 
@@ -79,18 +101,41 @@ export default {
     return {
       username: sessionStorage.getItem('username'),
       uid: sessionStorage.getItem('uid'),
-      chartData: {
-        columns: ["日期", "在线时长"],
-        rows: [
-          {日期: "1月1日", 在线时长: 1623},
-          {日期: "1月2日", 在线时长: 1223},
-          {日期: "1月3日", 在线时长: 2123},
-          {日期: "1月4日", 在线时长: 4123},
-          {日期: "1月5日", 在线时长: 2123},
-          {日期: "1月6日", 在线时长: 6123},
-        ],
+      Concentration: '',
+      userlabel: '',
+      DurationData: {
+        columns: ["dateLD", "learningDuration"],
+        rows: [],
+        totalDuration: ''
       }
     };
+  },
+  created() {
+    this.getConcentration()
+    this.getLearningDuration()
+    this.getuserLabel()
+  },
+  methods: {
+    // 获取用户专注度
+    getConcentration() {
+      this.$http.post(`/behavior/concentration/${this.uid}`).then((res) => {
+        this.Concentration = res.data.data
+      })
+    },
+    //  用户学习时长
+    getLearningDuration() {
+      this.$http.post(`/behavior/learningDuration/${this.uid}`).then((res) => {
+        this.DurationData.rows = res.data.data.ld
+        this.DurationData.totalDuration = res.data.data.totalLearningD
+      })
+    },
+    // 类型推荐
+    getuserLabel() {
+      this.$http.post(`/behavior/userlabel/${this.uid}`).then((res) => {
+        this.userlabel = res.data.data.userlabel
+        console.log(res.data)
+      })
+    }
   }
 }
 </script>
@@ -110,7 +155,6 @@ export default {
 
 .nav {
   width: 32% !important;
-  height: 660px !important;
   float: left;
   margin-right: 2%;
 }
@@ -119,7 +163,6 @@ export default {
   float: left;
   width: 30%;
   height: 60px;
-  background-color: #29BFF7;
   margin-right: 3%;
   border-radius: 15px;
 }

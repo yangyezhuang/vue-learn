@@ -5,7 +5,7 @@ import {
     Container, Header, Main, Footer, Menu, MenuItem, Carousel, CarouselItem, Select, Breadcrumb,
     Button, Row, Col, Form, FormItem, Input, Submenu, MenuItemGroup, Card, BreadcrumbItem, Table,
     TableColumn, Pagination, Aside, Progress, Dialog, Backtop, Rate, Avatar, Switch, Upload,Tag,
-    Popover
+    Popover,Empty,Divider,Option,InfiniteScroll
 } from 'element-ui'
 
 
@@ -42,3 +42,7 @@ Vue.use(Switch)
 Vue.use(Upload)
 Vue.use(Tag)
 Vue.use(Popover)
+Vue.use(Empty)
+Vue.use(Divider)
+Vue.use(Option)
+Vue.use(InfiniteScroll)

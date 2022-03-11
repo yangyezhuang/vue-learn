@@ -4,10 +4,10 @@
     <TopBar></TopBar>
 
     <!--   主体展示   -->
-    <el-main>
-      <!--  背景图片   -->
-      <div style="width: 80%;height: auto;margin: 0 auto;background-color: white;">
-        <div style="z-index: -1;height: 200px;background-image: linear-gradient(0.45turn,pink,deepskyblue)">
+    <el-main style="width: 1200px;margin: 0 auto">
+      <div style="min-height:700px;height: auto;margin: 0 auto;background-color: white;">
+        <!--  背景图片   -->
+        <div style="height: 180px;background-image: linear-gradient(0.45turn,pink,#20A0FF)">
           <div style="">
             <el-avatar :size=80 style="margin-top: 50px">{{ username }}</el-avatar>
             <h2>{{ username }}</h2>

@@ -7,21 +7,23 @@
     <!--   课程列表   -->
     <el-main>
       <div class="main">
-        <h3 style="color: #009EDD;margin: 0">课程列表</h3>
-        <hr>
+        <h3 style="margin: 0">课程列表</h3>
+        <el-divider></el-divider>
         <div id="class_list" v-for="item in classItems" :key="item.title">
           <div id="class_li">
             <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
             <div>
-              <h3>{{ item.title }}</h3>
-              <p style="color: #029FDD">{{ item.people }} 人在学</p>
-              <el-rate disabled v-model="item.score">
-              </el-rate>
+              <h3 style="text-align:left;margin-top: 5px">{{ item.title }}</h3>
+              <p style="text-align:left;margin-top: 5px">{{ item.people }} 人在学
+                <span>
+                  <el-tag  size="mini" style="float:right;margin-right: 5px">{{item.type}}</el-tag>
+                </span>
+              </p>
             </div>
           </div>
         </div>
-      </div>
 
+      </div>
 
       <!--  back top    -->
       <el-backtop :bottom="80">Top</el-backtop>
@@ -66,7 +68,7 @@ export default {
 
     // 根据id转跳对应的课程详情页
     toCourseDetail(course_id) {
-      this.$router.push('/courses/detail/' + course_id);
+      this.$router.push(`/courses/detail/${course_id}`);
     }
   }
 }
@@ -82,16 +84,16 @@ export default {
 img {
   width: 100%;
   height: 50%;
-  border-radius: 15px 15px 0 0
+  border-radius: 5px 5px 0 0
 }
 
 #class_li {
   width: 200px;
-  height: 260px;
+  height: 200px;
   background-color: #FFFFFD;
   float: left;
   margin: 20px;
-  border-radius: 15px;
+  border-radius: 5px;
   box-shadow: 2px 2px 5px #888888
 }
 

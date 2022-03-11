@@ -8,15 +8,14 @@
       <el-main>
         <div class="main">
           <h3 style="color: #009EDD;margin: 0">相关课程</h3>
-          <hr>
+          <el-divider></el-divider>
+
           <div id="class_list" v-for="item in classItems" :key="item.title">
             <div id="class_li">
               <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
               <div>
                 <h3>{{ item.title }}</h3>
-                <p style="color: #029FDD">{{ item.people }}人参加</p>
-                <el-rate disabled v-model="item.score">
-                </el-rate>
+                <p style="color: #029FDD">{{ item.people }}人在学</p>
               </div>
             </div>
           </div>
@@ -58,13 +57,13 @@ export default {
 
   methods: {
     // 搜索相关课程
-    searchCourses() {
+    async searchCourses() {
       let keyword = this.$route.params.keyword
 
-      this.$http.get(`/courses/search/${keyword}`).then((res) => {
-        this.classItems = res.data.data;
-        console.log(res.data)
-      })
+      const {data: res} = await this.$http.get(`/courses/search/${keyword}`)
+      this.classItems = res.data;
+      // location.reload()
+      console.log(res.data)
     },
 
     // 根据id转跳对应的课程详情页
@@ -85,18 +84,15 @@ export default {
 img {
   width: 100%;
   height: 50%;
-  border-radius: 15px 15px 0px 0px
 }
 
 #class_li {
   width: 200px;
-  height: 260px;
+  height: 200px;
   background-color: #FFFFFD;
   float: left;
   margin: 20px;
-  border-radius: 15px;
   box-shadow: 2px 2px 5px #888888
-
 }
 
 </style>

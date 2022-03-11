@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col :span="8">
+      <el-col style="width: 350px">
         <!-- 卡片  -->
         <el-card shadow="hover" class="mgb20" style="height:252px;">
           <div class="user-info">
@@ -38,10 +38,11 @@
           <el-progress :percentage="18.9" color="#f56c6c"></el-progress>
         </el-card>
       </el-col>
+
       <!--  用户数量  -->
-      <el-col :span="16">
+      <el-col :span="16" style="width: 800px">
         <el-row :gutter="20" class="mgb20">
-          <el-col :span="8">
+          <el-col>
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="grid-content grid-con-1">
                 <i class="el-icon-user-solid grid-con-icon"></i>
@@ -75,13 +76,18 @@
             </el-card>
           </el-col>
         </el-row>
-        <el-card shadow="hover" style="height:200px;">
+        <el-card shadow="hover" style="height:220px;">
           <template #header>
             <div class="clearfix">
-              <span>待办事项</span>
-              <el-button style="float: right; padding: 3px 0" type="text">添加</el-button>
+              <span>各项指标</span>
             </div>
           </template>
+          <div>
+            <el-progress type="circle" :percentage="25"></el-progress>
+            <el-progress type="circle" :percentage="100" status="success"></el-progress>
+            <el-progress type="circle" :percentage="70" status="warning"></el-progress>
+            <el-progress type="circle" :percentage="50" status="exception"></el-progress>
+          </div>
         </el-card>
       </el-col>
     </el-row>

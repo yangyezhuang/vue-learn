@@ -30,21 +30,15 @@
           <el-popover
               v-show="show_admin"
               placement="bottom"
-              width="150"
-              trigger="click"
-              content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+              width="120"
+              trigger="hover">
             <el-avatar slot="reference">{{ username }}</el-avatar>
-
-            <el-avatar>{{ username }}</el-avatar>
-            {{ username }}
+            用户：{{ username }}
             <br>
-            ID：{{ uid }}
+            UID：{{ uid }}
             <el-menu-item index="/user/info">个人中心</el-menu-item>
-            <!--            <el-menu-item index="/user/courses">我的课程</el-menu-item>-->
-            <!--            <el-menu-item index="/user/data">我的数据</el-menu-item>-->
             <el-menu-item @click="logout">退出登录</el-menu-item>
           </el-popover>
-
 
         </el-menu-item>
       </el-menu>
@@ -107,7 +101,7 @@ export default {
     // 登出
     logout() {
       window.sessionStorage.clear(); // 清除token
-      this.$router.push("/");
+      this.$router.push("/")
       this.show_login = true
       this.show_admin = false
     }

@@ -27,7 +27,7 @@
         <el-table-column label="密码" prop="password" width="120px"></el-table-column>
         <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>
         <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>
-        <el-table-column label="备注"  ></el-table-column>
+        <el-table-column label="备注"></el-table-column>
         <el-table-column label="状态" prop="status" width="150px">
           <template slot-scope="scope">
             <el-switch
@@ -45,9 +45,10 @@
 
         <el-table-column label="操作" width="150px">
           <template v-slot="scope">
+
             <!-- {{scope.row}}-->
-            <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.username)"></el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.username)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.uid)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.uid)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -92,9 +93,10 @@ export default {
     // 查询所有用户
     getUserList() {
       this.$http.get('/user/all').then((res) => {
+        console.log('res.data' + res.data)
         this.userslist = res.data.data
         this.total = res.data.data.length
-        console.log(res.data)
+
       })
     },
 
@@ -119,19 +121,13 @@ export default {
     },
 
     // 编辑用户信息
-    editUser(username) {
-      this.$router.push({
-        path: '/admin/edituser',
-        query: {
-          username: username
-        }
-      });
+    editUser(uid) {
+      this.$router.push(`/admin/edituser/${uid}`)
     },
 
     // 删除用户
-    delUser(username) {
-      this.$http.post(`user/del/${username}`).then((res) => {
-        console.log(res.data)
+    delUser(uid) {
+      this.$http.post(`user/del/${uid}`).then((res) => {
       })
       Message.success('删除成功')
       location.reload()

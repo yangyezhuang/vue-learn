@@ -11,12 +11,12 @@
         </el-form-item>
         <el-form-item label="用户名">
           <el-col :span="6">
-            <el-input v-model="form.username" :placeholder="username" :disabled="true"></el-input>
+            <el-input v-model="form.username" :disabled="true"></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="密码">
           <el-col :span="6">
-            <el-input v-model="form.password" :placeholder="form.password"></el-input>
+            <el-input v-model="form.password"></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="手机号">
@@ -45,7 +45,6 @@ export default {
   name: "UserInfo",
   data() {
     return {
-      username: sessionStorage.getItem('username'),
       form: {
         uid: '',
         username: '',
@@ -67,8 +66,8 @@ export default {
       }
 
       this.$http.get(`/user/info/${uid}`, {headers: headers}).then((res) => {
-        this.form = res.data.data[0]
-        console.log(res.data)
+        this.form = res.data.data
+        console.log(res.data.data)
       })
     },
 

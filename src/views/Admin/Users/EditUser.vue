@@ -21,7 +21,7 @@
         </el-form-item>
         <el-form-item label="手机号">
           <el-col :span="6">
-            <el-input v-model="form.phone" placeholder="13333333333"></el-input>
+            <el-input v-model="form.phoneNum" ></el-input>
           </el-col>
         </el-form-item>
         <el-form-item label="邮箱">
@@ -32,7 +32,6 @@
         <el-form-item>
           <el-col :span="6">
             <el-button type="primary" @click="onSubmit">保存</el-button>
-            <el-button>取消</el-button>
           </el-col>
         </el-form-item>
       </el-form>
@@ -49,9 +48,10 @@ export default {
     return {
       username: '',
       form: {
-        username: window.sessionStorage.getItem('username'),
+        uid: '',
+        username: '',
         password: '',
-        phone: '',
+        phoneNum: '',
         email: ''
       }
     }
@@ -60,17 +60,18 @@ export default {
     this.getUserInfo()
   },
   methods: {
+
+    // 获取用户信息
     getUserInfo() {
-      this.username = this.$route.query.username
-      let params = {
-        username: this.username
+      let uid = this.$route.params.uid
+      let headers = {
+        "token": sessionStorage.getItem('token')
       }
 
-      this.$http.post("/courseDetail", params).then((res) => {
+      this.$http.get(`/user/info/${uid}`, {headers: headers}).then((res) => {
+        this.form = res.data.data[0]
         console.log(res.data)
-        this.course_detail = res.data;
       })
-
     }
   }
 }

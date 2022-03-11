@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-card>
-      <div v-for="course in myCourses">
+      <div v-show="dividerShow">
+        <el-empty description="暂无课程"></el-empty>
+      </div>
+
+      <div v-for="course in myCourses" :v-show="listShow">
         <el-card style="width: 90%;height: 170px;margin: 20px auto;">
           <!--  左图div -->
           <div style="width: 30%;float: left;margin: 5px 20px 10px">
@@ -35,6 +39,8 @@ export default {
   name: "test1",
   data() {
     return {
+      dividerShow: '',
+      listShow: '',
       myCourses: ''
     }
   },
@@ -52,14 +58,17 @@ export default {
         this.$router.push('/')
       } else {
         // 查找用户的全部课程
-        let username = window.sessionStorage.getItem('username')
-        let headers = {
-          "token": sessionStorage.getItem('token')
-        }
+        let uid = sessionStorage.getItem('uid')
 
-        this.$http.get(`/user/courses/${username}`, {headers: headers}).then((res) => {
+        this.$http.get(`/user/courses/${uid}`).then((res) => {
           this.myCourses = res.data.data;
-          console.log(res.data)
+          if (res.data.data.length === 0) {
+            this.dividerShow = true
+            this.listShow = false
+          } else {
+            this.dividerShow = false
+            this.listShow = true
+          }
         })
       }
     },
@@ -71,12 +80,9 @@ export default {
 
     // 根据id取消课程
     delCourse(course_id) {
-      let username = window.sessionStorage.getItem('username')
-      let headers = {
-        "token": sessionStorage.getItem('token')
-      }
+      let uid = sessionStorage.getItem('uid')
 
-      this.$http.post(`/user/${username}/course/${course_id}`, {headers: headers}).then((res) => {
+      this.$http.delete(`/user/${uid}/course/${course_id}`).then((res) => {
         console.log(res.data)
       })
       Message.success("课程删除成功")

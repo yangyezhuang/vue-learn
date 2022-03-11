@@ -38,7 +38,7 @@
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page="queryInfo.pagenum"
-          :page-sizes="[1, 2, 3, 4]"
+          :page-sizes="[3, 5, 7, 9]"
           :page-size="queryInfo.pagesize"
           layout="total, sizes, prev, pager, next, jumper"
           :total="totalSize">
@@ -56,7 +56,7 @@ export default {
       queryInfo: {
         query: '',
         pagenum: 1, // 当前页数
-        pagesize: 2 // 当前每页显示的条数
+        pagesize: 5 // 当前每页显示的条数
       },
       totalSize: '',
     };

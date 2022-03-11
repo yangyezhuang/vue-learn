@@ -10,12 +10,12 @@
           <div style="width: 100%;height: 200px;">
             <!--  左侧图片  -->
             <div style="width:400px;height: 100%;float: left;margin-left: 100px">
-              <img :src="course_detail[0].img" alt="" style="width: 100%;height: 100%">
+              <img :src="course_detail[0].img" alt="" style="width: 100%;height: 100%;border-radius: 5px">
             </div>
 
             <!--  右侧div  -->
             <div style="width: 550px;height:100%;background-color:white;margin-left: 600px;border-radius: 20px;">
-              <h1>《 {{ course_detail[0].course_title }} 》</h1>
+              <h1>《 {{ course_detail[0].title }} 》</h1>
               <p style="color: red">id:{{ course_id }}</p>
               <h4>共 {{ course_detail.length }} 节</h4>
               <el-button type="primary" @click="addCourse">加入课程</el-button>
@@ -25,13 +25,15 @@
 
           <!--   课程简介    -->
           <div style="width: 100%;background-color: white;margin-top: 50px;border-radius: 30px">
-            <hr>
+            <el-divider></el-divider>
+
             <h2>课程简介</h2>
             <p>{{ course_detail[0].info }}</p>
-            <hr>
+            <el-divider></el-divider>
+
             <ul v-for="i in course_detail">
-              <li @click="toPlayer(course_id,i.chapter_id)" style="color: #009EDD">
-                第{{ i.chapter_title }} - 传统文学
+              <li @click="toPlayer(course_id,i.chapter_id)" style="color: #409EFF">
+                第{{ i.chapter_title }} - {{ course_detail[0].title }} （ {{ i.chapter_id }}）
               </li>
             </ul>
 
@@ -63,7 +65,7 @@ export default {
 
   data() {
     return {
-      course_id: '',
+      course_id: this.$route.params.id,
       course_detail: ''
     }
   },
@@ -75,13 +77,10 @@ export default {
   methods: {
     //  根据课程id查询详情页数据
     getCourseDetail() {
-      // 接收页面转跳携带的参数
-      this.course_id = this.$route.params.id
-      let course_id = this.$route.params.id
+      let course_id = this.course_id;
 
       this.$http.get(`/courses/detail/${course_id}`).then((res) => {
         this.course_detail = res.data.data;
-        console.log(res.data)
       })
     },
 
@@ -91,10 +90,10 @@ export default {
       if (!tokenStr) {
         Message.error("请先登陆")
       } else {
-        let username = window.sessionStorage.getItem('username')
         let course_id = this.course_id
+        let uid = sessionStorage.getItem("uid")
 
-        this.$http.post(`/user/addCourse/${username}/${course_id}`).then(res => {
+        this.$http.post(`/user/${uid}/addCourse/${course_id}`).then(res => {
           if (res.data.code === 1) {
             Message.success("添加成功")
           } else {
@@ -105,10 +104,10 @@ export default {
     },
 
     // 转跳到播放页
-    toPlayer(course_id, chapter_id) {
+    toPlayer(course_id,chapter_id) {
       let token = sessionStorage.getItem("token")
       if (token) {
-        this.$router.push('/courses/' + this.course_id + '/chapter/' + chapter_id)
+        this.$router.push('/courses/' + course_id + '/chapter/' + chapter_id)
       } else {
         Message.error("请先登录")
       }
@@ -118,8 +117,4 @@ export default {
 </script>
 
 <style scoped>
-img {
-  border-radius: 20px;
-}
-
 </style>

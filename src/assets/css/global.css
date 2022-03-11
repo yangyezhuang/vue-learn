@@ -23,7 +23,8 @@ html, body, #app {
 
 /* 栅格布局*/
 .el-col {
-    border-radius: 4px;
+    margin-right: 25px;
+    width: 210px;
 }
 
 .bg-purple-dark {
@@ -32,6 +33,7 @@ html, body, #app {
 
 /*主页课程列表背景色*/
 .bg-purple {
+    width: 210px;
     background: white;
 }
 
@@ -39,10 +41,6 @@ html, body, #app {
     background: #e5e9f2;
 }
 
-.grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-}
 
 .row-bg {
     padding: 10px 0;
@@ -50,10 +48,7 @@ html, body, #app {
 }
 
 .grid-content {
-    margin-left: 15px;
     height: 230px;
-    width: 230px;
-    border-radius: 15px;
 }
 
 
@@ -72,8 +67,8 @@ html, body, #app {
 }
 
 .el-aside {
-    text-align: center;
-    line-height: 200px;
+    text-align: left;
+    line-height: 100px;
 }
 
 .el-footer {

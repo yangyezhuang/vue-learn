@@ -12,7 +12,7 @@
         </el-form-item>
 
         <el-form-item label-width="70px">
-          <el-button @click="forgetPasswdShow=true">忘记密码</el-button>
+          <el-button @click="forgetPasswdShow=true">忘记</el-button>
           <el-button @click=" $router.push('/adminLogin')">管理员</el-button>
           <br>
 
@@ -64,13 +64,14 @@ export default {
   methods: {
     login() {
       this.$http.post("/login", this.loginForm).then((res) => {
+        console.log(this.loginForm)
         console.log(res.data)
         if (res.data.code === 1) {
-          window.sessionStorage.setItem('uid', res.data.data.uid)
-          window.sessionStorage.setItem('token', res.data.data.token)
-          window.sessionStorage.setItem('username', res.data.data.username)
+          sessionStorage.setItem('uid', res.data.data.uid)
+          sessionStorage.setItem('token', res.data.data.token)
+          sessionStorage.setItem('username', res.data.data.username)
           Message.success('登陆成功')
-          this.$router.push("/courses")
+          location.reload()
         } else {
           Message.error(res.data.data)
         }

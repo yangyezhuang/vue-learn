@@ -10,7 +10,7 @@
 
     <el-card>
       <!-- 表单 -->
-      <el-form :model="infoForm" :label-position="left" label-width="80px">
+      <el-form :model="infoForm" :label-position="left" style="width:1000px">
         <el-form-item label="课程名称">
           <el-input v-model="infoForm.title"></el-input>
         </el-form-item>
@@ -20,28 +20,40 @@
         <el-form-item label="学时">
           <el-input v-model="infoForm.hour"></el-input>
         </el-form-item>
+        <el-form-item label="类型">
+          <el-select v-model="value" placeholder="请选择">
+            <el-option
+                v-for="item in options"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+
+        <el-form-item label="上传文件">
+          <!--  上传文件  -->
+          <el-upload
+              class="pop-upload"
+              ref="upload"
+              action=""
+              :file-list="fileList"
+              :auto-upload="false"
+              :multiple="true"
+              :on-change="handleChange"
+              :on-remove="handleRemove"
+          >
+            <el-button type="success" icon="el-icon-folder-opened" slot="trigger" size="small">选取文件</el-button>
+          </el-upload>
+
+          <!-- 添加按钮 -->
+
+          <el-button type="primary" @click="submitUpload">上传课程</el-button>
+
+        </el-form-item>
       </el-form>
 
-      <!--  上传文件  -->
-      <el-upload
-          class="pop-upload"
-          ref="upload"
-          action=""
-          :file-list="fileList"
-          :auto-upload="false"
-          :multiple="true"
-          :on-change="handleChange"
-          :on-remove="handleRemove"
-      >
-        <el-button round type="success" slot="trigger" size="small">选取文件</el-button>
-      </el-upload>
 
-      <hr>
-
-      <!-- 添加按钮 -->
-      <el-row>
-        <el-button type="primary" @click="submitUpload">上传课程</el-button>
-      </el-row>
     </el-card>
   </div>
 </template>
@@ -58,6 +70,24 @@ export default {
         info: '',
         hour: ''
       },
+      options: [
+        {
+          value: '选项1',
+          label: '儿童文学'
+        }, {
+          value: '选项2',
+          label: '文史文学'
+        }, {
+          value: '选项3',
+          label: '经典文学'
+        }, {
+          value: '选项4',
+          label: '现代文学'
+        }, {
+          value: '选项5',
+          label: '网络文学'
+        }],
+      value: '',
       fileList: []
     }
   },

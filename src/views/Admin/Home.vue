@@ -3,21 +3,19 @@
     <!-- 侧边栏  -->
     <el-aside style="width: 200px;">
       <el-menu
-          router
           unique-opened
-          background-color="#324157">
-        <div style="height: 110px">
-          <img src="../../assets/image/logo.png" alt="" style="height: 80px;border-radius: 50px"/>
+          background-color="#324c6d">
+        <div style="height: 60px;margin-left: 30px">
+          <img src="../../../public/logo.jpg" alt="" style="height: 40px;border-radius: 5px"/>
         </div>
       </el-menu>
-      <hr>
 
       <el-menu
           router
           unique-opened
-          background-color="#324157"
-          text-color="#fff"
-          active-text-color="#ffd04b"
+          background-color="#324c6d"
+          text-color="white"
+          active-text-color="#409EFF"
       >
         <!-- 一级菜单 -->
         <el-submenu
@@ -46,13 +44,12 @@
     </el-aside>
 
 
-
     <!--  页面主体  -->
     <el-container>
       <!--  头部区域  -->
       <el-header>
         <div>
-<!--          <img src="../../assets/image/logo.png" alt=""/>-->
+          <!--          <img src="../../assets/image/logo.png" alt=""/>-->
           <span>后台管理系统</span>
         </div>
         <el-button type="primary" @click="logout">退出</el-button>
@@ -88,15 +85,6 @@ export default {
       window.sessionStorage.clear();
       this.$router.push("/adminLogin");
     }
-
-
-    // 获取所有菜单
-    // async getMenuList() {
-    //   const { data: res } = this.$http.get("menus");
-    //   // if (res.meta.status !== 200) return this.$message.error("菜单获取失败");
-    //   // this.$message.success("菜单获取成功");
-    //   console.log(res);
-    // },
   },
 }
 </script>
@@ -107,12 +95,12 @@ export default {
 }
 
 .el-header {
-  background-color: #242F42;
+  background-color: white;
   display: flex;
   justify-content: space-between;
   padding-left: 0;
   align-items: center;
-  color: white;
+  color: black;
   font-size: 25px;
 
   > div {
@@ -132,16 +120,19 @@ export default {
 }
 
 .el-aside {
-  background-color: #324157;
+  background-color: #324c6d;
+  height: auto;
 
   .el-menu {
     border-right: none;
+    height: auto;
   }
 
 }
 
-.el-main{
+.el-main {
   height: 100%;
   width: 100%;
+  background-color: #F7F7F7;
 }
 </style>

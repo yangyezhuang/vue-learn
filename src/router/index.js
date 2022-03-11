@@ -87,7 +87,7 @@ const routes = [
             {path: 'users', component: Users},
             {path: 'home', component: Home2},
             {path: 'adduser', component: AddUser},
-            {path: 'edituser', component: EditUser},
+            {path: 'edituser/:uid', component: EditUser},
             {path: 'courses', component: Courses},
             {path: 'addCourse', component: AddCourse},
             {path: 'editCourse', component: EditCourse},
@@ -116,6 +116,12 @@ router.beforeEach((to, from, next) => {
         next() // 放行
     }
 })
+
+const originalPush = VueRouter.prototype.push
+
+VueRouter.prototype.push = function push(location) {
+    return originalPush.call(this, location).catch(err => err)
+}
 
 
 export default router

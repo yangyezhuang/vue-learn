@@ -66,14 +66,14 @@ export default {
           const req_Info = {
             username: this.userForm.username,
             password: this.userForm.password,
-            phonenum: this.userForm.phonenum,
+            phoneNum: this.userForm.phonenum,
             email: this.userForm.email
           }
           // 发起post请求，添加用户
           this.$http.post('user/add', req_Info).then((res) => {
             console.log(res)
           })
-          Message.success('用户创建成功')
+          Message.success(res.data)
           // 添加成功后，返回用户列表页
           this.$router.push('/users')
         } else {
