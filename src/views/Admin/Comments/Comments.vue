@@ -2,9 +2,8 @@
   <div>
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/comments">评论管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/comments">评论列表</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/mg/comments">评论管理</a></el-breadcrumb-item>
     </el-breadcrumb>
 
     <!--  卡片区域  -->
@@ -94,9 +93,8 @@ export default {
 
 
     // 删除评论
-    delComment(comment_id) {
-      this.$http.delete(`comments/del/${comment_id}`).then((res) => {
-      })
+    async delComment(comment_id) {
+      const {data: res} = await this.$http.delete(`comments/del/${comment_id}`)
       Message.success('删除成功')
       location.reload()
     }

@@ -3,22 +3,23 @@
     <el-header>
       <el-menu router mode="horizontal">
         <el-menu-item index="/">
-          <img src="../../../public/logo.jpg" style="height: 80%" alt="logo">
+          <img src="../../assets/image/logo.jpg" style="height: 80%" alt="logo">
         </el-menu-item>
         <el-menu-item index="/" style="font-size: 18px;">首页</el-menu-item>
         <el-menu-item index="/courses" style="font-size: 18px;">课程</el-menu-item>
         <el-menu-item index="/category" style="font-size: 18px;">分类</el-menu-item>
+        <el-menu-item index="/notice" style="font-size: 18px;">公告</el-menu-item>
         <el-menu-item index="/about" style="font-size: 18px;">关于</el-menu-item>
 
-        <!-- 搜索框 -->
-        <el-menu-item style="float: left">
-          <el-input placeholder="请输入课程" v-model="keyword">
-            <el-button slot="append" icon="el-icon-search" @click="search(keyword)"></el-button>
-          </el-input>
-        </el-menu-item>
-
-        <!-- 登录按钮 -->
+        <!-- TopBar 右侧区域 -->
         <el-menu-item style="float: right">
+          <!-- 搜索框 -->
+          <el-input placeholder="请输入课程" v-model="keyword" style="width:250px;margin-right: 30px">
+            <el-button slot="append" icon="el-icon-search" style="width: auto" @click="search(keyword)"></el-button>
+          </el-input>
+          <!--  公告牌  -->
+          <i class="el-icon-bell" style="font-size: 25px;margin-right: 20px" @click="openBoard"></i>
+          <!-- 登录按钮 -->
           <el-button circle size="medium" @click="loginDialog=true" v-show="show_login">登录</el-button>
           <!--  弹窗登录  -->
           <el-dialog title="登 陆" :visible.sync="loginDialog" :append-to-body='true' :lock-scroll="false"
@@ -30,14 +31,20 @@
           <el-popover
               v-show="show_admin"
               placement="bottom"
-              width="120"
+              width=100
               trigger="hover">
             <el-avatar slot="reference">{{ username }}</el-avatar>
             用户：{{ username }}
             <br>
             UID：{{ uid }}
-            <el-menu-item index="/user/info">个人中心</el-menu-item>
-            <el-menu-item @click="logout">退出登录</el-menu-item>
+            <el-menu-item index="/user/info">
+              <i class="el-icon-user"></i>
+              个人中心
+            </el-menu-item>
+            <el-menu-item @click="logout">
+              <i class="el-icon-switch-button"></i>
+              退出登录
+            </el-menu-item>
           </el-popover>
 
         </el-menu-item>
@@ -49,6 +56,8 @@
 <script>
 import Login from "./Login/Login";
 import {Message} from "element-ui";
+import {Notification} from 'element-ui';
+
 
 export default {
   name: "TopBar",
@@ -84,8 +93,19 @@ export default {
         Message.error("请输入关键字")
       } else {
         this.$router.push('/courses/search/' + keyword)
-        // console.log(this.$route.path)
       }
+    },
+
+    // 公告牌
+    async openBoard() {
+      const h = this.$createElement;
+      const {data: res} = await this.$http.get("/notice/new")
+      let notice = res.data
+
+      Notification({
+        title: notice.title,
+        message: h('i', {style: 'color: #409EFF'}, notice.text)
+      });
     },
 
     //  根据token判断登录状态

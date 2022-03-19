@@ -16,7 +16,7 @@
               <h3 style="text-align:left;margin-top: 5px">{{ item.title }}</h3>
               <p style="text-align:left;margin-top: 5px">{{ item.people }} 人在学
                 <span>
-                  <el-tag  size="mini" style="float:right;margin-right: 5px">{{item.type}}</el-tag>
+                  <el-tag size="mini" style="float:right;margin-right: 5px">{{ item.type }}</el-tag>
                 </span>
               </p>
             </div>
@@ -30,9 +30,7 @@
     </el-main>
 
     <!--   footer   -->
-    <el-footer>
-      <FootBar></FootBar>
-    </el-footer>
+    <FootBar></FootBar>
     <!--    </el-container>-->
   </div>
 </template>

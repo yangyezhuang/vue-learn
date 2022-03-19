@@ -100,7 +100,7 @@ export default {
 
 <style scoped>
 .el-button {
-  width: 30%;
+  /*width: 30%;*/
   margin-left: 35%;
 }
 </style>

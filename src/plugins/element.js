@@ -4,11 +4,15 @@ import 'element-ui/lib/theme-chalk/display.css';
 import {
     Container, Header, Main, Footer, Menu, MenuItem, Carousel, CarouselItem, Select, Breadcrumb,
     Button, Row, Col, Form, FormItem, Input, Submenu, MenuItemGroup, Card, BreadcrumbItem, Table,
-    TableColumn, Pagination, Aside, Progress, Dialog, Backtop, Rate, Avatar, Switch, Upload,Tag,
-    Popover,Empty,Divider,Option,InfiniteScroll
+    TableColumn, Pagination, Aside, Progress, Dialog, Backtop, Rate, Avatar, Switch, Upload, Tag,
+    Popover, Empty, Divider, Option, InfiniteScroll,Timeline,TimelineItem,Tabs,TabPane
 } from 'element-ui'
 
 
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Timeline)
+Vue.use(TimelineItem)
 Vue.use(Container)
 Vue.use(Aside)
 Vue.use(Header)

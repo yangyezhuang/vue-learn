@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/courses">课程管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/addcourse">添加课程</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
-
     <el-card>
       <!-- 表单 -->
       <el-form :model="infoForm" :label-position="left" style="width:1000px">
@@ -51,8 +43,6 @@
 
         </el-form-item>
       </el-form>
-
-
     </el-card>
   </div>
 </template>
@@ -61,7 +51,7 @@
 import {Message} from "element-ui";
 
 export default {
-  name: "AddGoods",
+  name: "Push",
   data() {
     return {
       infoForm: {

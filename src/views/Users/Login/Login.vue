@@ -1,23 +1,26 @@
 <template>
   <section>
     <el-container>
-      <el-form label-width="120px" :model="loginForm" :rules="Rules" ref="User">
-        <el-form-item label="邮箱" prop="username">
+      <el-form :model="loginForm" :rules="Rules" ref="User" style="margin: 0 auto">
+        <el-form-item prop="username">
           <el-input v-model="loginForm.email" placeholder="请输入邮箱"></el-input>
         </el-form-item>
 
-        <el-form-item label="密码" prop="password">
+        <el-form-item prop="password">
           <el-input type="password" v-model="loginForm.password" auto-complete="new-password"
                     placeholder="请输入密码"></el-input>
         </el-form-item>
 
-        <el-form-item label-width="70px">
-          <el-button @click="forgetPasswdShow=true">忘记</el-button>
-          <el-button @click=" $router.push('/adminLogin')">管理员</el-button>
-          <br>
+        <el-form-item>
+          <el-button plain type="primary" style="width: 100px" @click="$router.push('/admin')">admin</el-button>
+          <el-button style="width: 100px" type="primary" @click="login()">登 录</el-button>
+        </el-form-item>
 
-          <el-button type="primary" @click="registerShow = true">注 册</el-button>
-          <el-button type="primary" @click="login()">登 录</el-button>
+        <el-form-item>
+          <div style="width: 200px;">
+            <p style="float: left;margin-left: 20px" @click="registerShow = true">注册账号</p>
+            <p style="float: right;margin-right: 20px" @click="forgetPasswdShow=true">忘记密码</p>
+          </div>
         </el-form-item>
       </el-form>
     </el-container>
@@ -25,13 +28,13 @@
     <!--  内嵌视图  -->
     <!--  注册  -->
     <el-dialog title="注 册" :visible.sync="registerShow" center :append-to-body='true' :lock-scroll="false"
-               width="30%">
+               width="30%" center>
       <Register></Register>
     </el-dialog>
 
     <!--  忘记密码  -->
     <el-dialog title="忘记密码" :visible.sync="forgetPasswdShow" center :append-to-body='true' :lock-scroll="false"
-               width="30%">
+               width="30%" center>
       <ForgetPasswd></ForgetPasswd>
     </el-dialog>
 
@@ -64,12 +67,13 @@ export default {
   methods: {
     login() {
       this.$http.post("/login", this.loginForm).then((res) => {
-        console.log(this.loginForm)
-        console.log(res.data)
+        // console.log(this.loginForm)
+        // console.log(res.data)
         if (res.data.code === 1) {
           sessionStorage.setItem('uid', res.data.data.uid)
           sessionStorage.setItem('token', res.data.data.token)
           sessionStorage.setItem('username', res.data.data.username)
+          sessionStorage.setItem('role', res.data.data.role)
           Message.success('登陆成功')
           location.reload()
         } else {
@@ -82,8 +86,7 @@ export default {
 </script>
 
 <style scoped>
-.el-button {
-  width: 25%;
-  margin-left: 17%;
+p {
+  color: #409EFF;
 }
 </style>

@@ -72,15 +72,17 @@ html, body, #app {
 }
 
 .el-footer {
+    height: 200px;
     padding: 0;
     background-color: #272727;
-    color: #DBE4F6;
+    color: #8A8A8A;
     text-align: center;
     line-height: 35px;
 }
 
 body > .el-container {
     margin-bottom: 40px;
+    /*height: 100%;*/
 }
 
 .el-container:nth-child(5) .el-aside,

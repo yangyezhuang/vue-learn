@@ -5,7 +5,7 @@
     "children": [
       {
         "id": 1,
-        "path": "admin/home",
+        "path": "mg/home",
         "authName": "首页"
       }
     ]
@@ -16,12 +16,12 @@
     "children": [
       {
         "id": 101,
-        "path": "admin/users",
+        "path": "mg/users",
         "authName": "用户列表"
       },
       {
         "id": 102,
-        "path": "admin/adduser",
+        "path": "mg/adduser",
         "authName": "创建用户"
       }
     ]
@@ -32,36 +32,51 @@
     "children": [
       {
         "id": 301,
-        "path": "admin/courses",
+        "path": "mg/courses",
         "authName": "课程管理"
       },
       {
         "id": 302,
-        "path": "admin/addcourse",
+        "path": "mg/addcourse",
         "authName": "添加课程"
       }
     ]
   },
   {
     "id": 4,
-    "path": "admin/comments",
+    "path": "mg/comments",
     "authName": "评论管理",
     "children": [
       {
         "id": 401,
-        "path": "admin/comments",
+        "path": "mg/comments",
         "authName": "评论管理"
       }
     ]
   },
   {
     "id": 5,
-    "authName": "数据分析",
+    "authName": "网站公告",
     "children": [
       {
         "id": 501,
-        "path": "admin/dataAnalyse",
-        "authName": "数据分析"
+        "path": "mg/board",
+        "authName": "网站公告"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "authName": "设置",
+    "children": [
+      {
+        "id": 601,
+        "path": "mg/setting",
+        "authName": "网站设置"
+      },    {
+        "id": 602,
+        "path": "mg/shuffle",
+        "authName": "轮播图"
       }
     ]
   }

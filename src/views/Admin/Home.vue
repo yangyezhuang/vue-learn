@@ -1,138 +1,231 @@
 <template>
-  <el-container>
-    <!-- 侧边栏  -->
-    <el-aside style="width: 200px;">
-      <el-menu
-          unique-opened
-          background-color="#324c6d">
-        <div style="height: 60px;margin-left: 30px">
-          <img src="../../../public/logo.jpg" alt="" style="height: 40px;border-radius: 5px"/>
-        </div>
-      </el-menu>
-
-      <el-menu
-          router
-          unique-opened
-          background-color="#324c6d"
-          text-color="white"
-          active-text-color="#409EFF"
-      >
-        <!-- 一级菜单 -->
-        <el-submenu
-            :index="item.id + ''"
-            v-for="item in menus"
-            :key="item.id"
-        >
-          <!-- 一级菜单模板区 -->
-          <template slot="title">
-            <i class="el-icon-caret-right"></i>
-            <span>{{ item.authName }}</span>
+  <div>
+    <el-row :gutter="20">
+      <el-col style="width: 30%">
+        <!-- 课程热度  -->
+        <el-card shadow="hover" style="height:250px;">
+          <template #header>
+            <div class="clearfix">
+              <span>课程热度</span>
+            </div>
           </template>
-          <!-- 二级菜单 -->
-          <el-menu-item
-              :index="'/' + subItem.path"
-              v-for="subItem in item.children"
-              :key="subItem.id"
-          >
-            <template slot="title">
-              <i class="el-icon-paperclip"></i>
-              <span>{{ subItem.authName }}</span>
-            </template>
-          </el-menu-item>
-        </el-submenu>
-      </el-menu>
-    </el-aside>
+          唐诗
+          <el-progress :percentage="71.3" color="#42b983"></el-progress>
+          传统文化
+          <el-progress :percentage="63.1" color="#f1e05a"></el-progress>
+          吴文化
+          <el-progress :percentage="45.7"></el-progress>
+          传统美德
+          <el-progress :percentage="18.9" color="#f56c6c"></el-progress>
+        </el-card>
+        <!-- 饼图  -->
+        <el-card shadow="hover" class="mgb20" style="height:auto;margin-top: 15px">
+          <template #header>
+            <div class="clearfix">
+              <span>统计分析</span>
+            </div>
+          </template>
+          <div style="height: auto">
+            <ve-Pie :data="chartData" height="350px"></ve-Pie>
+          </div>
+        </el-card>
+      </el-col>
 
+      <!--  用户数量  -->
+      <el-col style="width: 65%">
+        <!--   小方块   -->
+        <el-row :gutter="20" class="mgb20">
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{ padding: '0px' }">
+              <div class="grid-content grid-con-1">
+                <i class="el-icon-user-solid grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">{{ userNum }}</div>
+                  <div>用户数量</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{ padding: '0px' }">
+              <div class="grid-content grid-con-2">
+                <i class="el-icon-message-solid grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">3231</div>
+                  <div>用户访问量</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{ padding: '0px' }">
+              <div class="grid-content grid-con-3">
+                <i class="el-icon-s-goods grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">{{ courseNum }}</div>
+                  <div>课程数量</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
 
-    <!--  页面主体  -->
-    <el-container>
-      <!--  头部区域  -->
-      <el-header>
-        <div>
-          <!--          <img src="../../assets/image/logo.png" alt=""/>-->
-          <span>后台管理系统</span>
-        </div>
-        <el-button type="primary" @click="logout">退出</el-button>
-      </el-header>
+        <!--  echarts  -->
+        <el-card style="height: auto">
+          <div class="one">
+            <ve-bar :data="chartData" height="100%" ></ve-bar>
+          </div>
+          <div class="one">
+            <ve-histogram :data="chartData" height="100%"></ve-histogram>
+          </div>
+          <hr>
+          <div class="four">
+            <ve-line :data="chartData" height="100%"></ve-line>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
 
-      <el-container>
-
-        <!-- 主体区域 -->
-        <el-main>
-          <router-view></router-view>
-        </el-main>
-
-      </el-container>
-    </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script>
-import Menus_data from '../../assets/data/Menus.json'
+import VeLine from "v-charts/lib/line.common";
+import Vehistogram from "v-charts/lib/line.common";
+import VePie from "v-charts/lib/pie.common";
+import VeBar from "v-charts/lib/bar.common"
 
 export default {
-  name: "Home",
+  name: "Home2",
+  components: {
+    VeLine,
+    Vehistogram,
+    VePie,
+    VeBar
+  },
   data() {
     return {
-      menus: Menus_data
-    };
+      userNum: '',
+      courseNum: '',
+      chartData: {
+        columns: ["日期", "销售额"],
+        rows: [
+          {日期: "1月1日", 销售额: 123},
+          {日期: "1月2日", 销售额: 1223},
+          {日期: "1月3日", 销售额: 2123},
+          {日期: "1月4日", 销售额: 4123},
+          {日期: "1月5日", 销售额: 3123},
+          {日期: "1月6日", 销售额: 7123},
+        ],
+      }
+    }
+  },
+
+  created() {
+    this.totalUser()
+    this.totalCourses()
   },
 
   methods: {
-    // 退出
-    logout() {
-      // 清除token
-      window.sessionStorage.clear();
-      this.$router.push("/adminLogin");
+    async totalUser() {
+      const {data: res} = await this.$http.get("/user/all")
+      this.userNum = res.data.length
+    },
+
+    async totalCourses() {
+      const {data: res} = await this.$http.get("/courses/all")
+      this.courseNum = res.data.length
     }
-  },
+  }
 }
 </script>
 
-<style lang="less" scoped>
-.el-container {
-  height: 100%;
-}
+<style scoped>
 
-.el-header {
-  background-color: white;
+.grid-content {
   display: flex;
-  justify-content: space-between;
-  padding-left: 0;
   align-items: center;
-  color: black;
-  font-size: 25px;
-
-  > div {
-    display: flex;
-    align-items: center;
-
-    span {
-      margin-left: 15px;
-    }
-  }
-
-  img {
-    height: 60px;
-    border-radius: 50%;
-    margin-left: 15px;
-  }
+  height: 100px;
 }
 
-.el-aside {
-  background-color: #324c6d;
-  height: auto;
-
-  .el-menu {
-    border-right: none;
-    height: auto;
-  }
-
+.grid-cont-right {
+  flex: 1;
+  text-align: center;
+  font-size: 14px;
+  color: #999;
 }
 
-.el-main {
-  height: 100%;
-  width: 100%;
-  background-color: #F7F7F7;
+.grid-num {
+  font-size: 30px;
+  font-weight: bold;
 }
+
+.grid-con-icon {
+  font-size: 50px;
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  line-height: 100px;
+  color: #fff;
+}
+
+.grid-con-1 .grid-con-icon {
+  background: rgb(45, 140, 240);
+}
+
+.grid-con-1 .grid-num {
+  color: rgb(45, 140, 240);
+}
+
+.grid-con-2 .grid-con-icon {
+  background: rgb(100, 213, 114);
+}
+
+.grid-con-2 .grid-num {
+  color: rgb(45, 140, 240);
+}
+
+.grid-con-3 .grid-con-icon {
+  background: rgb(242, 94, 67);
+}
+
+.grid-con-3 .grid-num {
+  color: rgb(242, 94, 67);
+}
+
+.user-info-cont div:first-child {
+  font-size: 30px;
+  color: #222;
+}
+
+
+.user-info-list span {
+  margin-left: 70px;
+}
+
+.mgb20 {
+  margin-bottom: 20px;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+.one {
+  width: 50% !important;
+  height: 300px !important;
+  float: left;
+}
+
+.four {
+  width: 100% !important;
+  height: 280px !important;
+  float: left;
+}
+
 </style>
+
+

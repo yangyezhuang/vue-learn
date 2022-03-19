@@ -19,9 +19,7 @@
       </div>
     </el-main>
 
-    <el-footer>
-      <FootBar ></FootBar>
-    </el-footer>
+    <FootBar></FootBar>
   </div>
 </template>
 

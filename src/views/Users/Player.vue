@@ -1,98 +1,96 @@
 <template>
   <div>
-    <el-container>
-      <!--  TopBar  -->
-      <TopBar></TopBar>
+    <!--    <el-container>-->
+    <!--  TopBar  -->
+    <TopBar></TopBar>
 
-      <!--  main  -->
-      <el-main style="height: auto">
-        <div style="width: 1200px;height: 474px;margin:0 auto">
-          <!--播放器-->
-          <div style="width: 70%;float: left">
-            <video width="100%" height="100%" controls :src="resource.chapter_src" type="video/mp4"></video>
-          </div>
-
-          <!--章节栏-->
-          <div style="width:30%;height: 100%;float: right;">
-            <el-card style="width:100%;height: 100%;float: right;">
-              <h3 style="text-align:left;margin-top: 5px">当前播放：{{ resource.chapter_title }}</h3>
-              <el-divider><h3>章节</h3></el-divider>
-
-              <ul class="infinite-list" v-infinite-scroll="load" style="overflow: auto; max-height: 280px;width:90%;">
-                <li v-for="chapter in chapterList" class="infinite-list-item"
-                    @click="getVideo(chapter.course_id, chapter.chapter_id)">{{ chapter.chapter_title }}
-                </li>
-              </ul>
-            </el-card>
-          </div>
+    <!--  main  -->
+    <el-main style="height: auto">
+      <div style="width: 1200px;height: 474px;margin:0 auto">
+        <!--播放器-->
+        <div style="width: 70%;float: left">
+          <video width="100%" height="100%" controls :src="resource.chapter_src" type="video/mp4"></video>
         </div>
-        <br>
+
+        <!--章节栏-->
+        <div style="width:30%;height: 100%;float: right;">
+          <el-card style="width:100%;height: 100%;float: right;">
+            <h3 style="text-align:left;margin-top: 5px">当前播放：{{ resource.chapter_title }}</h3>
+            <el-divider><h3>章节</h3></el-divider>
+
+            <ul class="infinite-list" v-infinite-scroll="load" style="overflow: auto; max-height: 280px;width:90%;">
+              <li v-for="chapter in chapterList" class="infinite-list-item"
+                  @click="getVideo(chapter.course_id, chapter.chapter_id)">{{ chapter.chapter_title }}
+              </li>
+            </ul>
+          </el-card>
+        </div>
+      </div>
+      <br>
 
 
-        <!--  下半部分  -->
-        <div style="width: 1200px;height: 100%;background-color: white;margin:0 auto">
-          <!--  分割线  -->
-          <el-divider></el-divider>
-          <!--  下左div  -->
-          <div style="width: 70%;float: left">
-            <!--  评论区  -->
-            <div style="height: 120px;">
+      <!--  下半部分  -->
+      <div style="width: 1200px;height: 100%;background-color: white;margin:0 auto">
+        <!--  分割线  -->
+        <el-divider></el-divider>
+        <!--  下左div  -->
+        <div style="width: 70%;float: left">
+          <!--  评论区  -->
+          <div style="height: 120px;">
+            <div style="float: left;margin-left: 50px">
+              <el-avatar> {{ username }}</el-avatar>
+              <p>{{ username }}</p>
+            </div>
+            <div style="float: right;margin-right: 50px;width: 670px">
+              <el-input
+                  type="textarea"
+                  :rows="3"
+                  placeholder="请输入评论内容"
+                  v-model="textarea">
+              </el-input>
+            </div>
+            <el-button type="primary" plain @click="pushComment">发表评论</el-button>
+          </div>
+
+          <!--  评论列表  -->
+          <el-divider><h3>评论列表</h3></el-divider>
+          <div v-for="item in comments">
+            <div style="height: 100px;margin-top: 10px;">
               <div style="float: left;margin-left: 50px">
-                <el-avatar> {{ username }}</el-avatar>
-                <p>{{ username }}</p>
+                <el-avatar> {{ item.username }}</el-avatar>
+                <p>{{ item.username }}</p>
               </div>
               <div style="float: right;margin-right: 50px;width: 670px">
                 <el-input
-                    type="textarea"
-                    :rows="3"
-                    placeholder="请输入评论内容"
-                    v-model="textarea">
+                    placeholder="请输入内容"
+                    v-model="item.comment"
+                    :disabled="true">
                 </el-input>
+                <br>
+                {{ item.date }}
               </div>
-              <el-button type="primary" plain @click="pushComment">发表评论</el-button>
             </div>
-
-            <!--  评论列表  -->
-            <el-divider><h3>评论列表</h3></el-divider>
-            <div v-for="item in comments">
-              <div style="height: 100px;margin-top: 10px;">
-                <div style="float: left;margin-left: 50px">
-                  <el-avatar> {{ item.username }}</el-avatar>
-                  <p>{{ item.username }}</p>
-                </div>
-                <div style="float: right;margin-right: 50px;width: 670px">
-                  <el-input
-                      placeholder="请输入内容"
-                      v-model="item.comment"
-                      :disabled="true">
-                  </el-input>
-                  <br>
-                  {{ item.date }}
-                </div>
-              </div>
-              <el-divider></el-divider>
-            </div>
+            <el-divider></el-divider>
           </div>
+        </div>
 
-          <!--  推荐  -->
-          <div style="width:30%;height: 100%;float: right;">
-            <h3>推荐课程</h3>
-            <div v-for="course in hotCourse">
-              <div style="height: 100px; width:90%;margin: 0 auto;background-color: #F1F2F3;margin-bottom: 20px"
-                   @click="$router.push('/courses/detail/'+course.id)">
-                <img :src="course.img" alt="" style="width: 50%;height: 100%;float:left;">
-                {{ course.title }}
-              </div>
+        <!--  推荐  -->
+        <div style="width:30%;height: 100%;float: right;">
+          <h3>推荐课程</h3>
+          <div v-for="course in hotCourse">
+            <div style="height: 100px; width:90%;margin: 0 auto;background-color: #F1F2F3;margin-bottom: 20px"
+                 @click="$router.push('/courses/detail/'+course.id)">
+              <img :src="course.img" alt="" style="width: 50%;height: 100%;float:left;">
+              {{ course.title }}
             </div>
           </div>
         </div>
-      </el-main>
+      </div>
+    </el-main>
 
-      <!--  footer  -->
-      <el-footer>
-        <FootBar></FootBar>
-      </el-footer>
-    </el-container>
+    <!--  footer  -->
+    <FootBar></FootBar>
+    <!--    </el-container>-->
   </div>
 </template>
 

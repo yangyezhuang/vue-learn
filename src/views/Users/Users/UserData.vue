@@ -5,7 +5,7 @@
       <div class="nav">
         <el-card>
           <div slot="header" class="clearfix">
-            <span> 用户数据统计</span>
+            <span> 类型爱好分析</span>
           </div>
           <div class="s">课程总数
             <p style="font-size: 30px;margin: 0">4</p>
@@ -16,20 +16,16 @@
           <div class="s">学习时长
             <p style="font-size: 30px;margin: 0">{{ DurationData.totalDuration }}</p>
           </div>
+
+          <p>{{ userlabel }}</p>
         </el-card>
+
 
         <el-card>
           <div slot="header" class="clearfix">
             <span> 学习专注度</span>
           </div>
           <el-progress type="circle" :percentage="Concentration"></el-progress>
-        </el-card>
-
-        <el-card>
-          <div slot="header" class="clearfix">
-            <span> 类型爱好分析</span>
-          </div>
-          <p>{{ userlabel }}</p>
         </el-card>
 
         <!-- 课程热度  -->
@@ -39,14 +35,7 @@
               <span>课程热度</span>
             </div>
           </template>
-          唐诗
-          <el-progress :percentage="71.3" color="#42b983"></el-progress>
-          传统文化
-          <el-progress :percentage="63.1" color="#f1e05a"></el-progress>
-          吴文化
-          <el-progress :percentage="45.7"></el-progress>
-          传统美德
-          <el-progress :percentage="18.9" color="#f56c6c"></el-progress>
+          <ve-histogram :data="DurationData" height="250px"></ve-histogram>
         </el-card>
       </div>
 
@@ -62,16 +51,11 @@
           <ve-pie :data="DurationData" height="100%"></ve-pie>
         </div>
       </el-card>
-      <el-card>
+      <el-card style="margin-top: 40px">
         <div slot="header" class="clearfix">
-          <span> 用户学习时长</span>
+          <span> 用户登录时段</span>
         </div>
-        <div class="one">
-          <ve-line :data="DurationData" height="100%"></ve-line>
-        </div>
-        <div class="two">
-          <ve-histogram :data="DurationData" height="100%"></ve-histogram>
-        </div>
+        <ve-line :data="DurationData" height="250px"></ve-line>
       </el-card>
 
     </el-card>
@@ -102,7 +86,7 @@ export default {
       username: sessionStorage.getItem('username'),
       uid: sessionStorage.getItem('uid'),
       Concentration: '',
-      userlabel: '',
+      userlabel: '喜欢经典文学',
       DurationData: {
         columns: ["dateLD", "learningDuration"],
         rows: [],

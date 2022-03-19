@@ -7,8 +7,8 @@
     <el-main style="width: 1200px;margin: 0 auto">
       <div style="min-height:700px;height: auto;margin: 0 auto;background-color: white;">
         <!--  背景图片   -->
-        <div style="height: 180px;background-image: linear-gradient(0.45turn,pink,#20A0FF)">
-          <div style="">
+        <div class="cardBox">
+          <div class="downDiv">
             <el-avatar :size=80 style="margin-top: 50px">{{ username }}</el-avatar>
             <h2>{{ username }}</h2>
           </div>
@@ -16,9 +16,10 @@
 
         <!--  导航 -->
         <el-menu router mode="horizontal">
-          <el-menu-item index="/user/info" style="font-size: 18px;">个人信息</el-menu-item>
-          <el-menu-item index="/user/courses" style="font-size: 18px;">我的课程</el-menu-item>
-          <el-menu-item index="/user/data" style="font-size: 18px;">数据中心</el-menu-item>
+          <el-menu-item index="/user/info" style="font-size: 18px;">个人中心</el-menu-item>
+          <el-menu-item index="/user/courses" style="font-size: 18px;">学习中心</el-menu-item>
+          <el-menu-item v-if="role==='stu'" index="/user/data" style="font-size: 18px;">数据中心</el-menu-item>
+          <el-menu-item v-if="role==='tch'" index="/user/push" style="font-size: 18px;">发布课程</el-menu-item>
         </el-menu>
 
         <!--  视图  -->
@@ -46,7 +47,8 @@ export default {
 
   data() {
     return {
-      username: sessionStorage.getItem("username")
+      username: sessionStorage.getItem("username"),
+      role: sessionStorage.getItem("role")
     }
   },
 
@@ -68,4 +70,15 @@ export default {
 </script>
 
 <style scoped>
+.cardBox {
+  height: 180px;
+  background-color: #F2ECF0;
+}
+
+.downDiv {
+  /*background-color: gray;*/
+  /*height: 50px;*/
+}
+
+
 </style>

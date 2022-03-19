@@ -2,9 +2,9 @@
   <div>
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/Home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/edituser">信息修改</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/mg/users">用户管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/mg/edituser">信息修改</a></el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-card>

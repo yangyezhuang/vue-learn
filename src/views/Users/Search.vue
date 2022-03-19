@@ -1,36 +1,39 @@
 <template>
   <div>
-    <el-container>
-      <!--   TopBar   -->
-      <TopBar></TopBar>
+    <!--    <el-container>-->
+    <!--   TopBar   -->
+    <TopBar></TopBar>
 
-      <!--   课程列表   -->
-      <el-main>
-        <div class="main">
-          <h3 style="color: #009EDD;margin: 0">相关课程</h3>
-          <el-divider></el-divider>
+    <!--   课程列表   -->
+    <el-main>
+      <div class="main">
+        <h3 style="color: #009EDD;margin: 0">相关课程</h3>
+        <el-divider></el-divider>
 
-          <div id="class_list" v-for="item in classItems" :key="item.title">
-            <div id="class_li">
-              <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
-              <div>
-                <h3>{{ item.title }}</h3>
-                <p style="color: #029FDD">{{ item.people }}人在学</p>
+        <!--  相关课程列表  -->
+        <div v-for="item in classItems" :key="item.title">
+          <el-card >
+            <div id="card_box">
+              <div id="card_box_left">
+                <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
+              </div>
+              <div id="card_box_right">
+                <h3 style="text-align:left;">{{ item.title }}</h3>
+                <p style="text-align:left;">{{ item.info.toString().substr(0, 45) }}</p>
               </div>
             </div>
-          </div>
+          </el-card>
         </div>
+      </div>
 
 
-        <!--  backtop  -->
-        <el-backtop :bottom="80">Top</el-backtop>
-      </el-main>
+      <!--  backtop  -->
+      <el-backtop :bottom="80">Top</el-backtop>
+    </el-main>
 
-      <!--   footer   -->
-      <el-footer>
-        <FootBar></FootBar>
-      </el-footer>
-    </el-container>
+    <!--   footer   -->
+    <FootBar></FootBar>
+    <!--   </el-container>  -->
   </div>
 </template>
 
@@ -62,11 +65,10 @@ export default {
 
       const {data: res} = await this.$http.get(`/courses/search/${keyword}`)
       this.classItems = res.data;
-      // location.reload()
-      console.log(res.data)
+      // console.log(res.data)
     },
 
-    // 根据id转跳对应的课程详情页
+    // 根据id转跳课程详情页
     toCourseDetail(course_id) {
       this.$router.push('/courses/detail/' + course_id);
     }
@@ -83,16 +85,25 @@ export default {
 
 img {
   width: 100%;
-  height: 50%;
+  height: 100%;
 }
 
-#class_li {
-  width: 200px;
-  height: 200px;
-  background-color: #FFFFFD;
+#card_box {
+  height: 120px;
   float: left;
   margin: 20px;
-  box-shadow: 2px 2px 5px #888888
+}
+
+#card_box_left {
+  float: left;
+  height: 100%;
+  width: 300px
+}
+
+#card_box_right {
+  margin-left: 350px;
+  width: 750px;
+  margin-top: 0
 }
 
 </style>

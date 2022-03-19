@@ -1,18 +1,18 @@
 <template>
-  <el-container>
+  <div>
+    <!--  <el-container>-->
+
     <!--  TopBar  -->
     <TopBar></TopBar>
 
 
     <!--  轮播图  -->
-    <div style="width: 90%;margin: 0 auto">
-<!--        <el-carousel trigger="click" height="200px">-->
-      <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in shuffling" :key="item">
-          <img :src="item" alt="" style="width: 100%;height: 100%">
-        </el-carousel-item>
-      </el-carousel>
-    </div>
+    <!--  <el-carousel trigger="click" height="200px"style="width: 90%;margin: 0 auto">  -->
+    <el-carousel :interval="4000" type="card" height="200px" style="width: 90%;margin: 0 auto">
+      <el-carousel-item v-for="item in shuffle" :key="item">
+        <img :src="item.url" alt="" style="width: 100%;height: 100%">
+      </el-carousel-item>
+    </el-carousel>
     <br>
 
 
@@ -22,8 +22,8 @@
       <div style="margin: 0 auto;width: 1000px;height: 70px;">
         <el-row :gutter="10">
           <el-col :span="6" v-for="good in goods">
-            <div
-                style="width: 130px;height: 70px;border-radius: 20px 0;background-color: #FDF9F0;box-shadow: 2px 2px 5px #888888;margin-left: 170px">
+            <div style="width: 130px;height: 70px;border-radius: 10px 0;background-color: white;
+            box-shadow: 2px 2px 5px #1368D3;margin-left: 170px">
               <i class="el-icon-success" :style="{color:green}"/>
               优势 {{ good.id }}
               <h2 style="margin-bottom: 5px">{{ good.text }}</h2>
@@ -84,10 +84,10 @@
     <el-backtop :bottom="80">Top</el-backtop>
 
     <!--  el-footer  -->
-    <el-footer>
-      <FootBar></FootBar>
-    </el-footer>
-  </el-container>
+    <FootBar></FootBar>
+
+    <!--  </el-container>  -->
+  </div>
 </template>
 
 <script>
@@ -103,13 +103,7 @@ export default {
 
   data() {
     return {
-      shuffling: [
-        require('../../assets/image/lunbo4.jpg'),
-        require('../../assets/image/lunbo5.png'),
-        require('../../assets/image/lunbo6.png'),
-        require('../../assets/image/lunbo7.png'),
-        require('../../assets/image/lunbo8.png')
-      ],
+      shuffle: '',
       goods: [{id: 1, text: '优质'}, {id: 2, text: '高效'}, {id: 3, text: '免费'}],
       hotCourse: "",
       green: "green",
@@ -117,17 +111,24 @@ export default {
   },
 
   created() {
+    this.getShuffle()
     this.getHotCourses()
   },
 
   methods: {
+    // 获取轮播图
+    async getShuffle() {
+      const {data: res} = await this.$http.get("/shuffle")
+      console.log(res.data)
+      this.shuffle = res.data
+    },
+
     // 热门课程
     getHotCourses() {
       this.$http.get('/courses/hot').then((res) => {
         this.hotCourse = res.data.data;
       })
     },
-
 
     //  跳转到详情页面
     toCourseDetail(courseID) {

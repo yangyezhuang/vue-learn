@@ -2,9 +2,9 @@
   <div>
     <!--   面包屑导航   -->
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/welcome' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/admin/users">用户列表</a></el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/mg/users">用户管理</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/mg/users">用户列表</a></el-breadcrumb-item>
     </el-breadcrumb>
 
     <!--  卡片区域  -->
@@ -126,10 +126,9 @@ export default {
     },
 
     // 删除用户
-    delUser(uid) {
-      this.$http.post(`user/del/${uid}`).then((res) => {
-      })
-      Message.success('删除成功')
+    async delUser(uid) {
+      const {data: res} = await this.$http.post(`user/del/${uid}`)
+      Message.success(res.data)
       location.reload()
     }
   }
