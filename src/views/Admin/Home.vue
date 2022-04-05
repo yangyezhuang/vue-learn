@@ -68,6 +68,17 @@
               </div>
             </el-card>
           </el-col>
+          <el-col :span="8">
+            <el-card shadow="hover" :body-style="{ padding: '0px' }">
+              <div class="grid-content grid-con-4">
+                <i class="el-icon-s-goods grid-con-icon"></i>
+                <div class="grid-cont-right">
+                  <div class="grid-num">{{ courseNum }}</div>
+                  <div>在线人数</div>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
         </el-row>
 
         <!--  echarts  -->
@@ -191,6 +202,14 @@ export default {
 
 .grid-con-3 .grid-num {
   color: rgb(242, 94, 67);
+}
+
+.grid-con-4 .grid-con-icon {
+  background: yellowgreen;
+}
+
+.grid-con-4 .grid-num {
+  color: yellowgreen;
 }
 
 .user-info-cont div:first-child {

@@ -100,6 +100,7 @@ import FootBar from "./FootBar";
 import {videoPlayer} from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import 'vue-video-player/src/custom-theme.css'
+import jwt from 'jsonwebtoken'
 
 export default {
   name: "Player",
@@ -110,7 +111,7 @@ export default {
   },
   data() {
     return {
-      username: sessionStorage.getItem('username'),
+      username: jwt.decode(sessionStorage.getItem('token')).username,
       textarea: '',
       comments: '',
       resource: '',
@@ -163,7 +164,7 @@ export default {
     // 发表评论
     async pushComment() {
       const params = {
-        uid: sessionStorage.getItem("uid"),
+        uid: jwt.decode(sessionStorage.getItem("token")).uid,
         username: this.username,
         course_id: this.$route.params.course_id,
         comment: this.textarea

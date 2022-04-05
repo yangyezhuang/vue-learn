@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import jwt from 'jsonwebtoken'
 export default {
   name: "UserInfo",
   data() {
@@ -64,7 +65,12 @@ export default {
   methods: {
     // 获取用户信息
     getUserInfo() {
-      let uid = sessionStorage.getItem('uid')
+      let str = jwt.decode(sessionStorage.getItem('token'))
+      this.uid = str.uid
+      console.log(this.uid)
+
+
+      let uid = this.uid
       let headers = {
         "token": sessionStorage.getItem('token')
       }

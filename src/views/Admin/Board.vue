@@ -9,13 +9,7 @@
 
     <!--  卡片区域  -->
     <el-card>
-      <!-- 搜索 -->
       <el-row :gutter="30">
-        <el-col :span="8">
-          <el-input placeholder="请输入内容">
-            <el-button slot="append" icon="el-icon-search"></el-button>
-          </el-input>
-        </el-col>
         <el-col :span="8">
           <!--发布公告-->
           <el-button type="primary" @click="dialogFormVisible = true">发布公告</el-button>
@@ -34,7 +28,6 @@
               <el-button type="primary" @click="dialogFormVisible = false,addNotice()">确 定</el-button>
             </div>
           </el-dialog>
-
         </el-col>
       </el-row>
 
@@ -70,12 +63,10 @@
 
 
 <script>
-
 import {Message} from "element-ui";
 
 export default {
   name: "Board",
-
   data() {
     return {
       notices: '',
@@ -126,9 +117,11 @@ export default {
     // 发布公告
     async addNotice() {
       const {data: res} = await this.$http.post("/notice/add", this.form)
-      if (res.data === 1) {
-        Message.success(res.data)
+      if (res.data === "1") {
+        Message.success('发布成功')
         location.reload()
+      } else {
+        Message.success(res.data)
       }
     }
   }

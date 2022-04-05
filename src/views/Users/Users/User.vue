@@ -37,6 +37,7 @@
 <script>
 import TopBar from "../TopBar"
 import FootBar from "../FootBar";
+import jwt from 'jsonwebtoken'
 
 export default {
   name: "Admin",
@@ -47,8 +48,8 @@ export default {
 
   data() {
     return {
-      username: sessionStorage.getItem("username"),
-      role: sessionStorage.getItem("role")
+      username: '',
+      role: ''
     }
   },
 
@@ -63,6 +64,11 @@ export default {
       if (!tokenStr) {
         this.$router.push('/')
       } else {
+        let str = jwt.decode(tokenStr)
+        this.uid = str.uid
+        this.username = str.username
+        this.role = str.role
+        console.log("解析：" + JSON.stringify(str))
       }
     }
   }
@@ -72,7 +78,8 @@ export default {
 <style scoped>
 .cardBox {
   height: 180px;
-  background-color: #F2ECF0;
+  /*background-color: #F2ECF0;*/
+  background-image: linear-gradient(to right, #fbc2eb, #a6c1ee);
 }
 
 .downDiv {

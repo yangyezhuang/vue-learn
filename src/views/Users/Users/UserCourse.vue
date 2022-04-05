@@ -40,6 +40,7 @@
 
 <script>
 import {Message} from 'element-ui'
+import jwt from "jsonwebtoken";
 
 export default {
   name: "test1",
@@ -59,12 +60,14 @@ export default {
     // 查看用户收藏的课程
     getUserLikes() {
       //  判断用户是否登录
-      const tokenStr = window.sessionStorage.getItem('token')
+      const tokenStr = sessionStorage.getItem('token')
       if (!tokenStr) {
         this.$router.push('/')
       } else {
         // 查找用户的全部课程
-        let uid = sessionStorage.getItem('uid')
+        let str = jwt.decode(sessionStorage.getItem('token'))
+        this.uid = str.uid
+        let uid = this.uid
 
         this.$http.get(`/user/courses/${uid}`).then((res) => {
           this.myCourses = res.data.data;
@@ -86,7 +89,7 @@ export default {
 
     // 根据id取消课程
     delCourse(course_id) {
-      let uid = sessionStorage.getItem('uid')
+      let uid = this.uid
 
       this.$http.delete(`/user/${uid}/course/${course_id}`).then((res) => {
         console.log(res.data)

@@ -12,6 +12,7 @@ Vue.use(VCharts)
 
 // 防止后端两次sessionID不同
 axios.defaults.withCredentials = true
+// axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 // 配置全局请求头
 axios.interceptors.request.use(

@@ -67,13 +67,8 @@ export default {
   methods: {
     login() {
       this.$http.post("/login", this.loginForm).then((res) => {
-        // console.log(this.loginForm)
-        // console.log(res.data)
         if (res.data.code === 1) {
-          sessionStorage.setItem('uid', res.data.data.uid)
-          sessionStorage.setItem('token', res.data.data.token)
-          sessionStorage.setItem('username', res.data.data.username)
-          sessionStorage.setItem('role', res.data.data.role)
+          sessionStorage.setItem('token', res.data.data)
           Message.success('登陆成功')
           location.reload()
         } else {

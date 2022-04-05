@@ -27,6 +27,7 @@
 import TopBar from "./TopBar"
 import FootBar from "./FootBar";
 
+
 export default {
   name: "About",
   components: {
@@ -35,6 +36,12 @@ export default {
   },
   data() {
     return {}
+  },
+  created() {
+    let token='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjpbeyJ1cmwiOiJodHRwczovL3Rvb2x0dC5jb20ifV0sImlhdCI6MTY0NjExMDgwNSwiZXhwIjoyNTU2MTE1MTk5LCJhdWQiOiIiLCJpc3MiOiJ0b29sdHQuY29tIiwic3ViIjoiIn0.NhUwqiPfYey9pKHSfrG-ptqEOamIQFK3-K7IrTeBFYU'
+
+
+
   }
 }
 </script>

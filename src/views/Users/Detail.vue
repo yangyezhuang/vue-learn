@@ -60,6 +60,7 @@
 import {Message} from 'element-ui'
 import TopBar from "./TopBar"
 import FootBar from "./FootBar";
+import jwt from 'jsonwebtoken'
 
 export default {
   name: "ClassInfo",
@@ -97,12 +98,12 @@ export default {
 
     // 收藏课程
     addCourse() {
-      const tokenStr = window.sessionStorage.getItem('token')
+      const tokenStr = sessionStorage.getItem('token')
       if (!tokenStr) {
         Message.error("请先登陆")
       } else {
         let course_id = this.course_id
-        let uid = sessionStorage.getItem("uid")
+        let uid = jwt.decode(tokenStr).uid
 
         this.$http.post(`/user/${uid}/addCourse/${course_id}`).then(res => {
           if (res.data.code === 1) {

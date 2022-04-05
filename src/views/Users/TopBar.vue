@@ -57,6 +57,7 @@
 import Login from "./Login/Login";
 import {Message} from "element-ui";
 import {Notification} from 'element-ui';
+import jwt from "jsonwebtoken";
 
 
 export default {
@@ -74,8 +75,10 @@ export default {
   data() {
     return {
       keyword: '',
-      uid: sessionStorage.getItem("uid"),
-      username: sessionStorage.getItem('username'),
+      // uid: sessionStorage.getItem("uid"),
+      // username: sessionStorage.getItem('username'),
+      uid: '',
+      username: '',
       show_login: true,
       show_admin: false,
       loginDialog: false,
@@ -115,6 +118,11 @@ export default {
       } else {
         this.show_login = false
         this.show_admin = true
+
+        let str = jwt.decode(tokenStr)
+        this.uid = str.uid
+        this.username = str.username
+        console.log("解析：" + JSON.stringify(str))
       }
     },
 

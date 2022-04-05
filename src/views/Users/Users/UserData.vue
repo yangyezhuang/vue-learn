@@ -71,7 +71,7 @@ import VeLine from "v-charts/lib/line.common";
 import VeBar from "v-charts/lib/bar.common";
 import VeHistogram from "v-charts/lib/histogram.common";
 import VePie from "v-charts/lib/pie.common";
-
+import jwt from 'jsonwebtoken'
 
 export default {
   name: "Test3",
@@ -83,8 +83,8 @@ export default {
   },
   data() {
     return {
-      username: sessionStorage.getItem('username'),
-      uid: sessionStorage.getItem('uid'),
+      username: '',
+      uid: '',
       Concentration: '',
       userlabel: '喜欢经典文学',
       DurationData: {
@@ -95,6 +95,10 @@ export default {
     };
   },
   created() {
+    let str = jwt.decode(sessionStorage.getItem('token'))
+    this.uid = str.uid
+    this.username = str.username
+
     this.getConcentration()
     this.getLearningDuration()
     this.getuserLabel()
