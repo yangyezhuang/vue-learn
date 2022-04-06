@@ -4,11 +4,26 @@
       <!--  -->
       <el-row :gutter="30">
         <el-col :span="8">
-          <el-button>添加图片</el-button>
+          <el-button  type="primary" @click="dialogFormVisible = true">添加图片</el-button>
+          <!--    弹窗    -->
+          <el-dialog title="上传图片" :visible.sync="dialogFormVisible">
+            <el-upload
+                action="https://jsonplaceholder.typicode.com/posts/"
+                list-type="picture-card"
+                :on-preview="handlePictureCardPreview"
+                :on-remove="handleRemove">
+              <i class="el-icon-plus"></i>
+            </el-upload>
+            <el-dialog :visible.sync="dialogVisible">
+              <img width="100%" :src="dialogImageUrl" alt="">
+            </el-dialog>
+            <br>
+            <el-button type="primary" @click="dialogFormVisible = false,updateUserInfo()">上传</el-button>
+          </el-dialog>
         </el-col>
       </el-row>
 
-      <!-- 评论列表 -->
+      <!-- 列表 -->
       <el-table
           :data="shuffleList"
           border stripe>
@@ -40,6 +55,10 @@ export default {
   name: "Shuffle",
   data() {
     return {
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      dialogImageUrl: '',
+      dialogVisible: false,
       shuffleList: [],
       queryInfo: {
         query: '',
@@ -55,6 +74,15 @@ export default {
   },
 
   methods: {
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+
+    // 获取轮播图
     async getShuffle() {
       const {data: res} = await this.$http.get("/shuffle")
       this.shuffleList = res.data

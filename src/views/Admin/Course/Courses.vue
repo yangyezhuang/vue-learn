@@ -88,7 +88,7 @@ export default {
 
     //  编辑课程信息
     editCourse() {
-      this.$router.push('/admin/editCourse')
+      this.$router.push('/mg/editCourse')
     },
 
     //  删除课程

@@ -40,14 +40,50 @@
                 @change=" userStateChanged(scope.row)">
             </el-switch>
           </template>
-
         </el-table-column>
 
-        <el-table-column label="操作" width="150px">
+        <el-table-column label="操作" width="200px">
           <template v-slot="scope">
-
             <!-- {{scope.row}}-->
-            <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.uid)"></el-button>
+            <!--  <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.uid)"></el-button>  -->
+            <el-button type="success" icon="el-icon-pie-chart" @click="toUserDraw(scope.row.uid)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" @click="dialogFormVisible = true"></el-button>
+            <!--    弹窗    -->
+            <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible">
+              <el-form ref="form" :model="form" label-width="45%">
+                <el-form-item label="UID">
+                  <el-col :span="6">
+                    <el-input v-model="scope.row.uid" :disabled="true"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="用户名">
+                  <el-col :span="6">
+                    <el-input v-model="scope.row.username" :disabled="true"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="密码">
+                  <el-col :span="6">
+                    <el-input v-model="form.password"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="手机号">
+                  <el-col :span="6">
+                    <el-input v-model="form.phoneNum"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item label="邮箱">
+                  <el-col :span="6">
+                    <el-input v-model="form.email"></el-input>
+                  </el-col>
+                </el-form-item>
+                <el-form-item>
+                  <el-col :span="6">
+                    <el-button type="primary" @click="dialogFormVisible = false,updateUserInfo()">保存</el-button>
+                  </el-col>
+                </el-form-item>
+              </el-form>
+            </el-dialog>
+
             <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.uid)"></el-button>
           </template>
         </el-table-column>
@@ -76,6 +112,16 @@ export default {
   data() {
     return {
       userslist: '',
+      form: {
+        uid: '',
+        username: '',
+        password: '',
+        phoneNum: '',
+        email: ''
+      },
+      dialogTableVisible: false,
+      dialogFormVisible: false,
+      formLabelWidth: '120px',
       queryInfo: {
         query: '',
         pagenum: 1, // 当前页数
@@ -122,7 +168,24 @@ export default {
 
     // 编辑用户信息
     editUser(uid) {
-      this.$router.push(`/admin/edituser/${uid}`)
+      this.$router.push(`/mg/edituser/${uid}`)
+    },
+
+    // 去用户画像页
+    toUserDraw(uid){
+      this.$router.push(`/mg/draw/${uid}`)
+    },
+
+
+    // 修改用户信息
+    async updateUserInfo() {
+      // const {data: res} = await this.$http.post("/notice/add", this.form)
+      // if (res.data === "1") {
+      Message.success('修改成功')
+      //   location.reload()
+      // } else {
+      //   Message.success(res.data)
+      // }
     },
 
     // 删除用户

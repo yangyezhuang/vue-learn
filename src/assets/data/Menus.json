@@ -55,6 +55,23 @@
     ]
   },
   {
+    "id": 7,
+    "authName": "数据统计",
+    "path": "mg/statistical",
+    "children": [
+      {
+        "id": 701,
+        "path": "mg/statistic1",
+        "authName": "用户比例"
+      },
+      {
+        "id": 702,
+        "path": "mg/statistic2",
+        "authName": "课程类别统计"
+      }
+    ]
+  },
+  {
     "id": 5,
     "authName": "网站公告",
     "children": [
@@ -73,7 +90,8 @@
         "id": 601,
         "path": "mg/setting",
         "authName": "网站设置"
-      },    {
+      },
+      {
         "id": 602,
         "path": "mg/shuffle",
         "authName": "轮播图"

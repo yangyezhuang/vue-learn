@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import TopBar from "./views/Users/TopBar";
-import FootBar from "./views/Users/FootBar";
+import TopBar from "./views/Front/Layout/TopBar";
+import FootBar from "./views/Front/Layout/FootBar";
 
 export default {
   name: 'App',

@@ -1,19 +1,19 @@
 // 前台组件
-import Index from '../views/Users/Index'
-import Course from '../views/Users/Course'
-import Category from "../views/Users/Category"
-import Notice from "../views/Users/Notice"
-import About from "../views/Users/About"
-import Error from "../views/Users/404"
-import Detail from '../views/Users/Detail'
-import Search from "../views/Users/Search"
-import Player from "../views/Users/Player"
-import User from '../views/Users/Users/User'
+import Index from '../views/Front/Main/Index'
+import Course from '../views/Front/Main/Course'
+import Category from "../views/Front/Main/Category"
+import Notice from "../views/Front/Main/Notice"
+import About from "../views/Front/Layout/About"
+import Error from "../views/Front/Layout/404"
+import Detail from '../views/Front/Main/Detail'
+import Search from "../views/Front/Main/Search"
+import Player from "../views/Front/Main/Player"
 
-import UserInfo from "../views/Users/Users/UserInfo"
-import UserCourse from "../views/Users/Users/UserCourse"
-import UserData from "../views/Users/Users/UserData"
-import Push from "../views/Users/Users/Push";
+import User from '../views/Front/Users/User'
+import UserInfo from "../views/Front/Users/UserInfo"
+import UserCourse from "../views/Front/Users/UserCourse"
+import UserData from "../views/Front/Users/UserData"
+import Push from "../views/Front/Users/Push";
 
 
 export default [

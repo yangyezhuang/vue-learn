@@ -48,7 +48,7 @@
         <div>
           <span>后台管理系统</span>
         </div>
-        <el-button type="primary" @click="logout">退出</el-button>
+        <el-button type="primary" style="margin-right: 20px" @click="logout">退出</el-button>
       </el-header>
 
       <!-- 主体区域 -->
