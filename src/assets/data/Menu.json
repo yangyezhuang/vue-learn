@@ -17,7 +17,12 @@
       {
         "id": 101,
         "path": "mg/users",
-        "authName": "用户列表"
+        "authName": "学生管理"
+      },
+      {
+        "id": 101,
+        "path": "mg/teacher",
+        "authName": "教师管理"
       },
       {
         "id": 102,
@@ -44,7 +49,6 @@
   },
   {
     "id": 4,
-    "path": "mg/comments",
     "authName": "评论管理",
     "children": [
       {
@@ -57,7 +61,6 @@
   {
     "id": 7,
     "authName": "数据统计",
-    "path": "mg/statistical",
     "children": [
       {
         "id": 701,
@@ -68,17 +71,27 @@
         "id": 702,
         "path": "mg/statistic2",
         "authName": "课程类别统计"
+      },
+      {
+        "id": 703,
+        "path": "mg/statistic3",
+        "authName": "用户访问量"
       }
     ]
   },
   {
     "id": 5,
-    "authName": "网站公告",
+    "authName": "建议公告",
     "children": [
       {
         "id": 501,
         "path": "mg/board",
         "authName": "网站公告"
+      },
+      {
+        "id": 502,
+        "path": "mg/advice",
+        "authName": "建议投诉"
       }
     ]
   },

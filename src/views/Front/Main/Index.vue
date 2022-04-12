@@ -1,8 +1,6 @@
 <template>
   <div>
     <!--  <el-container>-->
-
-    <!--  TopBar  -->
     <TopBar></TopBar>
 
 
@@ -18,6 +16,7 @@
 
     <!--  main  -->
     <el-main style="width: 1200px;margin: 0 auto">
+
       <!--  优势  -->
       <div style="margin: 0 auto;width: 1000px;height: 70px;">
         <el-row :gutter="10">
@@ -79,13 +78,10 @@
       <img src="../../../assets/image/footer.png" alt="" style="width: 100%" @click="$router.push('/courses')">
     </el-main>
 
-
     <!--  back top  -->
     <el-backtop :bottom="80">Top</el-backtop>
 
-    <!--  el-footer  -->
     <FootBar></FootBar>
-
     <!--  </el-container>  -->
   </div>
 </template>

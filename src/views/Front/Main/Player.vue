@@ -18,12 +18,18 @@
               <i class="el-icon-caret-right"></i>
               当前播放：{{ resource.chapter_title }}</h3>
             <el-divider><h3>章节目录</h3></el-divider>
-
             <ul class="infinite-list" v-infinite-scroll="load" style="overflow: auto; max-height: 280px;width:90%;">
               <li v-for="chapter in chapterList" class="infinite-list-item"
                   @click="getVideo(chapter.course_id, chapter.chapter_id)">{{ chapter.chapter_title }}
               </li>
             </ul>
+
+            <!--添加笔记-->
+            <el-button type="primary" @click="noteDialogShow=true">添加笔记</el-button>
+            <el-dialog title="添加笔记" :visible.sync="noteDialogShow" center :append-to-body='true' :lock-scroll="false"
+                       width="60%" center>
+              <Note :msg="uid"></Note>
+            </el-dialog>
           </el-card>
         </div>
       </div>
@@ -90,7 +96,8 @@
       </div>
     </el-main>
 
-    <!--  footer  -->
+    <el-backtop :bottom="80">Top</el-backtop>
+
     <FootBar></FootBar>
     <!--    </el-container>-->
   </div>
@@ -99,6 +106,7 @@
 <script>
 import TopBar from "../Layout/TopBar"
 import FootBar from "../Layout/FootBar";
+import Note from "../Dialog/Note";
 import {videoPlayer} from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import 'vue-video-player/src/custom-theme.css'
@@ -109,16 +117,19 @@ export default {
   components: {
     TopBar,
     FootBar,
-    videoPlayer
+    videoPlayer,
+    Note
   },
   data() {
     return {
+      uid: jwt.decode(sessionStorage.getItem('token')).uid,
       username: jwt.decode(sessionStorage.getItem('token')).username,
       textarea: '',
       comments: '',
       resource: '',
       hotCourse: '',
-      chapterList: ''
+      chapterList: '',
+      noteDialogShow: false
     }
   },
 

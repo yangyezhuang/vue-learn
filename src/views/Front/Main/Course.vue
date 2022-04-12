@@ -1,7 +1,6 @@
 <template>
   <div>
     <!--  <el-container>  -->
-    <!--  TopBar  -->
     <TopBar></TopBar>
 
     <!--   课程列表   -->
@@ -29,7 +28,6 @@
       <el-backtop :bottom="80">Top</el-backtop>
     </el-main>
 
-    <!--   footer   -->
     <FootBar></FootBar>
     <!--    </el-container>-->
   </div>

@@ -40,6 +40,9 @@
       <el-tab-pane label="我的积分">
         <el-empty description="暂未开放"></el-empty>
       </el-tab-pane>
+      <el-tab-pane label="课程兑换" v-if="role==='stu'">
+        <el-empty description="暂未开放"></el-empty>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -50,6 +53,7 @@ export default {
   name: "UserInfo",
   data() {
     return {
+      role:jwt.decode(sessionStorage.getItem("token")).role,
       form: {
         uid: '',
         username: '',

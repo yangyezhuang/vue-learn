@@ -2,12 +2,15 @@
 import Index from '../views/Front/Main/Index'
 import Course from '../views/Front/Main/Course'
 import Category from "../views/Front/Main/Category"
-import Notice from "../views/Front/Main/Notice"
-import About from "../views/Front/Layout/About"
-import Error from "../views/Front/Layout/404"
+import Teacher from "../views/Front/Main/Teacher";
+import TeacherDetail from "../views/Front/Teacher/TeacherDetail";
+
 import Detail from '../views/Front/Main/Detail'
 import Search from "../views/Front/Main/Search"
 import Player from "../views/Front/Main/Player"
+import Notice from "../views/Front/Main/Notice"
+import About from "../views/Front/Layout/About"
+import Error from "../views/Front/Layout/404"
 
 import User from '../views/Front/Users/User'
 import UserInfo from "../views/Front/Users/UserInfo"
@@ -35,6 +38,14 @@ export default [
     {
         path: '/courses/search/:keyword',
         component: Search
+    },
+    {
+        path: '/teacher',
+        component: Teacher
+    },
+    {
+        path: '/teacher/:id',
+        component: TeacherDetail
     },
     {
         path: "/category",

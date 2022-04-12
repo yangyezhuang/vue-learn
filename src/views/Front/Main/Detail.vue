@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-container>
-      <!--   TopBar   -->
       <TopBar></TopBar>
 
       <!--   main   -->
@@ -48,7 +47,6 @@
         </el-card>
       </el-main>
 
-      <!--   footer   -->
       <el-footer>
         <FootBar></FootBar>
       </el-footer>

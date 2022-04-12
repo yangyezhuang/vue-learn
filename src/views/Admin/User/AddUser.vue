@@ -21,7 +21,12 @@
         <el-form-item label="邮箱">
           <el-input v-model="userForm.email"></el-input>
         </el-form-item>
-        <!--  创建按钮  -->
+        <el-form-item label="角色">
+          <div style="float: left">
+            <el-radio v-model="userForm.radio" label="stu">学生</el-radio>
+            <el-radio v-model="userForm.radio" label="tch">教师</el-radio>
+          </div>
+        </el-form-item>
         <el-button type="primary" round @click="addUser()">创建用户</el-button>
       </el-form>
     </el-card>
@@ -40,7 +45,8 @@ export default {
         username: '',
         password: '',
         phonenum: '',
-        email: ''
+        email: '',
+        radio: ''
       },
       //  表单规则
       userFormRules: {

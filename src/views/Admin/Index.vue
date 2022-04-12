@@ -14,6 +14,7 @@
           <img src="../../../public/logo.jpg" alt="" style="height: 40px;border-radius: 5px"
                @click="$router.push('/')"/>
         </div>
+
         <!-- 一级菜单 -->
         <el-submenu
             :index="item.id + ''"
@@ -48,7 +49,30 @@
         <div>
           <span>后台管理系统</span>
         </div>
-        <el-button type="primary" style="margin-right: 20px" @click="logout">退出</el-button>
+        <!--        <el-button type="primary" style="margin-right: 20px" @click="logout">退出</el-button>-->
+        <!--  下拉列表  -->
+        <el-menu>
+          <el-menu-item>
+            <el-popover
+                v-show=true
+                placement="bottom"
+                width=100
+                trigger="hover">
+              <el-avatar slot="reference">admin</el-avatar>
+              用户：admin
+              <br>
+              UID：001
+              <el-menu-item @click="$router.push('/mg/adminInfo')">
+                <i class="el-icon-user"></i>
+                信息修改
+              </el-menu-item>
+              <el-menu-item @click="logout">
+                <i class="el-icon-switch-button"></i>
+                退出登录
+              </el-menu-item>
+            </el-popover>
+          </el-menu-item>
+        </el-menu>
       </el-header>
 
       <!-- 主体区域 -->
@@ -61,7 +85,7 @@
 </template>
 
 <script>
-import Menus_data from '../../assets/data/Menus.json'
+import Menus_data from '../../assets/data/Menu.json'
 
 export default {
   name: "Home",
@@ -70,17 +94,7 @@ export default {
       menus: Menus_data
     };
   },
-  created() {
-    // this.getMenuToTree()
-  },
-
   methods: {
-    // 获取菜单并转化为Tree
-    async getMenuToTree() {
-      const {data: res} = await this.$http.get("/menus")
-      let list = res.data
-    },
-
     // 退出
     logout() {
       // 清除token
@@ -88,7 +102,6 @@ export default {
       this.$router.push("/admin");
     }
   }
-  ,
 }
 </script>
 

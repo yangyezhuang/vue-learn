@@ -27,8 +27,9 @@
           </div>
         </el-card>
       </el-tab-pane>
-      <el-tab-pane label="课程兑换" v-if="role==='stu'">
-        <el-empty description="暂未开放"></el-empty>
+      <el-tab-pane label="我的笔记" v-if="role==='stu'">
+<!--        <el-empty description="暂未开放"></el-empty>-->
+        <UserNote></UserNote>
       </el-tab-pane>
       <el-tab-pane label="我发布的课程" v-if="role==='tch'">
         <el-empty description="暂未开放"></el-empty>
@@ -43,9 +44,13 @@
 <script>
 import {Message} from 'element-ui'
 import jwt from "jsonwebtoken";
+import UserNote from "./UserNote";
 
 export default {
   name: "test1",
+  components:{
+    UserNote
+  },
   data() {
     return {
       role: '',

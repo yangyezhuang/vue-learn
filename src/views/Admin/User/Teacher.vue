@@ -4,7 +4,7 @@
     <el-breadcrumb separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item><a href="/mg/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/users">用户列表</a></el-breadcrumb-item>
+      <el-breadcrumb-item><a href="/mg/teacher">教师管理</a></el-breadcrumb-item>
     </el-breadcrumb>
 
     <!--  卡片区域  -->
@@ -22,12 +22,17 @@
       <el-table :data="userslist.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
                 border stripe>
         <el-table-column type="index"></el-table-column>
+        <el-table-column label="头像" prop="img" width="100px">
+          <!-- 图片的显示 -->
+          <template v-slot="scope">
+            <img :src="scope.row.img" min-width="70" height="70"/>
+          </template>        </el-table-column>
         <el-table-column label="uid" prop="uid" width="100px"></el-table-column>
         <el-table-column label="用户名" prop="username" width="100px"></el-table-column>
-        <el-table-column label="密码" prop="password" width="120px"></el-table-column>
-        <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>
-        <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>
-        <el-table-column label="备注"></el-table-column>
+<!--        <el-table-column label="密码" prop="password" width="120px"></el-table-column>-->
+<!--        <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>-->
+<!--        <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>-->
+        <el-table-column label="备注" prop="info"></el-table-column>
         <el-table-column label="状态" prop="status" width="150px">
           <template slot-scope="scope">
             <el-switch
@@ -42,11 +47,10 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="操作" width="200px">
+        <el-table-column label="操作" width="140px">
           <template v-slot="scope">
             <!-- {{scope.row}}-->
             <!--  <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.uid)"></el-button>  -->
-            <el-button type="success" icon="el-icon-pie-chart" @click="toUserDraw(scope.row.uid)"></el-button>
             <el-button type="primary" icon="el-icon-edit" @click="dialogFormVisible = true"></el-button>
             <!--    弹窗    -->
             <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible">
@@ -107,7 +111,7 @@
 import {Message} from "element-ui";
 
 export default {
-  name: "Users",
+  name: "Teacher",
 
   data() {
     return {
@@ -137,13 +141,11 @@ export default {
 
   methods: {
     // 查询所有用户
-    getUserList() {
-      this.$http.get('/user/all').then((res) => {
-        console.log('res.data' + res.data)
-        this.userslist = res.data.data
-        this.total = res.data.data.length
-
-      })
+    async getUserList() {
+      const {data: res} = await this.$http.get('/teacher/all')
+      console.log('res.data' + res.data)
+      this.userslist = res.data
+      this.total = res.data.length
     },
 
     // 监听pagesize改变的事件
@@ -169,11 +171,6 @@ export default {
     // 编辑用户信息
     editUser(uid) {
       this.$router.push(`/mg/edituser/${uid}`)
-    },
-
-    // 去用户画像页
-    toUserDraw(uid){
-      this.$router.push(`/mg/draw/${uid}`)
     },
 
 

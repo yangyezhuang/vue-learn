@@ -1,35 +1,12 @@
 <template>
   <div id="app">
-<!--    <TopBar v-show="!(path ==='/**')"></TopBar>-->
     <router-view/>
   </div>
 </template>
 
 <script>
-import TopBar from "./views/Front/Layout/TopBar";
-import FootBar from "./views/Front/Layout/FootBar";
-
 export default {
   name: 'App',
-  components: {
-    TopBar,
-    FootBar
-  },
-  data() {
-    return {
-      path: ''
-    }
-  },
-  // 判断路由
-  mounted() {
-    this.path = this.$route.path;
-    // console.log(this.$route.path)
-  },
-  watch: {
-    $route(to, from) {
-      this.path = to.path
-    }
-  }
 }
 </script>
 

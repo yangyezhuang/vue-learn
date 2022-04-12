@@ -8,6 +8,7 @@
         <el-menu-item index="/" style="font-size: 18px;">首页</el-menu-item>
         <el-menu-item index="/courses" style="font-size: 18px;">课程</el-menu-item>
         <el-menu-item index="/category" style="font-size: 18px;">分类</el-menu-item>
+        <el-menu-item index="/teacher" style="font-size: 18px;">师资</el-menu-item>
         <el-menu-item index="/notice" style="font-size: 18px;">公告</el-menu-item>
         <el-menu-item index="/about" style="font-size: 18px;">关于</el-menu-item>
 
@@ -22,8 +23,8 @@
           <!-- 登录按钮 -->
           <el-button circle size="medium" @click="loginDialog=true" v-show="show_login">登录</el-button>
           <!--  弹窗登录  -->
-          <el-dialog title="登 陆" :visible.sync="loginDialog" :append-to-body='true' :lock-scroll="false"
-                     width="30%" center>
+          <el-dialog :visible.sync="loginDialog" :append-to-body='true' :lock-scroll="false"
+                     width="40%" center>
             <Login></Login>
           </el-dialog>
 
@@ -54,7 +55,7 @@
 </template>
 
 <script>
-import Login from "../Login/Login";
+import Login from "../Dialog/Login";
 import {Message} from "element-ui";
 import {Notification} from 'element-ui';
 import jwt from "jsonwebtoken";

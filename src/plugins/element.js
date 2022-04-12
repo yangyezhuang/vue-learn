@@ -5,10 +5,11 @@ import {
     Container, Header, Main, Footer, Menu, MenuItem, Carousel, CarouselItem, Select, Breadcrumb,
     Button, Row, Col, Form, FormItem, Input, Submenu, MenuItemGroup, Card, BreadcrumbItem, Table,
     TableColumn, Pagination, Aside, Progress, Dialog, Backtop, Rate, Avatar, Switch, Upload, Tag,
-    Popover, Empty, Divider, Option, InfiniteScroll,Timeline,TimelineItem,Tabs,TabPane
+    Popover, Empty, Divider, Option, InfiniteScroll,Timeline,TimelineItem,Tabs,TabPane,Radio
 } from 'element-ui'
 
 
+Vue.use(Radio)
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Timeline)

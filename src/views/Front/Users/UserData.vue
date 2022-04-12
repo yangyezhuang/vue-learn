@@ -8,7 +8,7 @@
             <span> 类型爱好分析</span>
           </div>
           <div class="s">课程总数
-            <p style="font-size: 30px;margin: 0">4</p>
+            <p style="font-size: 30px;margin: 0">{{ courseCount }}</p>
           </div>
           <div class="s">累计登录
             <p style="font-size: 30px;margin: 0">124</p>
@@ -26,7 +26,7 @@
           <div class="s">专注度
             <el-progress type="circle" :percentage="Concentration"></el-progress>
           </div>
-          <h3> <i class="el-icon-pie-chart"></i> {{ userlabel }}</h3>
+          <h3><i class="el-icon-pie-chart"></i> {{ userlabel }}</h3>
         </el-card>
       </div>
 
@@ -41,19 +41,20 @@
       <br>
       <el-card style="width: 350px;height: 150px;">
         <div slot="header" class="clearfix">
+          <h3 style="margin: 0 0 ">我的贡献</h3>
+        </div>
+        <h3 style="text-align: left">{{ commentCount }} 条评论 / {{ noteCount }} 条笔记</h3>
+      </el-card>
+      <br>
+      <el-card style="width: 350px;height: 150px;">
+        <div slot="header" class="clearfix">
           <h3 style="margin: 0 0 ">课程积分</h3>
         </div>
         <h1 style="text-align: left">0 积分</h1>
       </el-card>
       <br>
-      <el-card style="width: 350px;height: 150px;">
-        <div slot="header" class="clearfix">
-          <h3 style="margin: 0 0 ">讨论</h3>
-        </div>
-        <h3 style="text-align: left">发布 12 条评论</h3>
-      </el-card>
-      <br>
 
+      <!--      用户登录时段-->
       <el-card style="margin-top: 10px">
         <div slot="header" class="clearfix">
           <span> 用户登录时段</span>
@@ -69,18 +70,12 @@
 
 <script>
 import VeLine from "v-charts/lib/line.common";
-import VeBar from "v-charts/lib/bar.common";
-import VeHistogram from "v-charts/lib/histogram.common";
-import VePie from "v-charts/lib/pie.common";
 import jwt from 'jsonwebtoken'
 
 export default {
   name: "Test3",
   components: {
-    VeLine,
-    VeBar,
-    VePie,
-    VeHistogram
+    VeLine
   },
   data() {
     return {
@@ -92,7 +87,10 @@ export default {
         columns: ["dateLD", "learningDuration"],
         rows: [],
         totalDuration: ''
-      }
+      },
+      courseCount: '',
+      commentCount: '',
+      noteCount: ''
     };
   },
   created() {
@@ -103,6 +101,9 @@ export default {
     this.getConcentration()
     this.getLearningDuration()
     this.getuserLabel()
+    this.getCourseTotal()
+    this.getCommentTotal()
+    this.getNoteTotal()
   },
   methods: {
     // 获取用户专注度
@@ -124,7 +125,23 @@ export default {
         this.userlabel = res.data.data.userlabel
         console.log(res.data)
       })
-    }
+    },
+
+    // 获取课程数量
+    async getCourseTotal() {
+      const {data: res} = await this.$http.get(`user/course/total/${this.uid}`)
+      this.courseCount = res.data
+    },
+    // 获取笔记数量
+    async getCommentTotal() {
+      const {data: res} = await this.$http.get(`comments/total/user/${this.uid}`)
+      this.commentCount = res.data
+    },
+    // 获取笔记数量
+    async getNoteTotal() {
+      const {data: res} = await this.$http.get(`/note/total/user/${this.uid}`)
+      this.noteCount = res.data
+    },
   }
 }
 </script>
