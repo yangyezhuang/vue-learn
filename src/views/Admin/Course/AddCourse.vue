@@ -1,16 +1,7 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/courses">课程管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/addcourse">添加课程</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
-
     <el-card>
-      <!-- 表单 -->
-      <el-form :model="infoForm" :label-position="left" style="width:1000px">
+      <el-form :model="infoForm" :label-position="left" label-width="80px">
         <el-form-item label="课程名称">
           <el-input v-model="infoForm.title"></el-input>
         </el-form-item>
@@ -21,38 +12,34 @@
           <el-input v-model="infoForm.hour"></el-input>
         </el-form-item>
         <el-form-item label="类型">
-          <el-select v-model="value" placeholder="请选择">
-            <el-option
-                v-for="item in options"
-                :label="item.label"
-                :value="item.value">
-            </el-option>
-          </el-select>
+          <div style="float: left">
+            <el-select v-model="value" placeholder="请选择">
+              <el-option
+                  v-for="item in options"
+                  :label="item.label"
+                  :value="item.value">
+              </el-option>
+            </el-select>
+          </div>
         </el-form-item>
 
         <el-form-item label="上传文件">
-          <!--  上传文件  -->
-          <el-upload
-              class="pop-upload"
-              ref="upload"
-              action=""
-              :file-list="fileList"
-              :auto-upload="false"
-              :multiple="true"
-              :on-change="handleChange"
-              :on-remove="handleRemove"
-          >
-            <el-button type="success" icon="el-icon-folder-opened" slot="trigger" size="small">选取文件</el-button>
-          </el-upload>
-
-          <!-- 添加按钮 -->
-
-          <el-button type="primary" @click="submitUpload">上传课程</el-button>
-
+          <div style="float: left">
+            <el-upload
+                class="upload-demo"
+                drag
+                action="https://jsonplaceholder.typicode.com/posts/"
+                multiple>
+              <i class="el-icon-upload"></i>
+              <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+              <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+            </el-upload>
+          </div>
         </el-form-item>
+
+        <!-- 添加按钮 -->
+        <el-button type="primary" @click="submitUpload">上传课程</el-button>
       </el-form>
-
-
     </el-card>
   </div>
 </template>

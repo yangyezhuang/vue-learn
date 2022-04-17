@@ -36,7 +36,7 @@
 
       <!--  精选课程  -->
       <h2 style="text-align:left;">精选课程</h2>
-      <el-row :gutter="50">
+      <el-row :gutter="40">
         <el-col v-for="course in hotCourse">
           <div class="grid-content bg-purple" style="box-shadow: 2px 2px 5px #888888"
                @click="toCourseDetail(course.id)">
@@ -120,10 +120,9 @@ export default {
     },
 
     // 热门课程
-    getHotCourses() {
-      this.$http.get('/courses/hot').then((res) => {
-        this.hotCourse = res.data.data;
-      })
+    async getHotCourses() {
+      const {data: res} = await this.$http.get('/courses/hot')
+      this.hotCourse = res.data;
     },
 
     //  跳转到详情页面

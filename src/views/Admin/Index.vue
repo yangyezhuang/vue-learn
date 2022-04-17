@@ -1,19 +1,22 @@
 <template>
   <el-container>
-    <!-- 侧边栏  -->
-    <el-aside style="width: 200px;">
+    <el-aside :width="isCollapse?'64px':'200px'">
       <el-menu
           router
           unique-opened
           background-color="#324c6d"
           text-color="white"
-          active-text-color="#409EFF"
+          active-text-color="deepskyblue"
+          class="el-menu-vertical-demo"
+          :collapse="isCollapse"
       >
-        <!--    logo    -->
-        <div style="height: 60px;margin-left: 30px">
-          <img src="../../../public/logo.jpg" alt="" style="height: 40px;border-radius: 5px"
-               @click="$router.push('/')"/>
-        </div>
+        <!--logo-->
+        <el-submenu>
+          <template slot="title">
+            <img src="../../assets/image/lg.png" alt="" style="width: 25px;float: left;margin-top: 15px">
+            <span style="text-align: center;font-size: 17px;color: white;margin-top: 0;margin-bottom: 0">后台管理系统</span>
+          </template>
+        </el-submenu>
 
         <!-- 一级菜单 -->
         <el-submenu
@@ -21,9 +24,8 @@
             v-for="item in menus"
             :key="item.id"
         >
-          <!-- 一级菜单模板区 -->
           <template slot="title">
-            <i class="el-icon-caret-right"></i>
+            <i :class="item.icon"></i>
             <span>{{ item.authName }}</span>
           </template>
 
@@ -34,7 +36,7 @@
               :key="subItem.id"
           >
             <template slot="title">
-              <i class="el-icon-paperclip"></i>
+              <i :class="subItem.icon"></i>
               <span>{{ subItem.authName }}</span>
             </template>
           </el-menu-item>
@@ -47,9 +49,24 @@
       <!--  头部区域  -->
       <el-header>
         <div>
-          <span>后台管理系统</span>
+          <!--  折叠/展开  -->
+          <span>
+            <i class="el-icon-s-fold" @click="Collapse"></i>
+          </span>
+
+          <!--  面包屑  -->
+          <div style="margin-top: 12px;">
+            <el-breadcrumb separator="/">
+              <el-breadcrumb-item
+                  v-for="item in breadList"
+                  :key="item.path"
+                  :to="{ path: item.path }"
+              >{{ item.meta.title }}
+              </el-breadcrumb-item>
+            </el-breadcrumb>
+          </div>
         </div>
-        <!--        <el-button type="primary" style="margin-right: 20px" @click="logout">退出</el-button>-->
+
         <!--  下拉列表  -->
         <el-menu>
           <el-menu-item>
@@ -79,7 +96,6 @@
       <el-main>
         <router-view></router-view>
       </el-main>
-
     </el-container>
   </el-container>
 </template>
@@ -91,14 +107,21 @@ export default {
   name: "Home",
   data() {
     return {
-      menus: Menus_data
+      menus: Menus_data,
+      isCollapse: false
     };
   },
+  computed: {
+    breadList() {
+      return this.$route.matched;
+    }
+  },
   methods: {
-    // 退出
+    Collapse() {
+      this.isCollapse = !this.isCollapse
+    },
     logout() {
-      // 清除token
-      window.sessionStorage.clear();
+      window.sessionStorage.clear(); // 清除token
       this.$router.push("/admin");
     }
   }
@@ -143,7 +166,11 @@ export default {
     border-right: none;
     height: auto;
   }
+}
 
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 
 .el-main {
@@ -151,4 +178,20 @@ export default {
   width: 100%;
   background-color: #F7F7F7;
 }
+
+
+/* 加过渡给侧边导航*/
+.el-aside {
+  transition: width 0.25s;
+  -webkit-transition: width 0.25s;
+  -moz-transition: width 0.25s;
+  -webkit-transition: width 0.25s;
+  -o-transition: width 0.25s;
+}
+
+/*加快侧边栏文字消失的速度*/
+.el-menu {
+  transition: all 10ms;
+}
+
 </style>

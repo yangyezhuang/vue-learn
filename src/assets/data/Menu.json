@@ -2,112 +2,138 @@
   {
     "id": 0,
     "authName": "首页",
+    "icon": "el-icon-s-home",
     "children": [
       {
         "id": 1,
         "path": "mg/home",
-        "authName": "首页"
+        "authName": "数据看板",
+        "icon": "el-icon-s-home"
       }
     ]
   },
   {
     "id": 1,
     "authName": "用户管理",
+    "icon": "el-icon-user-solid",
     "children": [
       {
         "id": 101,
-        "path": "mg/users",
-        "authName": "学生管理"
+        "path": "mg/userManager/users",
+        "authName": "学生管理",
+        "icon": "el-icon-user"
       },
       {
         "id": 101,
-        "path": "mg/teacher",
-        "authName": "教师管理"
+        "path": "mg/userManager/teacher",
+        "authName": "教师管理",
+        "icon": "el-icon-user"
       },
       {
         "id": 102,
-        "path": "mg/adduser",
-        "authName": "创建用户"
+        "path": "mg/userManager/adduser",
+        "authName": "创建用户",
+        "icon": "el-icon-plus"
       }
     ]
   },
   {
     "id": 3,
     "authName": "课程管理",
+    "icon": "el-icon-files",
     "children": [
       {
         "id": 301,
-        "path": "mg/courses",
-        "authName": "课程管理"
+        "path": "mg/courseManager/courses",
+        "authName": "课程管理",
+        "icon": "el-icon-notebook-1"
       },
       {
         "id": 302,
-        "path": "mg/addcourse",
-        "authName": "添加课程"
+        "path": "mg/courseManager/addcourse",
+        "authName": "添加课程",
+        "icon": "el-icon-upload"
       }
     ]
   },
   {
     "id": 4,
     "authName": "评论管理",
+    "icon": "el-icon-chat-dot-square",
     "children": [
       {
         "id": 401,
-        "path": "mg/comments",
-        "authName": "评论管理"
+        "path": "mg/commentManager/comments",
+        "authName": "评论管理",
+        "icon": "el-icon-chat-dot-square"
       }
     ]
   },
   {
     "id": 7,
     "authName": "数据统计",
+    "icon": "el-icon-pie-chart",
     "children": [
       {
         "id": 701,
-        "path": "mg/statistic1",
-        "authName": "用户比例"
+        "path": "mg/dataManager/statistic1",
+        "authName": "用户比例",
+        "icon": "el-icon-male"
       },
       {
         "id": 702,
-        "path": "mg/statistic2",
-        "authName": "课程类别统计"
+        "path": "mg/dataManager/statistic2",
+        "authName": "课程类别统计",
+        "icon": "el-icon-price-tag"
       },
       {
         "id": 703,
-        "path": "mg/statistic3",
-        "authName": "用户访问量"
+        "path": "mg/dataManager/statistic3",
+        "authName": "用户访问量",
+        "icon": "el-icon-data-line"
+      }   ,  {
+        "id": 704,
+        "path": "mg/dataManager/coursehot",
+        "authName": "课程热度",
+        "icon": "el-icon-data-line"
       }
     ]
   },
   {
     "id": 5,
     "authName": "建议公告",
+    "icon": "el-icon-data-analysis",
     "children": [
       {
         "id": 501,
-        "path": "mg/board",
-        "authName": "网站公告"
+        "path": "mg/boardManager/board",
+        "authName": "网站公告",
+        "icon": "el-icon-postcard"
       },
       {
         "id": 502,
-        "path": "mg/advice",
-        "authName": "建议投诉"
+        "path": "mg/boardManager/advice",
+        "authName": "建议投诉",
+        "icon": "el-icon-chat-dot-round"
       }
     ]
   },
   {
     "id": 6,
     "authName": "设置",
+    "icon": "el-icon-s-tools",
     "children": [
       {
         "id": 601,
-        "path": "mg/setting",
-        "authName": "网站设置"
+        "path": "mg/settings/setting",
+        "authName": "网站设置",
+        "icon": "el-icon-setting"
       },
       {
         "id": 602,
-        "path": "mg/shuffle",
-        "authName": "轮播图"
+        "path": "mg/settings/shuffle",
+        "authName": "轮播图",
+        "icon": "el-icon-brush"
       }
     ]
   }

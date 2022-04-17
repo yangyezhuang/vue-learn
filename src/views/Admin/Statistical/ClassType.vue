@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg">数据统计</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/statistic2">课程类别统计</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
     <el-card>
       <div style="width: auto;height: 400px" id="main">
       </div>
@@ -63,12 +56,12 @@ export default {
               show: false
             },
             data: [
-                    {value: 1048, name: '现代'},
-                    {value: 735, name: '历史'},
-                    {value: 580, name: '儿童'},
-                    {value: 484, name: '经典'},
-                    {value: 300, name: '社会'},
-                    {value: 500, name: '当代'}
+              {value: 1048, name: '现代'},
+              {value: 735, name: '历史'},
+              {value: 580, name: '儿童'},
+              {value: 484, name: '经典'},
+              {value: 300, name: '社会'},
+              {value: 500, name: '当代'}
             ]
           }
         ]

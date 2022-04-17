@@ -1,13 +1,5 @@
 <template>
   <div class="main">
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/courses">课程管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/courses">课程列表</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
-    <!--  卡片区域  -->
     <el-card>
       <!-- 搜索 -->
       <el-row :gutter="30">
@@ -27,9 +19,12 @@
         <el-table-column label="课程介绍" prop="info"></el-table-column>
         <el-table-column label="学时" prop="hour" width="50px"></el-table-column>
         <el-table-column label="学习人数" prop="people" width="100px"></el-table-column>
-        <el-table-column label="操作" width="150px">
-          <el-button type="primary" icon="el-icon-edit" @click="editCourse"></el-button>
-          <el-button type="danger" icon="el-icon-delete" @click="delCourse"></el-button>
+        <el-table-column label="操作" width="220px">
+          <template v-slot="scope">
+            <el-button type="success" icon="el-icon-view" @click="catCourse(scope.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" @click="editCourse"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delCourse"></el-button>
+          </template>
         </el-table-column>
       </el-table>
 
@@ -72,7 +67,6 @@ export default {
       this.$http.get('/courses/all').then((res) => {
         this.classItems = res.data.data;
         this.totalSize = res.data.data.length
-
       })
     },
 
@@ -84,6 +78,13 @@ export default {
     // 监听页码值改变的事件
     handleCurrentChange(pageNum) {
       this.queryInfo.pagenum = pageNum
+    },
+
+    // 查看课程详情
+    catCourse(course_id) {
+      console.log(course_id)
+      // this.$router.push('/mg/courseManager/chapterList')
+      this.$router.push(`/mg/courseManager/course/${course_id}`)
     },
 
     //  编辑课程信息

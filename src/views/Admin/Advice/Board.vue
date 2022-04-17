@@ -1,12 +1,5 @@
 <template>
   <div class="main">
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/dataAnalyse">网站公告</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
-
     <!--  卡片区域  -->
     <el-card>
       <el-row :gutter="30">

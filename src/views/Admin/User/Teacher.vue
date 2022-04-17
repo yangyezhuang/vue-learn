@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/teacher">教师管理</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
-    <!--  卡片区域  -->
     <el-card>
       <!-- 搜索栏 -->
       <el-row :gutter="30">
@@ -26,12 +18,13 @@
           <!-- 图片的显示 -->
           <template v-slot="scope">
             <img :src="scope.row.img" min-width="70" height="70"/>
-          </template>        </el-table-column>
+          </template>
+        </el-table-column>
         <el-table-column label="uid" prop="uid" width="100px"></el-table-column>
         <el-table-column label="用户名" prop="username" width="100px"></el-table-column>
-<!--        <el-table-column label="密码" prop="password" width="120px"></el-table-column>-->
-<!--        <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>-->
-<!--        <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>-->
+        <!--        <el-table-column label="密码" prop="password" width="120px"></el-table-column>-->
+        <!--        <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>-->
+        <!--        <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>-->
         <el-table-column label="备注" prop="info"></el-table-column>
         <el-table-column label="状态" prop="status" width="150px">
           <template slot-scope="scope">
@@ -46,12 +39,12 @@
             </el-switch>
           </template>
         </el-table-column>
-
-        <el-table-column label="操作" width="140px">
+        <el-table-column label="操作" width="150px">
           <template v-slot="scope">
             <!-- {{scope.row}}-->
-            <!--  <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.uid)"></el-button>  -->
             <el-button type="primary" icon="el-icon-edit" @click="dialogFormVisible = true"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.uid)"></el-button>
+
             <!--    弹窗    -->
             <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible">
               <el-form ref="form" :model="form" label-width="45%">
@@ -87,8 +80,6 @@
                 </el-form-item>
               </el-form>
             </el-dialog>
-
-            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.uid)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -166,11 +157,6 @@ export default {
         return Message.error('更新用户状态失败！')
       }
       Message.success('更新用户状态成功')
-    },
-
-    // 编辑用户信息
-    editUser(uid) {
-      this.$router.push(`/mg/edituser/${uid}`)
     },
 
 

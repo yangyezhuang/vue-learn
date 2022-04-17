@@ -1,13 +1,5 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/users">用户列表</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
-    <!--  卡片区域  -->
     <el-card>
       <!-- 搜索栏 -->
       <el-row :gutter="30">
@@ -41,13 +33,14 @@
             </el-switch>
           </template>
         </el-table-column>
-
-        <el-table-column label="操作" width="200px">
+        <el-table-column label="操作" width="220px">
           <template v-slot="scope">
             <!-- {{scope.row}}-->
             <!--  <el-button type="primary" icon="el-icon-edit" @click="editUser(scope.row.uid)"></el-button>  -->
             <el-button type="success" icon="el-icon-pie-chart" @click="toUserDraw(scope.row.uid)"></el-button>
             <el-button type="primary" icon="el-icon-edit" @click="dialogFormVisible = true"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.uid)"></el-button>
+
             <!--    弹窗    -->
             <el-dialog title="修改用户信息" :visible.sync="dialogFormVisible">
               <el-form ref="form" :model="form" label-width="45%">
@@ -84,7 +77,6 @@
               </el-form>
             </el-dialog>
 
-            <el-button type="danger" icon="el-icon-delete" @click="delUser(scope.row.uid)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -168,7 +160,7 @@ export default {
 
     // 去用户画像页
     toUserDraw(uid){
-      this.$router.push(`/mg/draw/${uid}`)
+      this.$router.push(`/mg/userManager/draw/${uid}`)
     },
 
 

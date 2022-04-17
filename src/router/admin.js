@@ -13,6 +13,7 @@ import Courses from "../views/Admin/Course/Courses"
 import AddCourse from "../views/Admin/Course/AddCourse"
 import EditCourse from "../views/Admin/Course/EditCourse"
 
+import Breadcrumb from '../views/Admin/Breadcrumb'
 import Proportion from "../views/Admin/Statistical/Sex";
 import ClassType from "../views/Admin/Statistical/ClassType";
 import UV from "../views/Admin/Statistical/UV";
@@ -22,9 +23,10 @@ import Board from "../views/Admin/Advice/Board"
 import Advice from "../views/Admin/Advice/Advice";
 import Setting from "../views/Admin/Setting/Setting";
 import Shuffle from "../views/Admin/Setting/Shuffle";
+import CourseHot from "../views/Admin/Statistical/CourseHot";
+import ChapterList from "../views/Admin/Course/ChapterList";
 
 
-//  admin后台路由
 export default [
     {
         path: '/admin',
@@ -34,24 +36,70 @@ export default [
         path: '/mg',
         component: Index,
         redirect: '/mg/home',
+        meta: {title: '首页'},
         children: [
-            {path: 'users', component: Users},
             {path: 'home', component: Home},
             {path: 'adminInfo', component: AdminInfo},
-            {path: 'adduser', component: AddUser},
-            {path: 'draw/:uid', component: UserDraw},
-            {path: 'courses', component: Courses},
-            {path: 'addCourse', component: AddCourse},
-            {path: 'editCourse', component: EditCourse},
-            {path: 'teacher', component: Teacher},
-            {path: 'statistic1', component: Proportion},
-            {path: 'statistic2', component: ClassType},
-            {path: 'statistic3', component: UV},
-            {path: 'comments', component: Comments},
-            {path: 'board', component: Board},
-            {path: 'advice', component: Advice},
-            {path: 'setting', component: Setting},
-            {path: 'shuffle', component: Shuffle},
+            {
+                path: 'userManager',
+                component: Breadcrumb,
+                meta: {title: '用户管理'},
+                children: [
+                    {path: 'users', component: Users, meta: {title: '用户管理'}},
+                    {path: 'adduser', component: AddUser, meta: {title: '添加用户'}},
+                    {path: 'draw/:uid', component: UserDraw, meta: {title: '用户画像'}},
+                    {path: 'teacher', component: Teacher, meta: {title: '教师管理'}},
+                ]
+            },
+            {
+                path: 'courseManager',
+                component: Breadcrumb,
+                meta: {title: '课程管理'},
+                children: [
+                    {path: 'courses', component: Courses, meta: {title: '课程管理'}},
+                    {path: 'addCourse', component: AddCourse, meta: {title: '添加课程'}},
+                    {path: 'editCourse', component: EditCourse, meta: {title: '修改课程'}},
+                    {path: 'course/:course_id', component: ChapterList, meta: {title: '章节信息'}},
+                ]
+            },
+            {
+                path: 'commentManager',
+                component: Breadcrumb,
+                meta: {title: '评论管理'},
+                children: [
+                    {path: 'comments', component: Comments, meta: {title: '评论管理'}},
+                ]
+            },
+            {
+                path: 'dataManager',
+                component: Breadcrumb,
+                meta: {title: '数据统计'},
+                children: [
+                    {path: 'statistic1', component: Proportion, meta: {title: '用户性别统计'}},
+                    {path: 'statistic2', component: ClassType, meta: {title: '课程类别统计'}},
+                    {path: 'coursehot', component: CourseHot, meta: {title: '课程热度'}},
+                    {path: 'statistic3', component: UV, meta: {title: '用户访问量'}},
+                ]
+            },
+            {
+                path: 'boardManager',
+                component: Breadcrumb,
+                meta: {title: '建议公告'},
+                children: [
+                    {path: 'board', component: Board, meta: {title: '网站公告'}},
+                    {path: 'advice', component: Advice, meta: {title: '建议投诉'}},
+                ]
+            },
+            {
+                path: 'settings',
+                component: Breadcrumb,
+                meta: {title: '设置'},
+                children: [
+                    {path: 'setting', component: Setting, meta: {title: '网站设置'}},
+                    {path: 'shuffle', component: Shuffle, meta: {title: '轮播图'}},
+                ]
+            },
         ]
     }
+
 ]

@@ -1,38 +1,7 @@
 <template>
   <div>
     <el-row :gutter="20">
-      <el-col style="width: 30%">
-        <!-- 课程热度  -->
-        <el-card shadow="hover" style="height:250px;">
-          <template #header>
-            <div class="clearfix">
-              <span>课程热度</span>
-            </div>
-          </template>
-          唐诗
-          <el-progress :percentage="71.3" color="#42b983"></el-progress>
-          传统文化
-          <el-progress :percentage="63.1" color="#f1e05a"></el-progress>
-          吴文化
-          <el-progress :percentage="45.7"></el-progress>
-          传统美德
-          <el-progress :percentage="18.9" color="#f56c6c"></el-progress>
-        </el-card>
-        <!-- 饼图  -->
-        <el-card shadow="hover" class="mgb20" style="height:auto;margin-top: 15px">
-          <template #header>
-            <div class="clearfix">
-              <span>统计分析</span>
-            </div>
-          </template>
-          <div style="height: auto">
-            <ve-Pie :data="chartData" height="350px"></ve-Pie>
-          </div>
-        </el-card>
-      </el-col>
-
-      <!--  用户数量  -->
-      <el-col style="width: 65%">
+      <el-col style="width: 100%">
         <!--   小方块   -->
         <el-row :gutter="20" class="mgb20">
           <el-col :span="8">
@@ -82,54 +51,32 @@
         </el-row>
 
         <!--  echarts  -->
-        <el-card style="height: auto">
-          <div class="one">
-            <ve-bar :data="chartData" height="100%" ></ve-bar>
+        <el-card style="height: auto;width: 100%">
+          <div style="width: auto;height: 400px" id="main">
           </div>
-          <div class="one">
-            <ve-histogram :data="chartData" height="100%"></ve-histogram>
-          </div>
-          <hr>
-          <div class="four">
-            <ve-line :data="chartData" height="100%"></ve-line>
+        </el-card>
+        <el-card style="width: 100%;height: 600px">
+          <div style="width: auto;height:600px" id="main1">
           </div>
         </el-card>
       </el-col>
     </el-row>
-
   </div>
 </template>
 
 <script>
-import VeLine from "v-charts/lib/line.common";
-import Vehistogram from "v-charts/lib/line.common";
-import VePie from "v-charts/lib/pie.common";
-import VeBar from "v-charts/lib/bar.common"
 
 export default {
   name: "Home2",
-  components: {
-    VeLine,
-    Vehistogram,
-    VePie,
-    VeBar
-  },
   data() {
     return {
       userNum: '',
-      courseNum: '',
-      chartData: {
-        columns: ["日期", "销售额"],
-        rows: [
-          {日期: "1月1日", 销售额: 123},
-          {日期: "1月2日", 销售额: 1223},
-          {日期: "1月3日", 销售额: 2123},
-          {日期: "1月4日", 销售额: 4123},
-          {日期: "1月5日", 销售额: 3123},
-          {日期: "1月6日", 销售额: 7123},
-        ],
-      }
+      courseNum: ''
     }
+  },
+  mounted() {
+    this.echartsInit()
+    this.echartsInit1()
   },
 
   created() {
@@ -146,6 +93,127 @@ export default {
     async totalCourses() {
       const {data: res} = await this.$http.get("/courses/all")
       this.courseNum = res.data.length
+    },
+
+    //初始化echarts
+    echartsInit() {
+      //因为初始化echarts 的时候，需要指定的容器 id='main'
+      this.$echarts.init(document.getElementById('main')).setOption({
+        title: {
+          text: '用户访问统计'
+        },
+        tooltip: {
+          trigger: 'axis'
+        },
+        legend: {
+          data: ['全体', '学生', '教师']
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        toolbox: {
+          feature: {
+            saveAsImage: {}
+          }
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            name: '全体',
+            type: 'line',
+            stack: 'Total',
+            data: [120, 132, 101, 134, 90, 230, 210]
+          },
+          {
+            name: '学生',
+            type: 'line',
+            stack: 'Total',
+            data: [220, 182, 191, 234, 290, 330, 310]
+          },
+          {
+            name: '教师',
+            type: 'line',
+            stack: 'Total',
+            data: [150, 232, 201, 154, 190, 330, 410]
+          }
+        ]
+      })
+    },
+    echartsInit1() {
+      this.$echarts.init(document.getElementById('main1')).setOption(
+          {
+            legend: {},
+            tooltip: {
+              trigger: 'axis',
+              showContent: false
+            },
+            dataset: {
+              source: [
+                ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
+                ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
+                ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
+                ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
+                ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+              ]
+            },
+            xAxis: {type: 'category'},
+            yAxis: {gridIndex: 0},
+            grid: {top: '55%'},
+            series: [
+              {
+                type: 'line',
+                smooth: true,
+                seriesLayoutBy: 'row',
+                emphasis: {focus: 'series'}
+              },
+              {
+                type: 'line',
+                smooth: true,
+                seriesLayoutBy: 'row',
+                emphasis: {focus: 'series'}
+              },
+              {
+                type: 'line',
+                smooth: true,
+                seriesLayoutBy: 'row',
+                emphasis: {focus: 'series'}
+              },
+              {
+                type: 'line',
+                smooth: true,
+                seriesLayoutBy: 'row',
+                emphasis: {focus: 'series'}
+              },
+              {
+                type: 'pie',
+                id: 'pie',
+                radius: '30%',
+                center: ['50%', '25%'],
+                emphasis: {
+                  focus: 'self'
+                },
+                label: {
+                  formatter: '{b}: {@2012} ({d}%)'
+                },
+                encode: {
+                  itemName: 'product',
+                  value: '2012',
+                  tooltip: '2012'
+                }
+              }
+            ]
+          }
+      )
     }
   }
 }

@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/users">用户管理</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/adduser">创建用户</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
     <el-card>
       <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" :label-position="left" label-width="80px">
         <el-form-item label="用户名" prop="username">

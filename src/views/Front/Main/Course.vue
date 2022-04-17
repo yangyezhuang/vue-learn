@@ -55,11 +55,9 @@ export default {
 
   methods: {
     // 获取全部课程
-    getAllCourses() {
-      this.$http.get('/courses/all').then((res) => {
-        this.classItems = res.data.data;
-        console.log(res.data)
-      })
+    async getAllCourses() {
+      const {data: res} = await this.$http.get('/courses/all')
+      this.classItems = res.data;
     },
 
     // 根据id转跳对应的课程详情页

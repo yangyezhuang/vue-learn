@@ -1,6 +1,8 @@
 <template>
   <div>
     <el-card>
+      <h1>基本信息</h1>
+      <el-divider></el-divider>
       <el-form ref="form" :model="form" label-width="45%">
         <el-form-item label="头像">
           <el-col :span="6">

@@ -1,12 +1,5 @@
 <template>
   <div>
-    <!--   面包屑导航   -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/mg' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/users">用户列表</a></el-breadcrumb-item>
-      <el-breadcrumb-item><a href="/mg/userDraw">用户画像分析</a></el-breadcrumb-item>
-    </el-breadcrumb>
-
     <el-card style="height: auto;width: 100%">
       <!--      用户ID： {{ uid }}-->
 
