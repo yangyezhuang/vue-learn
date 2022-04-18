@@ -1,10 +1,9 @@
 <template>
   <div>
     <el-card>
-      <!--  -->
       <el-row :gutter="30">
         <el-col :span="8">
-          <el-button  type="primary" @click="dialogFormVisible = true">添加图片</el-button>
+          <el-button type="primary" @click="dialogFormVisible = true">添加图片</el-button>
           <!--    弹窗    -->
           <el-dialog title="上传图片" :visible.sync="dialogFormVisible">
             <el-upload
@@ -74,14 +73,6 @@ export default {
   },
 
   methods: {
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
-    handlePictureCardPreview(file) {
-      this.dialogImageUrl = file.url;
-      this.dialogVisible = true;
-    },
-
     // 获取轮播图
     async getShuffle() {
       const {data: res} = await this.$http.get("/shuffle")
@@ -93,7 +84,15 @@ export default {
       // const {data: res} = await this.$http.delete(`comments/del/${id}`)
       Message.info('暂未开放')
       // location.reload()
-    }
+    },
+
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
   }
 }
 </script>

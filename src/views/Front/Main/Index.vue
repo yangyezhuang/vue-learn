@@ -115,7 +115,6 @@ export default {
     // 获取轮播图
     async getShuffle() {
       const {data: res} = await this.$http.get("/shuffle")
-      console.log(res.data)
       this.shuffle = res.data
     },
 

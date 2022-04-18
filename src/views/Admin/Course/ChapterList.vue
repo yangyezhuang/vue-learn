@@ -1,20 +1,25 @@
 <template>
   <div>
-    <!--   课程id：{{ course_id }}-->
-<!--    <video width="320" height="240" controls>-->
-<!--      <source src="movie.mp4" type="video/mp4">-->
-<!--    </video>-->
-
     <el-row :gutter="40">
-      <el-col v-for="course in hotCourse">
-        <div class="grid-content bg-purple" style="box-shadow: 2px 2px 5px #888888"
-             @click="toCourseDetail(course.id)">
-          <img :src="course.img" style="width: 210px;height: 124px" alt="">
-          <h4 style="text-align:left;margin-top: 5px">{{ course.title }}</h4>
+      <el-col style="width: 400px">
+        <el-upload
+            class="upload-demo"
+            drag
+            action="https://jsonplaceholder.typicode.com/posts/"
+            multiple>
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        </el-upload>
+      </el-col>
+
+      <el-col v-for="course in chapterList" style="width: 400px;margin-left: 20px">
+        <div style="width: 360px;float: left" @click="viewChapter(course.chapter_id)">
+          <video width="360px" height="180px" controls :src="course.chapter_src" type="video/mp4"></video>
+          <span>id:{{ course.chapter_id }} </span>
+          <span> {{ course.chapter_title }}</span>
           <div style="height: 40px;">
-            <p style="text-align:left;margin-top: 5px">{{ course.people }} 在学 |
-              <span style="color:limegreen;">免费</span>
-            </p>
+            <el-button type="success" icon="el-icon-view" @click="viewChapter(course.chapter_id)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delChapter(course.chapter_id)"></el-button>
           </div>
         </div>
       </el-col>
@@ -28,21 +33,27 @@ export default {
   data() {
     return {
       course_id: this.$route.params.course_id,
-      hotCourse: ''
+      hotCourse: '',
+      chapterList: ''
     }
   },
   created() {
-    this.getHotCourses()
+    this.getChapterList()
   },
   methods: {
-    getChapter() {
+    //  根据课程id查询章节列表
+    async getChapterList() {
+      let course_id = this.$route.params.course_id
+      const {data: res} = await this.$http.get(`/courses/chapter/${course_id}`)
+      this.chapterList = res.data;
+    },
+
+    viewChapter() {
 
     },
-    // 热门课程
-    getHotCourses() {
-      this.$http.get('/courses/hot').then((res) => {
-        this.hotCourse = res.data.data;
-      })
+
+    delChapter() {
+
     },
 
     //  跳转到详情页面

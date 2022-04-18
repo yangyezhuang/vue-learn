@@ -3,7 +3,6 @@
     <!--  <el-container>  -->
     <TopBar></TopBar>
 
-    <!--   师资力量   -->
     <el-main>
       <div class="main">
         <h3 style="margin: 0">师资力量</h3>
@@ -13,11 +12,7 @@
             <img :src="item.img" alt="" style="border-radius: 50%" @click="toTeacherDetail(item.uid)">
             <div>
               <h3 style="margin-top: 5px">{{ item.username }}</h3>
-              <p style="text-align:left;margin-top: 5px">{{ item.info.slice(0, 30) }} 人在学
-                <!--  <span>-->
-                <!--  <el-tag size="mini" style="float:right;margin-right: 5px">{{ item.type }}</el-tag>-->
-                <!--  </span>-->
-              </p>
+              <p style="text-align:left;margin-top: 5px">{{ item.info.slice(0, 30) }} 人在学</p>
             </div>
           </div>
         </div>
@@ -56,9 +51,8 @@ export default {
   methods: {
     // 获取全部
     async getAllCourses() {
-      const {data: res} = await this.$http.get('/teacher/all')
+      const {data: res} = await this.$http.get('/teacher/list')
       this.teacherList = res.data;
-      console.log(res.data)
     },
 
     // 根据id转跳对应的详情页

@@ -107,24 +107,21 @@ export default {
   },
   methods: {
     // 获取用户专注度
-    getConcentration() {
-      this.$http.post(`/behavior/concentration/${this.uid}`).then((res) => {
-        this.Concentration = res.data.data
-      })
+    async getConcentration() {
+      const {data: res} = await this.$http.post(`/behavior/concentration/${this.uid}`)
+      this.Concentration = res.data
     },
     //  用户学习时长
-    getLearningDuration() {
-      this.$http.post(`/behavior/learningDuration/${this.uid}`).then((res) => {
-        this.DurationData.rows = res.data.data.ld
-        this.DurationData.totalDuration = res.data.data.totalLearningD
-      })
+    async getLearningDuration() {
+      const {data: res} = await this.$http.post(`/behavior/learningDuration/${this.uid}`)
+      this.DurationData.rows = res.data.ld
+      this.DurationData.totalDuration = res.data.totalLearningD
+
     },
     // 类型推荐
-    getuserLabel() {
-      this.$http.post(`/behavior/userlabel/${this.uid}`).then((res) => {
-        this.userlabel = res.data.data.userlabel
-        console.log(res.data)
-      })
+    async getuserLabel() {
+      const {data: res} = await this.$http.post(`/behavior/userlabel/${this.uid}`)
+      this.userlabel = res.data.userlabel
     },
 
     // 获取课程数量

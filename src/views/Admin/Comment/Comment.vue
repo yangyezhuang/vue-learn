@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--  卡片区域  -->
     <el-card>
       <!-- 搜索栏 -->
       <el-row :gutter="30">
@@ -21,12 +20,11 @@
         <el-table-column label="用户名" prop="username" width="100px"></el-table-column>
         <el-table-column label="课程id" prop="course_id" width="120px"></el-table-column>
         <el-table-column label="日期" prop="date" width="160px"></el-table-column>
-        <el-table-column label="评论内容" prop="comment"></el-table-column>
+        <el-table-column label="内容" prop="comment"></el-table-column>
         <el-table-column label="操作" width="80px">
           <template v-slot="scope">
             <!-- {{scope.row}}-->
-            <el-button type="danger" icon="el-icon-delete"
-                       @click="delComment(scope.row.comment_id)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" @click="delComment(scope.row.comment_id)"></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -50,7 +48,6 @@ import {Message} from "element-ui";
 
 export default {
   name: "Comments",
-
   data() {
     return {
       commentsList: '',
@@ -70,9 +67,16 @@ export default {
   methods: {
     // 查询所有评论
     async getUserList() {
-      const {data: res} = await this.$http.get('/comments/all')
+      const {data: res} = await this.$http.get('/comments/list')
       this.commentsList = res.data
       this.total = res.data.length
+    },
+
+    // 删除评论
+    async delComment(comment_id) {
+      const {data: res} = await this.$http.delete(`comments/del/${comment_id}`)
+      Message.success('删除成功')
+      location.reload()
     },
 
     // 监听pagesize改变的事件
@@ -83,14 +87,6 @@ export default {
     // 监听页码值改变的事件
     handleCurrentChange(pageNum) {
       this.queryInfo.pagenum = pageNum
-    },
-
-
-    // 删除评论
-    async delComment(comment_id) {
-      const {data: res} = await this.$http.delete(`comments/del/${comment_id}`)
-      Message.success('删除成功')
-      location.reload()
     }
   }
 };

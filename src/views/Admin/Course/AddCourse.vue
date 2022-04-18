@@ -23,7 +23,7 @@
           </div>
         </el-form-item>
 
-        <el-form-item label="上传文件">
+        <el-form-item label="课程封面">
           <div style="float: left">
             <el-upload
                 class="upload-demo"
@@ -37,7 +37,6 @@
           </div>
         </el-form-item>
 
-        <!-- 添加按钮 -->
         <el-button type="primary" @click="submitUpload">上传课程</el-button>
       </el-form>
     </el-card>
@@ -72,15 +71,6 @@ export default {
       this.options = res.data
     },
 
-    // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用,function(file, fileList)
-    handleChange(file, fileList) {
-      this.fileList = fileList
-    },
-    // 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除。function(file, fileList)
-    handleRemove(file, fileList) {
-      this.fileList = fileList
-    },
-
     //上传服务器
     submitUpload() {
       //判断是否有文件再上传
@@ -111,6 +101,15 @@ export default {
         //清空fileList
         this.fileList = []
       })
+    },
+
+    // 文件状态改变时的钩子，添加文件、上传成功和上传失败时都会被调用,function(file, fileList)
+    handleChange(file, fileList) {
+      this.fileList = fileList
+    },
+    // 删除文件之前的钩子，参数为上传的文件和文件列表，若返回 false 或者返回 Promise 且被 reject，则停止删除。function(file, fileList)
+    handleRemove(file, fileList) {
+      this.fileList = fileList
     }
   }
 

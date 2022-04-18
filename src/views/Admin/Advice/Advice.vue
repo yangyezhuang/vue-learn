@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--  卡片区域  -->
     <el-card>
       <!-- 搜索栏 -->
       <el-row :gutter="30">
@@ -12,7 +11,7 @@
       </el-row>
 
       <!-- 列表 -->
-      <el-table :data="userslist.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
+      <el-table :data="adviceList.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
                 border stripe>
         <el-table-column type="index"></el-table-column>
         <el-table-column label="id" prop="id" width="100px"></el-table-column>
@@ -51,9 +50,7 @@ export default {
   name: "Advice",
   data() {
     return {
-      userslist: '',
-      dialogTableVisible: false,
-      dialogFormVisible: false,
+      adviceList: '',
       formLabelWidth: '120px',
       queryInfo: {
         query: '',
@@ -72,8 +69,7 @@ export default {
     // 查询所有
     async getAllAdvice() {
       const {data: res} = await this.$http.get('/advice/all')
-      console.log('res.data' + res.data)
-      this.userslist = res.data
+      this.adviceList = res.data
       this.total = res.data.length
     },
 

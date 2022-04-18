@@ -26,6 +26,7 @@
             </div>
           </div>
 
+          <!--  空状态   -->
           <div v-show="emptyShow">
             <el-empty description="暂未课程"></el-empty>
           </div>
@@ -65,7 +66,6 @@ export default {
     async getCate() {
       const {data: res} = await this.$http.get("/catelabel")
       this.options = res.data
-      console.log(this.options)
     },
 
     // 获取默认分类

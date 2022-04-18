@@ -41,7 +41,7 @@ export default {
   methods: {
     // 获取全部公告
     async getAllNotice() {
-      const {data: res} = await this.$http.get("/notice/all")
+      const {data: res} = await this.$http.get("/notice/list")
       this.noties = res.data
     }
   }

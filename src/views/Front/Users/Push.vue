@@ -1,7 +1,6 @@
 <template>
   <div>
     <el-card>
-      <!-- 表单 -->
       <el-form :model="infoForm" :label-position="left" label-width="80px">
         <el-form-item label="课程名称">
           <el-input v-model="infoForm.title"></el-input>

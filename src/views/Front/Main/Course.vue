@@ -21,7 +21,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <!--  back top    -->
@@ -56,7 +55,7 @@ export default {
   methods: {
     // 获取全部课程
     async getAllCourses() {
-      const {data: res} = await this.$http.get('/courses/all')
+      const {data: res} = await this.$http.get('/courses/list')
       this.classItems = res.data;
     },
 

@@ -49,11 +49,12 @@
 
 <script>
 import jwt from 'jsonwebtoken'
+
 export default {
   name: "UserInfo",
   data() {
     return {
-      role:jwt.decode(sessionStorage.getItem("token")).role,
+      role: jwt.decode(sessionStorage.getItem("token")).role,
       form: {
         uid: '',
         username: '',
@@ -68,21 +69,17 @@ export default {
   },
   methods: {
     // 获取用户信息
-    getUserInfo() {
+    async getUserInfo() {
       let str = jwt.decode(sessionStorage.getItem('token'))
       this.uid = str.uid
-      console.log(this.uid)
-
 
       let uid = this.uid
       let headers = {
         "token": sessionStorage.getItem('token')
       }
 
-      this.$http.get(`/user/info/${uid}`, {headers: headers}).then((res) => {
-        this.form = res.data.data
-        console.log(res.data.data)
-      })
+      const {data: res} = await this.$http.get(`/user/info/${uid}`, {headers: headers})
+      this.form = res.data
     },
 
     // 修改密码

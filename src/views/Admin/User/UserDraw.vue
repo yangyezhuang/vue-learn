@@ -59,7 +59,6 @@
 
 <script>
 import VeLine from "v-charts/lib/line.common";
-
 import jwt from "jsonwebtoken";
 
 export default {
@@ -142,8 +141,8 @@ export default {
     async getConcentration() {
       const {data: res} = await this.$http.post(`/behavior/concentration/${this.uid}`)
       this.Concentration = res.data
-      console.log(res.data)
     },
+
     //  用户学习时长
     async getLearningDuration() {
       const {data: res} = await this.$http.post(`/behavior/learningDuration/${this.uid}`)
@@ -156,7 +155,6 @@ export default {
       const {data: res} = await this.$http.post(`/behavior/userlabel/${this.uid}`)
       this.userlabel = res.data.userlabel
     },
-
     // 获取课程数量
     async getCourseTotal() {
       const {data: res} = await this.$http.get(`user/course/total/${this.uid}`)
@@ -171,8 +169,7 @@ export default {
     async getNoteTotal() {
       const {data: res} = await this.$http.get(`/note/total/user/${this.uid}`)
       this.noteCount = res.data
-    },
-
+    }
   }
 }
 </script>

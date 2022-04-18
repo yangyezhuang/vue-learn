@@ -8,14 +8,14 @@
         "id": 1,
         "path": "mg/home",
         "authName": "数据看板",
-        "icon": "el-icon-s-home"
+        "icon": "el-icon-pie-chart"
       }
     ]
   },
   {
     "id": 1,
     "authName": "用户管理",
-    "icon": "el-icon-user-solid",
+    "icon": "el-icon-s-custom",
     "children": [
       {
         "id": 101,
@@ -27,7 +27,7 @@
         "id": 101,
         "path": "mg/userManager/teacher",
         "authName": "教师管理",
-        "icon": "el-icon-user"
+        "icon": "el-icon-user-solid"
       },
       {
         "id": 102,
@@ -40,13 +40,13 @@
   {
     "id": 3,
     "authName": "课程管理",
-    "icon": "el-icon-files",
+    "icon": "el-icon-s-order",
     "children": [
       {
         "id": 301,
         "path": "mg/courseManager/courses",
         "authName": "课程管理",
-        "icon": "el-icon-notebook-1"
+        "icon": "el-icon-files"
       },
       {
         "id": 302,
@@ -59,7 +59,7 @@
   {
     "id": 4,
     "authName": "评论管理",
-    "icon": "el-icon-chat-dot-square",
+    "icon": "el-icon-s-promotion",
     "children": [
       {
         "id": 401,
@@ -72,7 +72,7 @@
   {
     "id": 7,
     "authName": "数据统计",
-    "icon": "el-icon-pie-chart",
+    "icon": "el-icon-s-data",
     "children": [
       {
         "id": 701,
@@ -91,7 +91,8 @@
         "path": "mg/dataManager/statistic3",
         "authName": "用户访问量",
         "icon": "el-icon-data-line"
-      }   ,  {
+      },
+      {
         "id": 704,
         "path": "mg/dataManager/coursehot",
         "authName": "课程热度",
@@ -102,7 +103,7 @@
   {
     "id": 5,
     "authName": "建议公告",
-    "icon": "el-icon-data-analysis",
+    "icon": "el-icon-s-comment",
     "children": [
       {
         "id": 501,
@@ -125,15 +126,9 @@
     "children": [
       {
         "id": 601,
-        "path": "mg/settings/setting",
-        "authName": "网站设置",
-        "icon": "el-icon-setting"
-      },
-      {
-        "id": 602,
         "path": "mg/settings/shuffle",
         "authName": "轮播图",
-        "icon": "el-icon-brush"
+        "icon": "el-icon-picture-outline"
       }
     ]
   }

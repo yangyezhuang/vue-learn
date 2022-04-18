@@ -141,7 +141,7 @@ export default {
   },
 
   methods: {
-    //  根据章节id获取视频资源
+    // 根据章节id获取视频资源
     async getCourseSrc() {
       let course_id = this.$route.params.course_id
       let chapter_id = this.$route.params.chapter_id
@@ -162,7 +162,6 @@ export default {
 
       const {data: res} = await this.$http.get(`/courses/chapter/${course_id}`)
       this.chapterList = res.data;
-      console.log("章节列表" + res.data)
     },
 
 

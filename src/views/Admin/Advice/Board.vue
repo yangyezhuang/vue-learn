@@ -1,26 +1,12 @@
 <template>
   <div class="main">
-    <!--  卡片区域  -->
     <el-card>
       <el-row :gutter="30">
         <el-col :span="8">
           <!--发布公告-->
-          <el-button type="primary" @click="dialogFormVisible = true">发布公告</el-button>
+          <el-button type="primary" @click="openDialog()">发布公告</el-button>
           <!--    弹窗    -->
-          <el-dialog title="发布公告" :visible.sync="dialogFormVisible">
-            <el-form :model="form">
-              <el-form-item label="标题" :label-width="formLabelWidth">
-                <el-input v-model="form.title" autocomplete="off"></el-input>
-              </el-form-item>
-              <el-form-item label="内容" :label-width="formLabelWidth">
-                <el-input v-model="form.text" autocomplete="off"></el-input>
-              </el-form-item>
-            </el-form>
-            <div slot="footer" class="dialog-footer">
-              <el-button @click="dialogFormVisible = false">取 消</el-button>
-              <el-button type="primary" @click="dialogFormVisible = false,addNotice()">确 定</el-button>
-            </div>
-          </el-dialog>
+          <add-notice-dialog :visible.sync="visible"></add-notice-dialog>
         </el-col>
       </el-row>
 
@@ -50,32 +36,29 @@
           :total="totalSize">
       </el-pagination>
     </el-card>
-
   </div>
 </template>
 
 
 <script>
 import {Message} from "element-ui";
+import AddNoticeDialog from "../Dialog/AddNoticeDialog";
 
 export default {
   name: "Board",
+  components: {
+    AddNoticeDialog
+  },
   data() {
     return {
       notices: '',
-      form: {
-        title: '',
-        text: ''
-      },
-      dialogTableVisible: false,
-      dialogFormVisible: false,
-      formLabelWidth: '120px',
       queryInfo: {
         query: '',
         pagenum: 1, // 当前页数
         pagesize: 10// 当前每页显示的条数
       },
       totalSize: '',
+      visible: false
     }
   },
   created() {
@@ -85,19 +68,9 @@ export default {
   methods: {
     // 获取全部公告数据
     async getAllNotice() {
-      const {data: res} = await this.$http.get('/notice/all')
+      const {data: res} = await this.$http.get('/notice/list')
       this.notices = res.data;
       this.totalSize = res.data.length
-    },
-
-    // 监听pagesize改变的事件
-    handleSizeChange(newSize) {
-      this.queryInfo.pagesize = newSize
-    },
-
-    // 监听页码值改变的事件
-    handleCurrentChange(pageNum) {
-      this.queryInfo.pagenum = pageNum
     },
 
     //  删除公告
@@ -108,14 +81,18 @@ export default {
     },
 
     // 发布公告
-    async addNotice() {
-      const {data: res} = await this.$http.post("/notice/add", this.form)
-      if (res.data === "1") {
-        Message.success('发布成功')
-        location.reload()
-      } else {
-        Message.success(res.data)
-      }
+    openDialog() {
+      this.visible = true
+    },
+
+    // 监听pagesize改变的事件
+    handleSizeChange(newSize) {
+      this.queryInfo.pagesize = newSize
+    },
+
+    // 监听页码值改变的事件
+    handleCurrentChange(pageNum) {
+      this.queryInfo.pagenum = pageNum
     }
   }
 }

@@ -11,7 +11,6 @@ import Teacher from "../views/Admin/User/Teacher";
 
 import Courses from "../views/Admin/Course/Courses"
 import AddCourse from "../views/Admin/Course/AddCourse"
-import EditCourse from "../views/Admin/Course/EditCourse"
 
 import Breadcrumb from '../views/Admin/Breadcrumb'
 import Proportion from "../views/Admin/Statistical/Sex";
@@ -21,7 +20,6 @@ import UV from "../views/Admin/Statistical/UV";
 import Comments from "../views/Admin/Comment/Comment"
 import Board from "../views/Admin/Advice/Board"
 import Advice from "../views/Admin/Advice/Advice";
-import Setting from "../views/Admin/Setting/Setting";
 import Shuffle from "../views/Admin/Setting/Shuffle";
 import CourseHot from "../views/Admin/Statistical/CourseHot";
 import ChapterList from "../views/Admin/Course/ChapterList";
@@ -58,7 +56,6 @@ export default [
                 children: [
                     {path: 'courses', component: Courses, meta: {title: '课程管理'}},
                     {path: 'addCourse', component: AddCourse, meta: {title: '添加课程'}},
-                    {path: 'editCourse', component: EditCourse, meta: {title: '修改课程'}},
                     {path: 'course/:course_id', component: ChapterList, meta: {title: '章节信息'}},
                 ]
             },
@@ -95,7 +92,6 @@ export default [
                 component: Breadcrumb,
                 meta: {title: '设置'},
                 children: [
-                    {path: 'setting', component: Setting, meta: {title: '网站设置'}},
                     {path: 'shuffle', component: Shuffle, meta: {title: '轮播图'}},
                 ]
             },

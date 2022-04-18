@@ -10,11 +10,12 @@
           class="el-menu-vertical-demo"
           :collapse="isCollapse"
       >
-        <!--logo-->
+        <!--  logo  -->
         <el-submenu>
           <template slot="title">
             <img src="../../assets/image/lg.png" alt="" style="width: 25px;float: left;margin-top: 15px">
-            <span style="text-align: center;font-size: 17px;color: white;margin-top: 0;margin-bottom: 0">后台管理系统</span>
+            <span style="text-align: center;font-size: 17px;color: white;
+            margin-top: 0;margin-bottom: 0;margin-left: 7px">后台管理系统</span>
           </template>
         </el-submenu>
 

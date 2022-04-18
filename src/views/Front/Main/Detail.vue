@@ -13,7 +13,7 @@
                 <img :src="course_detail[0].img" alt="" style="width: 100%;height: 100%;border-radius: 5px">
               </div>
 
-              <!--  右侧div  -->
+              <!--  右侧介绍  -->
               <div style="width: 550px;height:100%;background-color:white;margin-left: 600px;border-radius: 20px;">
                 <h1>《 {{ course_detail[0].title }} 》</h1>
                 <p style="color: gray">id:{{ course_id }}</p>
@@ -23,7 +23,7 @@
               </div>
             </div>
 
-            <!--   课程简介    -->
+            <!--   下方课程简介    -->
             <div style="width: 100%;background-color: white;margin-top: 50px;border-radius: 30px">
               <el-divider></el-divider>
 

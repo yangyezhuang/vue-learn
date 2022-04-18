@@ -29,7 +29,7 @@
           <el-col :span="8">
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="grid-content grid-con-3">
-                <i class="el-icon-s-goods grid-con-icon"></i>
+                <i class="el-icon-s-order grid-con-icon"></i>
                 <div class="grid-cont-right">
                   <div class="grid-num">{{ courseNum }}</div>
                   <div>课程数量</div>
@@ -40,7 +40,7 @@
           <el-col :span="8">
             <el-card shadow="hover" :body-style="{ padding: '0px' }">
               <div class="grid-content grid-con-4">
-                <i class="el-icon-s-goods grid-con-icon"></i>
+                <i class="el-icon-s-marketing grid-con-icon"></i>
                 <div class="grid-cont-right">
                   <div class="grid-num">{{ courseNum }}</div>
                   <div>在线人数</div>
@@ -285,7 +285,6 @@ export default {
   color: #222;
 }
 
-
 .user-info-list span {
   margin-left: 70px;
 }
@@ -294,23 +293,9 @@ export default {
   margin-bottom: 20px;
 }
 
-
 * {
   margin: 0;
   padding: 0;
-}
-
-
-.one {
-  width: 50% !important;
-  height: 300px !important;
-  float: left;
-}
-
-.four {
-  width: 100% !important;
-  height: 280px !important;
-  float: left;
 }
 
 </style>

@@ -48,7 +48,6 @@ export default {
       let uid = jwt.decode(sessionStorage.getItem("token")).uid
       const {data: res} = await this.$http.get(`/note/user/${uid}`)
       this.notelists = res.data
-      console.log(res.data)
     },
 
     async delNote(note_id) {

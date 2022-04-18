@@ -17,7 +17,6 @@ export default {
   methods: {
     //初始化echarts
     echartsInit() {
-      //柱形图
       //因为初始化echarts 的时候，需要指定的容器 id='main'
       this.$echarts.init(document.getElementById('main')).setOption({
         title: {
