@@ -1,9 +1,9 @@
 <template>
   <div>
-    <el-card>
+<!--    <el-card>-->
       <!--  左侧卡片布局  -->
       <div class="nav">
-        <el-card style="width: 650px;height: 200px;">
+        <el-card style="width: 500px;height: 200px;">
           <div slot="header" class="clearfix">
             <span> 类型爱好分析</span>
           </div>
@@ -19,7 +19,7 @@
         </el-card>
         <br>
 
-        <el-card style="width: 650px;height: 260px;margin-top: 15px">
+        <el-card style="width: 500px;height: 260px;margin-top: 15px">
           <div slot="header" class="clearfix">
             <span> 类型爱好分析</span>
           </div>
@@ -31,7 +31,7 @@
       </div>
 
       <!--  右侧  -->
-      <el-card style="width: 350px;height: 150px;">
+      <el-card style="width: 280px;height: 150px;">
         <div slot="header" class="clearfix">
           <h3 style="margin: 0 0 ">章节完成情况</h3>
         </div>
@@ -39,14 +39,14 @@
         <h3 style="text-align: left"> 完成进度：11/12</h3>
       </el-card>
       <br>
-      <el-card style="width: 350px;height: 150px;">
+      <el-card style="width: 280px;height: 150px;">
         <div slot="header" class="clearfix">
           <h3 style="margin: 0 0 ">我的贡献</h3>
         </div>
         <h3 style="text-align: left">{{ commentCount }} 条评论 / {{ noteCount }} 条笔记</h3>
       </el-card>
       <br>
-      <el-card style="width: 350px;height: 150px;">
+      <el-card style="width: 280px;height: 150px;">
         <div slot="header" class="clearfix">
           <h3 style="margin: 0 0 ">课程积分</h3>
         </div>
@@ -61,7 +61,7 @@
         </div>
         <ve-line :data="DurationData" height="250px"></ve-line>
       </el-card>
-    </el-card>
+<!--    </el-card>-->
 
     <!--  回到顶部  -->
     <el-backtop :bottom="80">Top</el-backtop>

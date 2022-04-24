@@ -2,9 +2,9 @@
 
 ## 项目介绍
 
-本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。前后台账号密码都为admin。
+本项目是基于vue2.0 + SpringBoot构建的在线学习平台，项目采用前后端分离。
+## 技术栈
 
-##技术栈
 **前端**：Vue + Vue-router + Axios + Element-ui
 
 **后端**：SpringBoot + MyBatis + Redis + shiro + JWT

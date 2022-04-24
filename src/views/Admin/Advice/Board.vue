@@ -41,7 +41,7 @@
 
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 import AddNoticeDialog from "../Dialog/AddNoticeDialog";
 
 export default {
@@ -68,16 +68,25 @@ export default {
   methods: {
     // 获取全部公告数据
     async getAllNotice() {
-      const {data: res} = await this.$http.get('/notice/list')
+      const {data: res} = await this.$http.get('/notices')
       this.notices = res.data;
       this.totalSize = res.data.length
     },
 
     //  删除公告
-    async delNotice(id) {
-      const {data: res} = await this.$http.delete(`/notice/del/${id}`)
-      Message.success(res.data)
-      location.reload()
+    delNotice(id) {
+      MessageBox.confirm('是否删除该公告?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`/notices/${id}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("取消收藏")
+          location.reload()
+        })
+      })
     },
 
     // 发布公告

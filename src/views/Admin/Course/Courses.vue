@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 import UpCourseDialog from "../Dialog/UpCourseDialog";
 
 export default {
@@ -79,7 +79,7 @@ export default {
   methods: {
     // 获取全部课程数据
     async getAllCourses() {
-      const {data: res} = await this.$http.get('/courses/list')
+      const {data: res} = await this.$http.get('/courses')
       this.classItems = res.data;
       this.totalSize = res.data.length
     },
@@ -96,8 +96,19 @@ export default {
     },
 
     //  删除课程
-    delCourse() {
-      Message.success("删除成功")
+    delCourse(id) {
+      MessageBox.confirm('是否删除该课程?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`courses/${id}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("删除成功")
+          location.reload()
+        })
+      })
     },
 
     // 监听pagesize改变的事件

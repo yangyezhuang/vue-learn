@@ -28,6 +28,8 @@
 </template>
 
 <script>
+import {Message, MessageBox} from "element-ui";
+
 export default {
   name: "ChapterList",
   data() {
@@ -52,8 +54,21 @@ export default {
 
     },
 
-    delChapter() {
-
+    delChapter(id) {
+      MessageBox.confirm('是否删除该视频?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.post(`chapter/del/${id}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("取消收藏")
+          location.reload()
+        })
+      }).catch(() => {
+        Message.info('已取消删除');
+      });
     },
 
     //  跳转到详情页面

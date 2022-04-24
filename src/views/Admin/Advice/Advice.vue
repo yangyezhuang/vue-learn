@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 
 export default {
   name: "Advice",
@@ -68,16 +68,25 @@ export default {
   methods: {
     // 查询所有
     async getAllAdvice() {
-      const {data: res} = await this.$http.get('/advice/all')
+      const {data: res} = await this.$http.get('/advices')
       this.adviceList = res.data
       this.total = res.data.length
     },
 
     // 删除
     async delAdvice(uid) {
-      const {data: res} = await this.$http.delete(`advice/del/${uid}`)
-      Message.success(res.data)
-      location.reload()
+      MessageBox.confirm('是否删除该条建议?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`advices/${uid}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("删除成功")
+          location.reload()
+        })
+      })
     },
 
     // 监听pagesize改变的事件

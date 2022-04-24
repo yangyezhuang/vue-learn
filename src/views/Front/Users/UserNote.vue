@@ -1,10 +1,12 @@
 <template>
   <div>
+    <!--  笔记列表  -->
     <div v-for="note in notelists">
       <el-card style="margin-bottom: 10px">
         <div slot="header" class="clearfix">
           <strong style="margin: 0 0 "> {{ note.date }}
-            <el-button size="small" icon="el-icon-delete" @click="delNote(note.note_id)"></el-button>
+            <el-button style="float: right" size="small" icon="el-icon-delete" type="danger" circle plain
+                       @click="delNote(note.note_id)"></el-button>
           </strong>
         </div>
         <div style="height: 100px">
@@ -24,20 +26,24 @@
         </div>
       </el-card>
     </div>
+
+    <div v-show="dividerShow">
+      <el-empty description="暂无笔记"></el-empty>
+    </div>
   </div>
 </template>
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 import jwt from 'jsonwebtoken'
-
 
 export default {
   name: "UserNote",
   data() {
     return {
       codeStyle: "atom-one-dark", //设置主题 ，
-      notelists: ''
+      notelists: '',
+      dividerShow: ''
     }
   },
   created() {
@@ -46,16 +52,31 @@ export default {
   methods: {
     async getAllNotes() {
       let uid = jwt.decode(sessionStorage.getItem("token")).uid
-      const {data: res} = await this.$http.get(`/note/user/${uid}`)
+      const {data: res} = await this.$http.get(`/notes/user/${uid}`)
       this.notelists = res.data
+      if (res.data.length === 0) {
+        this.dividerShow = true
+        this.listShow = false
+      } else {
+        this.dividerShow = false
+        this.listShow = true
+      }
     },
 
-    async delNote(note_id) {
-      const {data: res} = await this.$http.delete(`/note/del/${note_id}`)
-      if (res.code === 1) {
-        Message.success("删除成功")
-        location.reload()
-      }
+    // 删除笔记
+    delNote(note_id) {
+      MessageBox.confirm('是否删除这条笔记?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`/notes/${note_id}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("删除成功")
+          location.reload()
+        })
+      });
     }
   }
 }

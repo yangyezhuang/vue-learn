@@ -16,7 +16,6 @@
             </div>
           </div>
         </div>
-
       </div>
 
       <!--  back top    -->
@@ -29,8 +28,8 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 
 export default {
   name: "Teacher",
@@ -51,7 +50,7 @@ export default {
   methods: {
     // 获取全部
     async getAllCourses() {
-      const {data: res} = await this.$http.get('/teacher/list')
+      const {data: res} = await this.$http.get('/teachers')
       this.teacherList = res.data;
     },
 

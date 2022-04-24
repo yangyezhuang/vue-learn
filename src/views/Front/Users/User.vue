@@ -2,27 +2,69 @@
   <el-container>
     <TopBar></TopBar>
 
-    <!--   主体展示   -->
-    <el-main style="width: 1200px;margin: 0 auto">
-      <div style="min-height:700px;height: auto;margin: 0 auto;background-color: white;">
-        <!--  背景图片   -->
-        <div class="cardBox">
-          <div class="downDiv">
-            <el-avatar :size=80 style="margin-top: 50px">{{ username }}</el-avatar>
-            <h2>{{ username }}</h2>
-          </div>
-        </div>
+    <el-main>
+      <div style="width: 1200px;min-height: 650px;margin: 0 auto">
+        <el-container>
+          <!--   侧边栏菜单   -->
+          <el-aside width="250px">
+            <!--  介绍卡片   -->
+            <el-card style="height: 150px;">
+              <div>
+              <el-avatar style="background-color: skyblue;margin-left: 75px" :size="55">{{ username }}</el-avatar>
+              <h2 style="margin-top: -55px;text-align: center">{{ username }}</h2>
+              </div>
+            </el-card>
+            <el-divider></el-divider>
 
-        <!--  导航 -->
-        <el-menu router mode="horizontal">
-          <el-menu-item index="/user/info" style="font-size: 18px;">个人中心</el-menu-item>
-          <el-menu-item index="/user/courses" style="font-size: 18px;">学习中心</el-menu-item>
-          <el-menu-item v-if="role==='stu'" index="/user/data" style="font-size: 18px;">数据中心</el-menu-item>
-          <el-menu-item v-if="role==='tch'" index="/user/push" style="font-size: 18px;">发布课程</el-menu-item>
-        </el-menu>
 
-        <!--  视图  -->
-        <router-view></router-view>
+            <!--  菜单  -->
+            <el-menu
+                router
+                default-active="2"
+                class="el-menu-vertical-demo"
+                @open="handleOpen"
+                @close="handleClose">
+              <el-submenu index="/user/info">
+                <template slot="title">
+                  <i class="el-icon-s-custom"></i>
+                  <span>个人信息</span>
+                </template>
+                <el-menu-item index="/user/info">个人信息</el-menu-item>
+              </el-submenu>
+              <el-menu-item index="/user/info">
+                <template slot="title">
+                  <i class="el-icon-s-custom"></i>
+                  <span>我的信息</span>
+                </template>
+              </el-menu-item>
+              <el-menu-item index="/user/courses">
+                <i class="el-icon-menu"></i>
+                <span slot="title">我的课程</span>
+              </el-menu-item>
+              <el-menu-item index="/user/note">
+                <i class="el-icon-s-management"></i>
+                <span slot="title">我的笔记</span>
+              </el-menu-item>
+              <el-menu-item v-if="role==='stu'" index="/user/data">
+                <i class="el-icon-s-data"></i>
+                <span slot="title">数据中心</span>
+              </el-menu-item>
+              <el-menu-item v-if="role==='tch'" index="/user/push">
+                <i class="el-icon-upload"></i>
+                <span slot="title">发布课程</span>
+              </el-menu-item>
+            </el-menu>
+          </el-aside>
+
+          <!--   中间主体区域   -->
+          <el-container>
+            <el-main style="margin-top: -20px">
+              <el-card style="height:auto;min-height: 600px;">
+                <router-view></router-view>
+              </el-card>
+            </el-main>
+          </el-container>
+        </el-container>
       </div>
     </el-main>
 
@@ -33,8 +75,8 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 import jwt from 'jsonwebtoken'
 
 export default {
@@ -56,8 +98,8 @@ export default {
   },
 
   methods: {
+    //  判断用户是否登录
     isLogin() {
-      //  判断用户是否登录
       const tokenStr = window.sessionStorage.getItem('token')
       if (!tokenStr) {
         this.$router.push('/')
@@ -68,23 +110,18 @@ export default {
         this.role = str.role
         console.log("解析：" + JSON.stringify(str))
       }
+    },
+
+    handleOpen(key, keyPath) {
+      console.log(key, keyPath);
+    },
+    handleClose(key, keyPath) {
+      console.log(key, keyPath);
     }
   }
 }
 </script>
 
 <style scoped>
-.cardBox {
-  height: 180px;
-  background-color: powderblue;
-  /*background-image: linear-gradient(to right,powderblue,pink, lightcoral);*/
-  /*background-image: linear-gradient(to right,powderblue,pink);*/
-}
-
-.downDiv {
-  /*background-color: gray;*/
-  /*height: 50px;*/
-}
-
 
 </style>

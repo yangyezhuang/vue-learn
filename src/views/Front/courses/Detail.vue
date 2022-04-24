@@ -56,8 +56,8 @@
 
 <script>
 import {Message} from 'element-ui'
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 import jwt from 'jsonwebtoken'
 
 export default {
@@ -84,7 +84,7 @@ export default {
     //  根据课程id查询详情页数据
     async getCourseDetail() {
       let course_id = this.course_id;
-      const {data: res} = await this.$http.get(`/courses/detail/${course_id}`)
+      const {data: res} = await this.$http.get(`/courses/${course_id}`)
       this.course_detail = res.data;
       if (this.course_detail.length !== 0) {
         this.emptyShow = false
@@ -103,7 +103,7 @@ export default {
         let course_id = this.course_id
         let uid = jwt.decode(tokenStr).uid
 
-        this.$http.post(`/user/${uid}/addCourse/${course_id}`).then(res => {
+        this.$http.post(`/users/${uid}/addCourse/${course_id}`).then(res => {
           if (res.data.code === 1) {
             Message.success("添加成功")
           } else {

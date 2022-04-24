@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 
 export default {
   name: "TeacherDetail",
@@ -49,7 +49,7 @@ export default {
 
   methods: {
     async getInfo(uid) {
-      const {data: res} = await this.$http.get(`/teacher/${uid}`)
+      const {data: res} = await this.$http.get(`/teachers/${uid}`)
       this.teacherInfo = res.data;
     },
 

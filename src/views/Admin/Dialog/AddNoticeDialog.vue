@@ -50,7 +50,7 @@ export default {
   methods: {
     // 发布公告
     async addNotice() {
-      const {data: res} = await this.$http.post("/notice/add", this.form)
+      const {data: res} = await this.$http.post("/notices", this.form)
       if (res.data === "1") {
         Message.success('发布成功')
         location.reload()

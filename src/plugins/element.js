@@ -9,7 +9,6 @@ import {
     RadioButton
 } from 'element-ui'
 
-
 Vue.use(Radio)
 Vue.use(RadioGroup)
 Vue.use(RadioButton)

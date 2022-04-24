@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 
 export default {
   name: "Board",
@@ -41,7 +41,7 @@ export default {
   methods: {
     // 获取全部公告
     async getAllNotice() {
-      const {data: res} = await this.$http.get("/notice/list")
+      const {data: res} = await this.$http.get("/notices")
       this.noties = res.data
     }
   }

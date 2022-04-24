@@ -1,6 +1,6 @@
 <template>
   <div>
-    uid:{{msg}}
+    uid:{{ msg }}
     <el-form>
       <!-- 嵌入 Markdown 编辑器 -->
       <el-form-item label="">
@@ -46,10 +46,10 @@ export default {
         uid: this.msg,
         note: this.ruleForm.content
       };
-      const {data: res} = await this.$http.post("/note/add", params)
+      const {data: res} = await this.$http.post("/notes", params)
       if (res.code === 1) {
         Message.success('发布成功')
-        // this.$router.push('/mg/home')
+        location.reload()
       }
     }
   }

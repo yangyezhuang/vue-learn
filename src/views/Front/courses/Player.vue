@@ -3,7 +3,6 @@
     <!--    <el-container>-->
     <TopBar></TopBar>
 
-    <!--  main  -->
     <el-main style="height: auto">
       <div style="width: 1200px;height: 474px;margin:0 auto">
         <!--播放器-->
@@ -40,46 +39,8 @@
       <div style="width: 1200px;height: 100%;background-color: white;margin:0 auto">
         <!--  分割线  -->
         <el-divider></el-divider>
-        <!--  下左div  -->
-        <div style="width: 70%;float: left">
-          <!--  评论区  -->
-          <div style="height: 120px;">
-            <div style="float: left;margin-left: 50px">
-              <el-avatar> {{ username }}</el-avatar>
-              <p>{{ username }}</p>
-            </div>
-            <div style="float: right;margin-right: 50px;width: 670px">
-              <el-input
-                  type="textarea"
-                  :rows="3"
-                  placeholder="请输入评论内容"
-                  v-model="textarea">
-              </el-input>
-            </div>
-            <el-button type="primary" plain @click="pushComment">发表评论</el-button>
-          </div>
-
-          <!--  评论列表  -->
-          <el-divider><h3>评论列表</h3></el-divider>
-          <div v-for="item in comments">
-            <div style="height: 100px;margin-top: 10px;">
-              <div style="float: left;margin-left: 50px">
-                <el-avatar> {{ item.username }}</el-avatar>
-                <p>{{ item.username }}</p>
-              </div>
-              <div style="float: right;margin-right: 50px;width: 670px">
-                <el-input
-                    placeholder="请输入内容"
-                    v-model="item.comment"
-                    :disabled="true">
-                </el-input>
-                <br>
-                {{ item.date }}
-              </div>
-            </div>
-            <el-divider></el-divider>
-          </div>
-        </div>
+        <!--  评论模块  -->
+        <comment :course_id="course_id"></comment>
 
         <!--  推荐  -->
         <div style="width:30%;height: 100%;float: right;">
@@ -104,9 +65,10 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 import Note from "../Dialog/Note";
+import Comment from "./Comment";
 import {videoPlayer} from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 import 'vue-video-player/src/custom-theme.css'
@@ -116,7 +78,7 @@ export default {
   name: "Player",
   components: {
     TopBar,
-    FootBar,
+    FootBar, Comment,
     videoPlayer,
     Note
   },
@@ -124,66 +86,38 @@ export default {
     return {
       uid: jwt.decode(sessionStorage.getItem('token')).uid,
       username: jwt.decode(sessionStorage.getItem('token')).username,
-      textarea: '',
-      comments: '',
       resource: '',
       hotCourse: '',
       chapterList: '',
-      noteDialogShow: false
+      noteDialogShow: false,
+      chapter_id: this.$route.params.chapter_id,
+      course_id: this.$route.params.course_id
     }
   },
 
   created() {
-    this.getCourseSrc()
-    this.getChapterList()
-    this.getComments()
+    this.getCourseSrc(this.course_id, this.chapter_id)
+    this.getChapterList(this.course_id)
     this.getHotCourses()
   },
 
   methods: {
     // 根据章节id获取视频资源
-    async getCourseSrc() {
-      let course_id = this.$route.params.course_id
-      let chapter_id = this.$route.params.chapter_id
-
+    async getCourseSrc(course_id, chapter_id) {
       const {data: res} = await this.$http.get(`/courses/${course_id}/chapter/${chapter_id}`)
       this.resource = res.data
     },
 
     // 跳转其他章节
-    async getVideo(course_id, chapter_id) {
+    getVideo(course_id, chapter_id) {
       this.$router.push(`/courses/${course_id}/chapter/${chapter_id}`)
       location.reload()
     },
 
     //  根据课程id查询章节列表
-    async getChapterList() {
-      let course_id = this.$route.params.course_id
-
+    async getChapterList(course_id) {
       const {data: res} = await this.$http.get(`/courses/chapter/${course_id}`)
       this.chapterList = res.data;
-    },
-
-
-    // 根据课程id获取评论
-    async getComments() {
-      let course_id = this.$route.params.course_id
-
-      const {data: res} = await this.$http.get(`/comments/course/${course_id}`)
-      this.comments = res.data.reverse()
-    },
-
-    // 发表评论
-    async pushComment() {
-      const params = {
-        uid: jwt.decode(sessionStorage.getItem("token")).uid,
-        username: this.username,
-        course_id: this.$route.params.course_id,
-        comment: this.textarea
-      }
-
-      const {data: res} = await this.$http.post('/comments/add', params)
-      this.getComments()
     },
 
     // 推荐课程

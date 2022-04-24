@@ -3,7 +3,6 @@
     <!--  <el-container>-->
     <TopBar></TopBar>
 
-
     <!--  轮播图  -->
     <!--  <el-carousel trigger="click" height="200px"style="width: 90%;margin: 0 auto">  -->
     <el-carousel :interval="4000" type="card" height="200px" style="width: 90%;margin: 0 auto">
@@ -13,9 +12,8 @@
     </el-carousel>
     <br>
 
-
     <!--  main  -->
-    <el-main style="width: 1200px;margin: 0 auto">
+    <el-main style="width: 1240px;margin: 0 auto">
 
       <!--  优势  -->
       <div style="margin: 0 auto;width: 1000px;height: 70px;">
@@ -36,46 +34,16 @@
 
       <!--  精选课程  -->
       <h2 style="text-align:left;">精选课程</h2>
-      <el-row :gutter="40">
-        <el-col v-for="course in hotCourse">
-          <div class="grid-content bg-purple" style="box-shadow: 2px 2px 5px #888888"
-               @click="toCourseDetail(course.id)">
-            <img :src="course.img" style="width: 210px;height: 124px" alt="">
-            <h4 style="text-align:left;margin-top: 5px">{{ course.title }}</h4>
-            <div style="height: 40px;">
-              <p style="text-align:left;margin-top: 5px">{{ course.people }} 在学 |
-                <span style="color:limegreen;">免费</span>
-              </p>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
+      <course-list :classItems="hotCourse"></course-list>
       <el-divider></el-divider>
-
 
       <!--  热门课程  -->
       <h2 style="text-align:left;">热门课程</h2>
-      <el-row :gutter="40">
-        <el-col :span="4" v-for="course in hotCourse.reverse()">
-          <div class="grid-content bg-purple"
-               style="box-shadow: 2px 2px 5px #888888" @click="toCourseDetail(course.id)">
-            <img :src="course.img" style="width: 210px;height: 124px" alt="">
-            <h4 style="text-align:left;margin-top: 5px">{{ course.title }}</h4>
-            <div style="height: 40px;">
-              <p style="text-align:left;margin-top: 5px">{{ course.people }} 在学
-                <span>
-                  <el-tag type="warning" size="mini" style="float:right;">热门</el-tag>
-                </span>
-              </p>
-            </div>
-          </div>
-        </el-col>
-      </el-row>
+      <course-list :classItems="goodCourse"></course-list>
       <el-divider></el-divider>
 
-
       <!--   下方图片   -->
-      <img src="../../../assets/image/footer.png" alt="" style="width: 100%" @click="$router.push('/courses')">
+      <img src="../../assets/image/footer.png" alt="" style="width: 100%" @click="$router.push('/courses')">
     </el-main>
 
     <!--  back top  -->
@@ -87,21 +55,23 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "./layout/TopBar"
+import FootBar from "./layout/FootBar";
+import CourseList from "./layout/CourseList";
 
 export default {
   name: "Test",
   components: {
     TopBar,
-    FootBar
+    FootBar,
+    CourseList
   },
-
   data() {
     return {
       shuffle: '',
       goods: [{id: 1, text: '优质'}, {id: 2, text: '高效'}, {id: 3, text: '免费'}],
       hotCourse: "",
+      goodCourse: '',
       green: "green",
     }
   },
@@ -114,7 +84,7 @@ export default {
   methods: {
     // 获取轮播图
     async getShuffle() {
-      const {data: res} = await this.$http.get("/shuffle")
+      const {data: res} = await this.$http.get("/shuffles")
       this.shuffle = res.data
     },
 
@@ -122,12 +92,7 @@ export default {
     async getHotCourses() {
       const {data: res} = await this.$http.get('/courses/hot')
       this.hotCourse = res.data;
-    },
-
-    //  跳转到详情页面
-    toCourseDetail(courseID) {
-      let url = '/courses/detail/' + courseID
-      this.$router.push(url)
+      this.goodCourse = res.data.reverse()
     }
   }
 }

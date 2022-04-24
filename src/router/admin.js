@@ -12,7 +12,7 @@ import Teacher from "../views/Admin/User/Teacher";
 import Courses from "../views/Admin/Course/Courses"
 import AddCourse from "../views/Admin/Course/AddCourse"
 
-import Breadcrumb from '../views/Admin/Breadcrumb'
+import Breadcrumb from '../views/Admin/Other/Breadcrumb'
 import Proportion from "../views/Admin/Statistical/Sex";
 import ClassType from "../views/Admin/Statistical/ClassType";
 import UV from "../views/Admin/Statistical/UV";

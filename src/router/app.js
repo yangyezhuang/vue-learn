@@ -1,22 +1,23 @@
 // 前台组件
-import Index from '../views/Front/Main/Index'
-import Course from '../views/Front/Main/Course'
-import Category from "../views/Front/Main/Category"
-import Teacher from "../views/Front/Main/Teacher";
+import Index from '../views/Front/Index'
+import Course from '../views/Front/courses/Course'
+import Category from "../views/Front/courses/Category"
+import Teacher from "../views/Front/Teacher/Teacher";
 import TeacherDetail from "../views/Front/Teacher/TeacherDetail";
 
-import Detail from '../views/Front/Main/Detail'
-import Search from "../views/Front/Main/Search"
-import Player from "../views/Front/Main/Player"
-import Notice from "../views/Front/Main/Notice"
-import About from "../views/Front/Layout/About"
-import Error from "../views/Front/Layout/404"
+import Detail from '../views/Front/courses/Detail'
+import Search from "../views/Front/courses/Search"
+import Player from "../views/Front/courses/Player"
+import Notice from "../views/Front/other/Notice"
+import About from "../views/Front/other/About"
+import Error from "../views/Front/other/404"
 
 import User from '../views/Front/Users/User'
 import UserInfo from "../views/Front/Users/UserInfo"
 import UserCourse from "../views/Front/Users/UserCourse"
 import UserData from "../views/Front/Users/UserData"
 import Push from "../views/Front/Users/Push";
+import UserNote from "../views/Front/Users/UserNote";
 
 
 export default [
@@ -61,6 +62,7 @@ export default [
         children: [
             {path: 'info', component: UserInfo},
             {path: 'courses', component: UserCourse},
+            {path: 'note', component: UserNote},
             {path: 'data', component: UserData},
             {path: 'push', component: Push}
         ]

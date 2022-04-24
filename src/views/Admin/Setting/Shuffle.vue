@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 
 export default {
   name: "Shuffle",
@@ -75,15 +75,24 @@ export default {
   methods: {
     // 获取轮播图
     async getShuffle() {
-      const {data: res} = await this.$http.get("/shuffle")
+      const {data: res} = await this.$http.get("/shuffles")
       this.shuffleList = res.data
     },
 
     // 删除
-    async delComment(id) {
-      // const {data: res} = await this.$http.delete(`comments/del/${id}`)
-      Message.info('暂未开放')
-      // location.reload()
+    delComment(id) {
+      MessageBox.confirm('是否删除这张图片?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`shuffles/${id}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("取消收藏")
+          location.reload()
+        })
+      })
     },
 
     handleRemove(file, fileList) {

@@ -6,21 +6,10 @@
     <!--   课程列表   -->
     <el-main>
       <div class="main">
-        <h3 style="margin: 0">全部课程</h3>
+        <h3 style="text-align: center;margin: 0">全部课程</h3>
         <el-divider></el-divider>
-        <div id="class_list" v-for="item in classItems" :key="item.title">
-          <div id="class_li">
-            <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
-            <div>
-              <h3 style="text-align:left;margin-top: 5px">{{ item.title }}</h3>
-              <p style="text-align:left;margin-top: 5px">{{ item.people }} 人在学
-                <span>
-                  <el-tag size="mini" style="float:right;margin-right: 5px">{{ item.type }}</el-tag>
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
+        <!--课程列表-->
+        <course-list :classItems="classItems"></course-list>
       </div>
 
       <!--  back top    -->
@@ -33,14 +22,16 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar"
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
+import CourseList from "../layout/CourseList";
 
 export default {
   name: "Course",
   components: {
     TopBar,
-    FootBar
+    FootBar,
+    CourseList
   },
   data() {
     return {
@@ -55,7 +46,7 @@ export default {
   methods: {
     // 获取全部课程
     async getAllCourses() {
-      const {data: res} = await this.$http.get('/courses/list')
+      const {data: res} = await this.$http.get('/courses')
       this.classItems = res.data;
     },
 

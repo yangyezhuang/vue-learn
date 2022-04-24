@@ -12,24 +12,10 @@
 
         <!--    课程列表    -->
         <el-card>
-          <div id="class_list" v-for="item in classItems" :key="item.title">
-            <div id="class_li">
-              <img :src="item.img" alt="" @click="toCourseDetail(item.id)">
-              <div>
-                <h3 style="text-align:left;margin-top: 5px">{{ item.title }}</h3>
-                <p style="text-align:left;margin-top: 5px">{{ item.people }} 人在学
-                  <span>
-                  <el-tag size="mini" style="float:right;margin-right: 5px">{{ item.type }}</el-tag>
-                </span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <course-list :classItems="classItems"></course-list>
 
           <!--  空状态   -->
-          <div v-show="emptyShow">
-            <el-empty description="暂未课程"></el-empty>
-          </div>
+          <el-empty v-show="emptyShow" description="暂未课程"></el-empty>
         </el-card>
       </div>
     </el-main>
@@ -40,14 +26,15 @@
 </template>
 
 <script>
-import TopBar from "../Layout/TopBar";
-import FootBar from "../Layout/FootBar";
+import TopBar from "../layout/TopBar";
+import FootBar from "../layout/FootBar";
+import CourseList from "../layout/CourseList";
 
 export default {
   name: "Category",
   components: {
     TopBar,
-    FootBar
+    FootBar, CourseList
   },
   data() {
     return {
@@ -64,7 +51,7 @@ export default {
   methods: {
     // 获取课程类别
     async getCate() {
-      const {data: res} = await this.$http.get("/catelabel")
+      const {data: res} = await this.$http.get("/category/catelabel")
       this.options = res.data
     },
 

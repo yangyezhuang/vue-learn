@@ -1,6 +1,5 @@
 <template>
   <div>
-    <el-card>
       <el-form :model="infoForm" :label-position="left" label-width="80px">
         <el-form-item label="课程名称">
           <el-input v-model="infoForm.title"></el-input>
@@ -39,7 +38,6 @@
         <!-- 添加按钮 -->
         <el-button type="primary" @click="submitUpload">上传课程</el-button>
       </el-form>
-    </el-card>
   </div>
 </template>
 
@@ -104,7 +102,6 @@ export default {
           console.log(res.data)
           Message.success('上传成功');
         } else {
-          console.log(res.data)
           Message.error('上传失败');
         }
         //清空fileList

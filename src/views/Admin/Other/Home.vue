@@ -86,12 +86,12 @@ export default {
 
   methods: {
     async totalUser() {
-      const {data: res} = await this.$http.get("/user/all")
+      const {data: res} = await this.$http.get("/users")
       this.userNum = res.data.length
     },
 
     async totalCourses() {
-      const {data: res} = await this.$http.get("/courses/all")
+      const {data: res} = await this.$http.get("/courses")
       this.courseNum = res.data.length
     },
 
@@ -149,9 +149,13 @@ export default {
         ]
       })
     },
+
     echartsInit1() {
       this.$echarts.init(document.getElementById('main1')).setOption(
           {
+            title: {
+              text: '课程类型分析'
+            },
             legend: {},
             tooltip: {
               trigger: 'axis',
@@ -159,11 +163,11 @@ export default {
             },
             dataset: {
               source: [
-                ['product', '2012', '2013', '2014', '2015', '2016', '2017'],
-                ['Milk Tea', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
-                ['Matcha Latte', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
-                ['Cheese Cocoa', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
-                ['Walnut Brownie', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
+                ['时间', '2012', '2013', '2014', '2015', '2016', '2017'],
+                ['儿童', 56.5, 82.1, 88.7, 70.1, 53.4, 85.1],
+                ['历史', 51.1, 51.4, 55.1, 53.3, 73.8, 68.7],
+                ['社会', 40.1, 62.2, 69.5, 36.4, 45.2, 32.5],
+                ['经典', 25.2, 37.1, 41.2, 18, 33.9, 49.1]
               ]
             },
             xAxis: {type: 'category'},
@@ -206,7 +210,7 @@ export default {
                   formatter: '{b}: {@2012} ({d}%)'
                 },
                 encode: {
-                  itemName: 'product',
+                  itemName: '时间',
                   value: '2012',
                   tooltip: '2012'
                 }

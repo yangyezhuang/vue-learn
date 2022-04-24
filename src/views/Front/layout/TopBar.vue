@@ -67,7 +67,6 @@ export default {
     Login
   },
 
-  // 接受父组件传来的参数
   // props: [
   //   'show_login',
   //   'show_login'
@@ -101,7 +100,7 @@ export default {
     // 公告牌
     async openBoard() {
       const h = this.$createElement;
-      const {data: res} = await this.$http.get("/notice/new")
+      const {data: res} = await this.$http.get("/notices/new")
       let notice = res.data
 
       Notification({
@@ -121,7 +120,6 @@ export default {
         let str = jwt.decode(tokenStr)
         this.uid = str.uid
         this.username = str.username
-        // console.log("解析：" + JSON.stringify(str))
       }
     },
 

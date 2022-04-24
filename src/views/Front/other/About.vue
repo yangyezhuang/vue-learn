@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import TopBar from "./TopBar"
-import FootBar from "./FootBar";
+import TopBar from "../layout/TopBar"
+import FootBar from "../layout/FootBar";
 import {Message} from "element-ui";
 
 export default {

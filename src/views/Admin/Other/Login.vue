@@ -28,7 +28,7 @@ export default {
       // 登录表单的数据
       loginForm: {
         username: 'admin',
-        password: '1212'
+        password: 'admin'
       },
       // 表单验证规则
       loginFormRules: {

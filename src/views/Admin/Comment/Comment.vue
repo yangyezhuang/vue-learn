@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 
 export default {
   name: "Comments",
@@ -67,16 +67,25 @@ export default {
   methods: {
     // 查询所有评论
     async getUserList() {
-      const {data: res} = await this.$http.get('/comments/list')
+      const {data: res} = await this.$http.get('/comments')
       this.commentsList = res.data
       this.total = res.data.length
     },
 
     // 删除评论
     async delComment(comment_id) {
-      const {data: res} = await this.$http.delete(`comments/del/${comment_id}`)
-      Message.success('删除成功')
-      location.reload()
+      MessageBox.confirm('是否删除该评论?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`comments/${comment_id}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("删除成功")
+          location.reload()
+        })
+      })
     },
 
     // 监听pagesize改变的事件

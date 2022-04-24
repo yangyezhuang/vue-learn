@@ -1,6 +1,7 @@
 <template>
   <el-container>
     <el-aside :width="isCollapse?'64px':'200px'">
+      <!--  菜单  -->
       <el-menu
           router
           unique-opened
@@ -11,13 +12,16 @@
           :collapse="isCollapse"
       >
         <!--  logo  -->
-        <el-submenu>
-          <template slot="title">
-            <img src="../../assets/image/lg.png" alt="" style="width: 25px;float: left;margin-top: 15px">
-            <span style="text-align: center;font-size: 17px;color: white;
+        <el-menu-item>
+          <img src="../../assets/image/lg.png" alt="" style="width: 25px;float: left;margin-top: 15px">
+          <span style="text-align: center;font-size: 17px;color: white;
             margin-top: 0;margin-bottom: 0;margin-left: 7px">后台管理系统</span>
-          </template>
-        </el-submenu>
+        </el-menu-item>
+        <!--主页-->
+        <el-menu-item index='/mg/home'>
+          <i class="el-icon-s-home"></i>
+          <span>主页</span>
+        </el-menu-item>
 
         <!-- 一级菜单 -->
         <el-submenu
@@ -27,7 +31,7 @@
         >
           <template slot="title">
             <i :class="item.icon"></i>
-            <span>{{ item.authName }}</span>
+            <span>{{ item.name }}</span>
           </template>
 
           <!-- 二级菜单 -->
@@ -38,7 +42,7 @@
           >
             <template slot="title">
               <i :class="subItem.icon"></i>
-              <span>{{ subItem.authName }}</span>
+              <span>{{ subItem.name }}</span>
             </template>
           </el-menu-item>
         </el-submenu>
@@ -108,7 +112,7 @@ export default {
   name: "Home",
   data() {
     return {
-      menus: Menus_data,
+      menus: '',
       isCollapse: false
     };
   },
@@ -117,10 +121,21 @@ export default {
       return this.$route.matched;
     }
   },
+
+  created() {
+    this.getMenu()
+  },
   methods: {
+    // 获取菜单
+    async getMenu() {
+      const {data: res} = await this.$http.get("/menus")
+      this.menus = res.data
+    },
+
     Collapse() {
       this.isCollapse = !this.isCollapse
     },
+
     logout() {
       window.sessionStorage.clear(); // 清除token
       this.$router.push("/admin");

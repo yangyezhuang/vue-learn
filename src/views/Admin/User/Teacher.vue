@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import {Message} from "element-ui";
+import {Message, MessageBox} from "element-ui";
 import UpdateDialog from "../Dialog/UpTchDialog";
 
 export default {
@@ -109,7 +109,7 @@ export default {
     },
     // 查询所有用户
     async getUserList() {
-      const {data: res} = await this.$http.get('/teacher/list')
+      const {data: res} = await this.$http.get('/teachers')
       this.userslist = res.data
       this.total = res.data.length
     },
@@ -135,10 +135,19 @@ export default {
     },
 
     // 删除用户
-    async delUser(uid) {
-      const {data: res} = await this.$http.post(`user/del/${uid}`)
-      Message.success(res.data)
-      location.reload()
+    delUser(uid) {
+      MessageBox.confirm('是否删除该用户?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http.delete(`users/${uid}`).then((res) => {
+          // if (res.code === 1)
+          //   location.reload()
+          Message.success("删除成功")
+          location.reload()
+        })
+      })
     }
   }
 };

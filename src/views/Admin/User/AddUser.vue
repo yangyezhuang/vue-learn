@@ -23,17 +23,16 @@
         <el-button type="primary" round @click="addUser()">创建用户</el-button>
       </el-form>
     </el-card>
-
-    <!-- 表单 -->
   </div>
 </template>
 
 <script>
+import {Message} from "element-ui";
+
 export default {
   name: "AddGoods",
   data() {
     return {
-      // 表单数据
       userForm: {
         username: '',
         password: '',
@@ -61,22 +60,14 @@ export default {
       // 表单预验证
       this.$refs.userFormRef.validate((valid) => {
         if (valid) {
-          // 请求参数
-          const req_Info = {
-            username: this.userForm.username,
-            password: this.userForm.password,
-            phoneNum: this.userForm.phonenum,
-            email: this.userForm.email
-          }
           // 发起post请求，添加用户
-          this.$http.post('user/add', req_Info).then((res) => {
-            console.log(res)
+          this.$http.post('/users', this.userForm).then((res) => {
+            if (res.code === 1)
+              Message.success(res.data)
           })
-          Message.success(res.data)
+
           // 添加成功后，返回用户列表页
-          this.$router.push('/users')
-        } else {
-          console.log('')
+          this.$router.push('/mg/userManager/users')
         }
       })
     }
