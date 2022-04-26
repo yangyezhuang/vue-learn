@@ -14,12 +14,16 @@
       <el-table :data="userslist.slice((queryInfo.pagenum-1)*queryInfo.pagesize,queryInfo.pagenum*queryInfo.pagesize)"
                 border stripe>
         <el-table-column type="index"></el-table-column>
-        <el-table-column label="uid" prop="uid" width="100px"></el-table-column>
-        <el-table-column label="用户名" prop="username" width="100px"></el-table-column>
-        <el-table-column label="密码" prop="password" width="120px"></el-table-column>
+        <el-table-column label="头像" prop="username" width="65px">
+          <!-- 图片的显示 -->
+          <template v-slot="scope">
+            <el-avatar> {{scope.row.username}} </el-avatar>
+          </template>
+        </el-table-column>        <el-table-column label="uid" prop="uid" width="120px"></el-table-column>
+        <el-table-column label="用户名" prop="username" width="120px"></el-table-column>
+        <el-table-column label="密码" prop="password" width="150px"></el-table-column>
         <el-table-column label="手机号" prop="phoneNum" width="120px"></el-table-column>
-        <el-table-column label="邮箱" prop="email" width="170px"></el-table-column>
-        <el-table-column label="备注"></el-table-column>
+        <el-table-column label="邮箱" prop="email" ></el-table-column>
         <el-table-column label="状态" prop="status" width="150px">
           <template slot-scope="scope">
             <el-switch
@@ -79,8 +83,6 @@ export default {
         phoneNum: '',
         email: ''
       },
-      dialogTableVisible: false,
-      // dialogFormVisible: false,
       formLabelWidth: '120px',
       queryInfo: {
         query: '',
@@ -102,21 +104,12 @@ export default {
       this.visible = true
       this.uid = uid
     },
+
     // 查询所有用户
     async getUserList() {
       const {data: res} = await this.$http.get('/users')
       this.userslist = res.data
       this.total = res.data.length
-    },
-
-    // 监听pagesize改变的事件
-    handleSizeChange(newSize) {
-      this.queryInfo.pagesize = newSize
-    },
-
-    // 监听页码值改变的事件
-    handleCurrentChange(pageNum) {
-      this.queryInfo.pagenum = pageNum
     },
 
     // 监听 switch 状态
@@ -134,17 +127,6 @@ export default {
       this.$router.push(`/mg/userManager/draw/${uid}`)
     },
 
-    // 修改用户信息
-    async updateUserInfo() {
-      // const {data: res} = await this.$http.post("/notice/add", this.form)
-      // if (res.data === "1") {
-      Message.success('修改成功')
-      //   location.reload()
-      // } else {
-      //   Message.success(res.data)
-      // }
-    },
-
     // 删除用户
     delUser(uid) {
       MessageBox.confirm('是否删除该用户?', '提示', {
@@ -159,7 +141,17 @@ export default {
           location.reload()
         })
       })
-    }
+    },
+
+    // 监听pagesize改变的事件
+    handleSizeChange(newSize) {
+      this.queryInfo.pagesize = newSize
+    },
+
+    // 监听页码值改变的事件
+    handleCurrentChange(pageNum) {
+      this.queryInfo.pagenum = pageNum
+    },
   }
 };
 </script>

@@ -74,7 +74,7 @@ export default {
   },
   methods: {
     async getUserInfo() {
-      const {data: res} = await this.$http.get(`/teacher/${this.uid}`)
+      const {data: res} = await this.$http.get(`/teachers/${this.uid}`)
       this.form = res.data
     },
 

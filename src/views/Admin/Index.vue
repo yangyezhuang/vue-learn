@@ -90,7 +90,7 @@
               </el-menu-item>
               <el-menu-item @click="logout">
                 <i class="el-icon-switch-button"></i>
-                退出登录
+                退出
               </el-menu-item>
             </el-popover>
           </el-menu-item>

@@ -5,7 +5,6 @@ import store from './store'
 import axios from "axios"
 import './plugins/element'
 import './assets/css/global.css'
-import VCharts from 'v-charts'
 import echarts from 'echarts'
 //需要挂载到Vue原型上
 Vue.prototype.$echarts = echarts
@@ -13,12 +12,7 @@ Vue.prototype.$echarts = echarts
 // markdown
 import mavonEditor from 'mavon-editor';
 import 'mavon-editor/dist/css/index.css';
-
 Vue.use(mavonEditor)
-
-
-Vue.use(VCharts)
-
 
 // 防止后端两次sessionID不同
 axios.defaults.withCredentials = true

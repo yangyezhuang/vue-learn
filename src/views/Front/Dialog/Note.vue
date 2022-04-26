@@ -1,52 +1,64 @@
 <template>
   <div>
-    uid:{{ msg }}
-    <el-form>
-      <!-- 嵌入 Markdown 编辑器 -->
-      <el-form-item label="">
-        <mavon-editor
-            style="height: 400px"
-            v-model="ruleForm.content"
-            @save=""
-        ></mavon-editor>
-      </el-form-item>
+    <el-dialog title="添加笔记" :visible.sync="openCardDialog" width="60%" center>
+      <el-form>
+        <!-- 嵌入 Markdown 编辑器 -->
+        <el-form-item label="">
+          <mavon-editor
+              style="height: 400px"
+              v-model="ruleForm.note"
+              @save=""
+          ></mavon-editor>
+        </el-form-item>
+      </el-form>
 
       <!-- 提交按钮 -->
-      <el-form-item>
+      <span slot="footer" class="dialog-footer">
         <el-button
             :plain="true"
             type="primary"
-            @click.prevent="save"
+            @click="save"
         >发布笔记
-        </el-button>
-
-      </el-form-item>
-    </el-form>
+          </el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import {Message} from "element-ui"
 import "mavon-editor/dist/css/index.css";
+import jwt from "jsonwebtoken";
 
 export default {
   name: "Note",
-  props: ['msg'],
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       ruleForm: {
-        uid: '',
-        content: "",
+        uid: jwt.decode(sessionStorage.getItem('token')).uid,
+        note: "",
       },
+    }
+  },
+  computed: {
+    openCardDialog: {
+      get() {
+        return this.visible
+      },
+      set(val) {
+        this.$emit('update:visible', val) // openCardDialog改变的时候通知父组件
+      }
     }
   },
   methods: {
     async save() {
-      let params = {
-        uid: this.msg,
-        note: this.ruleForm.content
-      };
-      const {data: res} = await this.$http.post("/notes", params)
+      const {data: res} = await this.$http.post("/notes", this.ruleForm)
       if (res.code === 1) {
         Message.success('发布成功')
         location.reload()

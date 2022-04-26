@@ -34,7 +34,8 @@
           </template>
         </el-table-column>
 
-        <el-table-column label="ID" prop="id"></el-table-column>
+        <el-table-column label="ID" prop="id" width="80px"></el-table-column>
+        <el-table-column label="链接" prop="url"></el-table-column>
         <el-table-column label="操作" width="80px">
           <template v-slot="scope">
             <el-button type="danger" icon="el-icon-delete"

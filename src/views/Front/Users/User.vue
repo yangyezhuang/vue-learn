@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <div>
     <TopBar></TopBar>
 
     <el-main>
@@ -9,10 +9,8 @@
           <el-aside width="250px">
             <!--  介绍卡片   -->
             <el-card style="height: 150px;">
-              <div>
               <el-avatar style="background-color: skyblue;margin-left: 75px" :size="55">{{ username }}</el-avatar>
               <h2 style="margin-top: -55px;text-align: center">{{ username }}</h2>
-              </div>
             </el-card>
             <el-divider></el-divider>
 
@@ -24,13 +22,6 @@
                 class="el-menu-vertical-demo"
                 @open="handleOpen"
                 @close="handleClose">
-              <el-submenu index="/user/info">
-                <template slot="title">
-                  <i class="el-icon-s-custom"></i>
-                  <span>个人信息</span>
-                </template>
-                <el-menu-item index="/user/info">个人信息</el-menu-item>
-              </el-submenu>
               <el-menu-item index="/user/info">
                 <template slot="title">
                   <i class="el-icon-s-custom"></i>
@@ -68,10 +59,8 @@
       </div>
     </el-main>
 
-    <el-footer>
-      <FootBar></FootBar>
-    </el-footer>
-  </el-container>
+    <FootBar></FootBar>
+  </div>
 </template>
 
 <script>
@@ -108,7 +97,7 @@ export default {
         this.uid = str.uid
         this.username = str.username
         this.role = str.role
-        console.log("解析：" + JSON.stringify(str))
+        // console.log("解析：" + JSON.stringify(str))
       }
     },
 

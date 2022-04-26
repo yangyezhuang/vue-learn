@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-row :gutter="40">
+      <!--    上传  -->
       <el-col style="width: 400px">
         <el-upload
             class="upload-demo"
@@ -12,15 +13,14 @@
         </el-upload>
       </el-col>
 
+      <!--    视频列表  -->
       <el-col v-for="course in chapterList" style="width: 400px;margin-left: 20px">
-        <div style="width: 360px;float: left" @click="viewChapter(course.chapter_id)">
+        <div style="width: 360px;float: left">
           <video width="360px" height="180px" controls :src="course.chapter_src" type="video/mp4"></video>
-          <span>id:{{ course.chapter_id }} </span>
-          <span> {{ course.chapter_title }}</span>
-          <div style="height: 40px;">
-            <el-button type="success" icon="el-icon-view" @click="viewChapter(course.chapter_id)"></el-button>
-            <el-button type="danger" icon="el-icon-delete" @click="delChapter(course.chapter_id)"></el-button>
-          </div>
+          <h3 style="text-align: center">章节标题： {{ course.chapter_title }}
+            <el-button type="danger" icon="el-icon-delete" size="small" style="float: right"
+                       @click="delChapter(course.chapter_id)"></el-button>
+          </h3>
         </div>
       </el-col>
     </el-row>
@@ -50,9 +50,6 @@ export default {
       this.chapterList = res.data;
     },
 
-    viewChapter() {
-
-    },
 
     delChapter(id) {
       MessageBox.confirm('是否删除该视频?', '提示', {

@@ -1,55 +1,53 @@
 <template>
   <div>
     <el-card style="height: auto;width: 100%">
-      <!--      用户ID： {{ uid }}-->
-
-      <!--  左侧布局  -->
+      <!--  左侧  -->
       <div class="nav">
+        <!--    学习记录      -->
         <el-card style="width: 500px;height: 150px;">
           <div slot="header" class="clearfix">
-            <span> 类型爱好分析</span>
+            <h4 style="margin: 0"> 学习记录</h4>
           </div>
           <div class="s">课程总数
             <p style="font-size: 30px;margin: 0">{{ courseCount }}</p>
           </div>
           <div class="s">累计登录
-            <p style="font-size: 30px;margin: 0">124</p>
+            <p style="font-size: 30px;margin: 0">{{ countLogin }}</p>
           </div>
           <div class="s">学习时长
             <p style="font-size: 30px;margin: 0">{{ DurationData.totalDuration }}</p>
           </div>
         </el-card>
-        <br>
-        <el-card style="width: 500px;height: 250px;margin-top: 15px">
+        <!--用户专注度分析-->
+        <el-card style="width: 500px;height: 250px;margin-top: 20px">
+          <div slot="header" class="clearfix">
+            <h4 style="margin: 0"> 用户专注度分析</h4>
+          </div>
+          <el-progress type="circle" :percentage="Concentration"></el-progress>
+        </el-card>
+        <!--类型爱好分析-->
+        <el-card style="width: 500px;margin-top: 20px">
           <div slot="header" class="clearfix">
             <span> 类型爱好分析</span>
           </div>
-          <div class="s">专注度
-            <el-progress type="circle" :percentage="Concentration"></el-progress>
-          </div>
           <h3><i class="el-icon-pie-chart"></i> {{ userlabel }}</h3>
-        </el-card>
-        <br>
-        <el-card style="width: 500px;height: 130px;">
-          <div slot="header" class="clearfix">
-            <h3 style="margin: 0 0 ">我的贡献</h3>
-          </div>
-          <h3 style="text-align: left">{{ commentCount }} 条评论 / {{ noteCount }} 条笔记</h3>
+          <p>该用户学习范围集中于
+            <el-tag size="small">经典</el-tag>
+            类课程。
+          </p>
         </el-card>
       </div>
 
       <!--  右侧  -->
-      <div style="float: right">
+      <div style="width: 650px;float: right">
         <!--  用户登录时段  -->
-        <el-card style="width: 650px;height: 150px;float:right;">
-          <div slot="header" class="clearfix">
-            <span>用户登录时段</span>
+        <el-card style="width: 100%;float:right;">
+          <div style="width: 600px;height: 200px" id="r1">
           </div>
-          <ve-line :data="DurationData" height="250px"></ve-line>
         </el-card>
-        <br>
-        <el-card style="width: 650px">
-          <div style="width: 600px;height: 400px" id="main">
+
+        <el-card style="width: 100%;margin-top: 20px">
+          <div style="width: 600px;height: 300px" id="main">
           </div>
         </el-card>
       </div>
@@ -58,18 +56,15 @@
 </template>
 
 <script>
-import VeLine from "v-charts/lib/line.common";
 import jwt from "jsonwebtoken";
 
 export default {
   name: "UserDraw",
-  components: {
-    VeLine
-  },
   data() {
     return {
       uid: '',
       username: '',
+      countLogin: Math.ceil(Math.random() * 500),
       Concentration: '',
       userlabel: '喜欢经典文学',
       DurationData: {
@@ -77,9 +72,7 @@ export default {
         rows: [],
         totalDuration: ''
       },
-      courseCount: '',
-      commentCount: '',
-      noteCount: ''
+      courseCount: ''
     }
   },
   created() {
@@ -88,6 +81,7 @@ export default {
   },
   mounted() {
     this.echartsInit()
+    this.echartsInit1()
     this.getConcentration()
     this.getLearningDuration()
     this.getuserLabel()
@@ -96,19 +90,35 @@ export default {
     this.getNoteTotal()
   },
   methods: {
-    //初始化echarts
-    echartsInit() {
-      //因为初始化echarts 的时候，需要指定的容器 id='main'
-      this.$echarts.init(document.getElementById('main')).setOption({
-
+    echartsInit1() {
+      this.$echarts.init(document.getElementById('r1')).setOption({
         title: {
-          text: '用户行为分析'
+          text: '用户登录统计'
+        },
+        xAxis: {
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            data: [12, 4, 17, 23, 5, 9, 14],
+            type: 'line'
+          }
+        ]
+      })
+    },
+    echartsInit() {
+      this.$echarts.init(document.getElementById('main')).setOption({
+        title: {
+          text: '用户爱好分析'
         },
         legend: {
-          data: ['Allocated Budget', 'Actual Spending']
+          data: ['点击次数', '观看次数']
         },
         radar: {
-          // shape: 'circle',
           indicator: [
             {name: '文学', max: 6500},
             {name: '现代', max: 16000},
@@ -125,11 +135,11 @@ export default {
             data: [
               {
                 value: [4200, 3000, 20000, 35000, 50000, 18000],
-                name: 'Allocated Budget'
+                name: '点击次数'
               },
               {
                 value: [5000, 14000, 28000, 26000, 42000, 21000],
-                name: 'Actual Spending'
+                name: '观看次数'
               }
             ]
           }
@@ -139,8 +149,10 @@ export default {
 
     // 获取用户专注度
     async getConcentration() {
-      const {data: res} = await this.$http.post(`/behavior/concentration/${this.uid}`)
-      this.Concentration = res.data
+      this.Concentration = Math.ceil(Math.random() * 100); // 生成随机数
+
+      // const {data: res} = await this.$http.post(`/behavior/concentration/${this.uid}`)
+      // this.Concentration = res.data
     },
 
     //  用户学习时长
@@ -157,18 +169,8 @@ export default {
     },
     // 获取课程数量
     async getCourseTotal() {
-      const {data: res} = await this.$http.get(`user/course/total/${this.uid}`)
+      const {data: res} = await this.$http.get(`users/course/total/${this.uid}`)
       this.courseCount = res.data
-    },
-    // 获取笔记数量
-    async getCommentTotal() {
-      const {data: res} = await this.$http.get(`comments/total/user/${this.uid}`)
-      this.commentCount = res.data
-    },
-    // 获取笔记数量
-    async getNoteTotal() {
-      const {data: res} = await this.$http.get(`/note/total/user/${this.uid}`)
-      this.noteCount = res.data
     }
   }
 }

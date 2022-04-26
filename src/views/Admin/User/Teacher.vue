@@ -114,16 +114,6 @@ export default {
       this.total = res.data.length
     },
 
-    // 监听pagesize改变的事件
-    handleSizeChange(newSize) {
-      this.queryInfo.pagesize = newSize
-    },
-
-    // 监听页码值改变的事件
-    handleCurrentChange(pageNum) {
-      this.queryInfo.pagenum = pageNum
-    },
-
     // 监听 switch 状态
     async userStateChanged(userinfo) {
       const {data: res} = await this.$http.put(`/user/${userinfo.uid}/state/${userinfo.status}`)
@@ -148,7 +138,17 @@ export default {
           location.reload()
         })
       })
-    }
+    },
+
+    // 监听pagesize改变的事件
+    handleSizeChange(newSize) {
+      this.queryInfo.pagesize = newSize
+    },
+
+    // 监听页码值改变的事件
+    handleCurrentChange(pageNum) {
+      this.queryInfo.pagenum = pageNum
+    },
   }
 };
 </script>

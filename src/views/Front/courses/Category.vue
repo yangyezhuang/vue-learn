@@ -1,12 +1,10 @@
 <template>
   <div>
-    <!--    <el-container>-->
     <TopBar></TopBar>
 
-    <!--   课程列表   -->
     <el-main>
       <div class="main">
-        <el-menu class="el-menu-demo" mode="horizontal">
+        <el-menu mode="horizontal">
           <el-menu-item v-for="i in options" @click="getCategory(i.label)">{{ i.label }}</el-menu-item>
         </el-menu>
 
@@ -20,7 +18,6 @@
       </div>
     </el-main>
 
-    <!--    </el-container>-->
     <FootBar></FootBar>
   </div>
 </template>

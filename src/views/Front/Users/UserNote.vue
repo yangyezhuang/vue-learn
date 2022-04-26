@@ -53,7 +53,7 @@ export default {
     async getAllNotes() {
       let uid = jwt.decode(sessionStorage.getItem("token")).uid
       const {data: res} = await this.$http.get(`/notes/user/${uid}`)
-      this.notelists = res.data
+      this.notelists = res.data.reverse()
       if (res.data.length === 0) {
         this.dividerShow = true
         this.listShow = false

@@ -2,6 +2,15 @@
   <div>
     <el-card>
       <el-form ref="userFormRef" :model="userForm" :rules="userFormRules" :label-position="left" label-width="80px">
+        <el-form-item label="头像" prop="username">
+          <el-upload
+              style="float: left"
+              action="https://jsonplaceholder.typicode.com/posts/"
+              list-type="picture-card"
+              :on-preview="handlePictureCardPreview"
+              :on-remove="handleRemove">
+            <i class="el-icon-plus"></i>
+          </el-upload>        </el-form-item>
         <el-form-item label="用户名" prop="username">
           <el-input v-model="userForm.username"></el-input>
         </el-form-item>
@@ -55,7 +64,6 @@ export default {
   },
 
   methods: {
-    // 创建用户
     addUser() {
       // 表单预验证
       this.$refs.userFormRef.validate((valid) => {
@@ -70,7 +78,15 @@ export default {
           this.$router.push('/mg/userManager/users')
         }
       })
-    }
+    },
+
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
   }
 }
 </script>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--    <el-container>-->
     <TopBar></TopBar>
 
     <el-main style="height: auto">
@@ -23,12 +22,10 @@
               </li>
             </ul>
 
-            <!--添加笔记-->
-            <el-button type="primary" @click="noteDialogShow=true">添加笔记</el-button>
-            <el-dialog title="添加笔记" :visible.sync="noteDialogShow" center :append-to-body='true' :lock-scroll="false"
-                       width="60%" center>
-              <Note :msg="uid"></Note>
-            </el-dialog>
+            <!--  添加笔记  -->
+            <el-button type="primary" @click="openNote()">添加笔记</el-button>
+            <!--  添加笔记弹窗组件  -->
+            <note :visible.sync="visible"></note>
           </el-card>
         </div>
       </div>
@@ -60,7 +57,6 @@
     <el-backtop :bottom="80">Top</el-backtop>
 
     <FootBar></FootBar>
-    <!--    </el-container>-->
   </div>
 </template>
 
@@ -86,6 +82,7 @@ export default {
     return {
       uid: jwt.decode(sessionStorage.getItem('token')).uid,
       username: jwt.decode(sessionStorage.getItem('token')).username,
+      visible: false,
       resource: '',
       hotCourse: '',
       chapterList: '',
@@ -118,6 +115,10 @@ export default {
     async getChapterList(course_id) {
       const {data: res} = await this.$http.get(`/courses/chapter/${course_id}`)
       this.chapterList = res.data;
+    },
+
+    openNote() {
+      this.visible = true
     },
 
     // 推荐课程

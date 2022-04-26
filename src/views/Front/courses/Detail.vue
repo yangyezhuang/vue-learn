@@ -1,56 +1,51 @@
 <template>
   <div>
-    <el-container>
-      <TopBar></TopBar>
+    <TopBar></TopBar>
 
-      <!--   main   -->
-      <el-main style="width: 1200px;margin: 0 auto">
-        <el-card>
-          <div v-if="cardShow">
-            <div style="width: 100%;height: 200px;">
-              <!--  左侧图片  -->
-              <div style="width:400px;height: 100%;float: left;margin-left: 100px">
-                <img :src="course_detail[0].img" alt="" style="width: 100%;height: 100%;border-radius: 5px">
-              </div>
-
-              <!--  右侧介绍  -->
-              <div style="width: 550px;height:100%;background-color:white;margin-left: 600px;border-radius: 20px;">
-                <h1>《 {{ course_detail[0].title }} 》</h1>
-                <p style="color: gray">id:{{ course_id }}</p>
-                <h4>共 {{ course_detail.length }} 节</h4>
-                <el-button type="primary" @click="addCourse">加入课程</el-button>
-                <el-button type="primary" @click="toPlayer(course_id,course_detail[0].chapter_id)">开始学习</el-button>
-              </div>
+    <el-main style="width: 1200px;margin: 0 auto">
+      <el-card>
+        <div v-if="cardShow">
+          <div style="width: 100%;height: 200px;">
+            <!--  左侧图片  -->
+            <div style="width:400px;height: 100%;float: left;margin-left: 100px">
+              <img :src="course_detail[0].img" alt="" style="width: 100%;height: 100%;border-radius: 5px">
             </div>
 
-            <!--   下方课程简介    -->
-            <div style="width: 100%;background-color: white;margin-top: 50px;border-radius: 30px">
-              <el-divider></el-divider>
-
-              <h2>课程简介</h2>
-              <p>{{ course_detail[0].info }}</p>
-              <el-divider></el-divider>
-
-              <ul v-for="i in course_detail">
-                <li @click="toPlayer(course_id,i.chapter_id)" style="color: #409EFF">
-                  第{{ i.chapter_title }} - {{ course_detail[0].title }} （ {{ i.chapter_id }}）
-                </li>
-              </ul>
-
-              <div style="width: 100%;height: 150px"></div>
+            <!--  右侧介绍  -->
+            <div style="width: 550px;height:100%;background-color:white;margin-left: 600px;border-radius: 20px;">
+              <h1>《 {{ course_detail[0].title }} 》</h1>
+              <p style="color: gray">id:{{ course_id }}</p>
+              <h4>共 {{ course_detail.length }} 节</h4>
+              <el-button type="primary" @click="addCourse">加入课程</el-button>
+              <el-button type="primary" @click="toPlayer(course_id,course_detail[0].chapter_id)">开始学习</el-button>
             </div>
           </div>
 
-          <div style="height: 600px" v-show="emptyShow">
-            <el-empty description="课程暂时没有上架"></el-empty>
-          </div>
-        </el-card>
-      </el-main>
+          <!--   下方课程简介    -->
+          <div style="width: 100%;background-color: white;margin-top: 50px;border-radius: 30px">
+            <el-divider></el-divider>
 
-      <el-footer>
-        <FootBar></FootBar>
-      </el-footer>
-    </el-container>
+            <h2>课程简介</h2>
+            <p>{{ course_detail[0].info }}</p>
+            <el-divider></el-divider>
+
+            <ul v-for="i in course_detail">
+              <li @click="toPlayer(course_id,i.chapter_id)" style="color: #409EFF">
+                第{{ i.chapter_title }} - {{ course_detail[0].title }} （ {{ i.chapter_id }}）
+              </li>
+            </ul>
+
+            <div style="width: 100%;height: 150px"></div>
+          </div>
+        </div>
+
+        <div style="height: 600px" v-show="emptyShow">
+          <el-empty description="课程暂时没有上架"></el-empty>
+        </div>
+      </el-card>
+    </el-main>
+
+    <FootBar></FootBar>
   </div>
 </template>
 

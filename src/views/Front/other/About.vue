@@ -5,17 +5,6 @@
     <el-main>
       <div class="main">
         <el-tabs :tab-position="tabPosition" style="height: 100%;">
-          <el-tab-pane label="项目介绍">
-            <h3>项目介绍</h3>
-            <img src="../../../assets/image/logo.png" alt="" style="height: 120px;border-radius: 50%">
-            <p>本项目是基于Vue+ SpringBoot构建的在线学习平台，项目采用前后端分离。<br>
-              前端使用vue + element-ui，后端使用SpringBoot + MySQL实现。
-            </p>
-          </el-tab-pane>
-          <el-tab-pane label="关于我们">
-            <h3>关于我们</h3>
-            <p>苏州市职业大学-杨业壮</p>
-          </el-tab-pane>
           <el-tab-pane label="建议反馈">
             <h3>建议反馈</h3>
             <el-form label-width="120px" :model="AdviceForm" :rules="Rules" ref="User">
@@ -41,6 +30,11 @@
 
             </el-form>
 
+          </el-tab-pane>
+
+          <el-tab-pane label="关于我们">
+            <h3>关于我们</h3>
+            <p>苏州市职业大学-杨业壮</p>
           </el-tab-pane>
         </el-tabs>
       </div>

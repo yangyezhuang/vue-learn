@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!--  <el-container>  -->
     <TopBar></TopBar>
 
     <el-main>
@@ -23,7 +22,6 @@
     </el-main>
 
     <FootBar></FootBar>
-    <!--    </el-container>-->
   </div>
 </template>
 

@@ -3,7 +3,7 @@ import Index from '../views/Front/Index'
 import Course from '../views/Front/courses/Course'
 import Category from "../views/Front/courses/Category"
 import Teacher from "../views/Front/Teacher/Teacher";
-import TeacherDetail from "../views/Front/Teacher/TeacherDetail";
+import TeacherDetail from "../views/Front/Teacher/Introduce";
 
 import Detail from '../views/Front/courses/Detail'
 import Search from "../views/Front/courses/Search"
